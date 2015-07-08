@@ -1,0 +1,10 @@
+{
+  "AppSettings": {
+    "SiteTitle": "viper"
+  },
+  "Data": {
+    "DefaultConnection": {
+      "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=aspnet5-viper-f88c746d-6205-4976-bf34-bd906397d524;Trusted_Connection=True;MultipleActiveResultSets=true"
+    }
+  }
+}

@@ -16,3 +16,5 @@
 /// <reference path="app/app.js" />
 /// <reference path="app/controllers/booksController.js" />
 /// <reference path="app/services/booksServices.js" />
+/// <reference path="lib/angular-bootstrap/ui-bootstrap-tpls.js" />
+/// <reference path="lib/angular-bootstrap/ui-bootstrap.js" />

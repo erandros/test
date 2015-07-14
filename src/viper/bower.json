@@ -10,6 +10,7 @@
     "bootstrap-touch-carousel": "0.8.0",
     "angular": "*",
     "angular-route": "*",
-    "angular-resource": "*"
+    "angular-resource": "*",
+    "angular-bootstrap": "~0.13.0"
   }
 }

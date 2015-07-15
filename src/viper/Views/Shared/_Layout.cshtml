@@ -3,6 +3,7 @@
 <html>
     <head>
         @await Html.PartialAsync("_HeadPartial");
+        @RenderSection("styles", required: false);
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">

@@ -1,0 +1,9 @@
+.input-group .input-group-addon,
+.input-group .form-control {
+    border-radius: 0px;
+    height: 47px;
+}
+
+.navbar {
+    height: 100px;
+}

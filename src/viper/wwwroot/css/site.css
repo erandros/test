@@ -1,13 +1,6 @@
-body {
-    /* padding-top: 50px; */
-    /* padding-bottom: 20px; */
-}
-
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+html, body {
+    width: 100%;
+    height: 100%;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
@@ -22,13 +15,58 @@ textarea {
     z-index: 10 !important;
 }
 
-    .carousel-caption p {
-        font-size: 20px;
-        line-height: 1.4;
-    }
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.navbar-collapse.collapse.sidebar {
+    padding-right: 0px;
+    border-right: 1px solid #e7e7e7;
+    width: 100%;
+}
 
 @media (min-width: 768px) {
     .carousel-caption {
         z-index: 10 !important;
     }
+    .wrapper {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        padding-top: 50px;
+    }
+    .navbar-collapse.collapse.sidebar {
+        height: 100% !important;
+    }
+}
+
+.navbar-collapse.collapse {
+    float: left;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+.nav-pills > li > a {
+    border-radius: 0px;
+}
+
+.nav-stacked > li.active {
+    background-color: black;
+}
+
+.navbar ul > li {
+    display: inline-block;
+}
+
+.main {
+    float: left;
+    height: 100%;
+}
+
+ul.sidebar li {
+    border-bottom: 1px solid #e7e7e7;
+    margin-top: 0px;
 }

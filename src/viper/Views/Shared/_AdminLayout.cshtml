@@ -1,0 +1,43 @@
+﻿@inject IOptions<AppSettings> AppSettings
+<!DOCTYPE html>
+<html>
+<head>
+    @await Html.PartialAsync("_HeadPartial")
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">@AppSettings.Options.SiteTitle</a>
+            </div>
+            <ul class="nav navbar-nav navbar-top-links navbar-left">
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-controller="Home" asp-action="About">About</a></li>
+                <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                <li><a asp-controller="Admin" asp-action="Index">Admin</a></li>
+            </ul>
+            @await Html.PartialAsync("_LoginPartial")
+        </div>
+    </nav>
+    <div class="row wrapper">
+        <ul class="nav nav-pills nav-stacked navbar-collapse collapse sidebar">
+            <li role="presentation" class="active"><a href="#">Home</a></li>
+            <li role="presentation"><a href="#">Profile</a></li>
+            <li role="presentation"><a href="#">Messages</a></li>
+        </ul>
+        <div class="main">
+            <div class="row">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_BodyScriptsPartial")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

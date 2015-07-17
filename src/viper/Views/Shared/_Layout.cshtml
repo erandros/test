@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        @await Html.PartialAsync("_HeadPartial");
-        @RenderSection("styles", required: false);
+        @await Html.PartialAsync("_HeadPartial")
+        @RenderSection("styles", required: false)
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-inverse navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -21,11 +21,12 @@
                         <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                         <li><a asp-controller="Home" asp-action="About">About</a></li>
                         <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li><a asp-controller="Admin" asp-action="Index">Admin</a></li>
                     </ul>
                     @await Html.PartialAsync("_LoginPartial")
                 </div>
             </div>
-        </div>
+        </nav>
         <div class="container body-content">
             @RenderBody()
             <hr />

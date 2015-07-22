@@ -2,11 +2,14 @@
     'use strict';
     var clientsServices = angular.module('clientsServices', ['ngResource']);
 
-    clientsServices.factory('Clients', ['$resource',
-      function ($resource) {
-          return $resource('/api/clients/', {}, {
-              query: { method: 'GET', params: {}, isArray: true }
-          });
-      }]);
+    clientsServices
+    .factory('clients', ['$resource', function ($resource) {
+        return {
+            query: function () { return [
+                { id: 1, name: 'NiceWheels', domain: 'nicewheels.viper.com' },
+                { id: 2, name: "AwesomeTires", domain: 'awesometires.viper.com' }
+            ]}
+        };
+    }]);
 
 })();

@@ -2,11 +2,11 @@
     'use strict';
     angular
     .module('clientsApp')
-    .controller('booksController', booksController)
+    .controller('clientsController', ['$scope', 'clients', clientsController])
 
-    booksController.$inject = ['$scope', 'Books'];
-    function booksController($scope, Books) {
-        $scope.books = Books.query();
+    function clientsController($scope, clients) {
+        $scope.clients = clients.query();
+        debugger;
     }
 
 })();

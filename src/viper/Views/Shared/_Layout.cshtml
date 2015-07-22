@@ -25,13 +25,7 @@
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </nav>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; 2015 - @AppSettings.Options.SiteTitle</p>
-            </footer>
-        </div>        
+        @RenderBody()
         @await Html.PartialAsync("_BodyScriptsPartial");
         @RenderSection("scripts", required: false)
     </body>

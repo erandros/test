@@ -19,3 +19,6 @@
 /// <reference path="lib/angular-bootstrap/ui-bootstrap-tpls.js" />
 /// <reference path="lib/angular-bootstrap/ui-bootstrap.js" />
 /// <reference path="lib/bootstrap/js/npm.js" />
+/// <reference path="lib/angular-smart-table/smart-table.js" />
+/// <reference path="../app/services/clientsservices.js" />
+/// <reference path="../app/controllers/clientscontroller.js" />

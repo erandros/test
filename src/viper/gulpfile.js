@@ -4,28 +4,39 @@ var gulp = require("gulp"),
     concat = require("gulp-concat"),
     rename = require("gulp-rename"),
     uglify = require("gulp-uglify"),
-    rimraf = require("rimraf"),
+    wrap = require("gulp-wrap"),
+    watch = require("gulp-watch"),
+    del = require("del"),
     fs = require("fs");
 
-eval("var project = " + fs.readFileSync("./project.json"));
+//eval("var project = " + fs.readFileSync("./project.json"));
 
-var paths = {
-    dist: "./" + project.webroot + "/dist/",
-    app: "./" + project.webroot + "/app/"
-};
-
+var dest = './wwwroot/dist';
 gulp.task("clean", function (cb) {
-    rimraf(paths.dist, cb);
+    del(dest + '/*', cb);
 });
 
-gulp.task("build", ["minify", "clean"], function () {
+gulp.task("watch", function () {
+    gulp.watch("./app/**/*.js", ["build"])
+})
+
+gulp.task("build", ["clean", "concat", "minify"], function () {
 });
 
-gulp.task("minify", ["clean"], function () {
-    gulp.src(paths.app + "**/*.js")
+gulp.task("concat", function () {
+    gulp.src("./app/**/*.js")
+        .pipe(wrap(function(data) { 
+            var path = data.file.relative.replace(/\\/g, '/');
+            return '// ' + path + ' \n' + data.contents;
+        }))
         .pipe(concat('app.js'))
-        .pipe(gulp.dest(paths.dist))
+        .pipe(gulp.dest(dest))
+})
+
+gulp.task("minify", function () {
+    gulp.src("./app/**/*.js")
+        .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(rename('app.min.js'))
-        .pipe(gulp.dest(paths.dist));
+        .pipe(gulp.dest(dest));
 });

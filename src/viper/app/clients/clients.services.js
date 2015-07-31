@@ -3,13 +3,18 @@
     var clientsServices = angular.module('clientsServices', ['ngResource']);
 
     clientsServices
-    .factory('clients', ['$resource', function ($resource) {
-        return {
-            query: function () { return [
-                { id: 1, name: 'NiceWheels', domain: 'nicewheels.viper.com' },
-                { id: 2, name: "AwesomeTires", domain: 'awesometires.viper.com' }
-            ]}
-        };
+    .factory('clients', ['$resource', 'apiUrl', function ($resource, apiUrl) {
+        return $resource(apiUrl + '/api/books/', {}, {
+            query: { method: 'GET', params: {}, isArray: true }
+        });
+    }])
+    .factory('apiUrl', ['$location', function ($location) {
+        var host = $location.host();
+        return host == 'localhost' 
+            ? 'http://localhost:5001'
+            : 'https://api.viper.com'
     }]);
+
+
 
 })();

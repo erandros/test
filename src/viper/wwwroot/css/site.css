@@ -23,7 +23,6 @@ textarea {
 .navbar-collapse.collapse.sidebar {
     padding-right: 0px;
     border-right: 1px solid #e7e7e7;
-    width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -38,6 +37,7 @@ textarea {
     }
     .navbar-collapse.collapse.sidebar {
         height: 100% !important;
+        width: 130px;
     }
 }
 

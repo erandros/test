@@ -2,6 +2,7 @@
 
 var gulp = require("gulp"),
     concat = require("gulp-concat"),
+    gutil = require('gulp-util'),
     rename = require("gulp-rename"),
     uglify = require("gulp-uglify"),
     wrap = require("gulp-wrap"),
@@ -36,7 +37,7 @@ gulp.task("concat", function () {
 gulp.task("minify", function () {
     gulp.src("./app/**/*.js")
         .pipe(concat('app.js'))
-        .pipe(uglify())
+        .pipe(uglify().on('error', gutil.log))
         .pipe(rename('app.min.js'))
         .pipe(gulp.dest(dest));
 });

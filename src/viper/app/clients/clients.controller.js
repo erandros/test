@@ -16,7 +16,7 @@
                 templateUrl: '/modals/confirm-delete-client.html',
                 controller: ['$modalInstance', '$scope', 'client', DeleteClientModal],
                 resolve: {
-                    client: function () { return $scope.clients[0].Id; }
+                    client: function () { return $scope.clients[0]; }
                 }
             })
             .result.then(function (client) {

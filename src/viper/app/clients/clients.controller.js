@@ -30,20 +30,21 @@
         }
 
         function editModal(client) {
-            creationEditionModal(client, true);
+            creationEditionModal(true, client);
         }
-        function createModal(client) {
-            creationEditionModal(client, false);
+        function createModal() {
+            creationEditionModal(false);
         }
 
-        function creationEditionModal(client, isEdition) {
+        function creationEditionModal(isEdition, client) {
+            if (!client) client = {};
             $modal.open({
                 templateUrl: '/modals/client/creation-edition.html',
                 controller: ['$modalInstance', '$scope', 'client', CreationEditionModal],
                 resolve: { client: function () { return client; }}
             })
             .result.then(function (client) {
-                var pm = isEdition ? clients.put(client).$promise : client.$save();
+                var pm = isEdition ? client.$put() : clients.post({ id: null }, client).$promise;
                 pm.then(refresh);
             })
 

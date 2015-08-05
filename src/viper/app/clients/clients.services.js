@@ -5,7 +5,8 @@
     clientsServices
     .factory('clients', ['$resource', 'apiUrl', function ($resource, apiUrl) {
         return $resource(apiUrl + '/clients/:id', { id: '@Id' }, {
-            put: { method: 'put' }
+            put: { method: 'put' },
+            post: { method: 'post', url: apiUrl + '/clients/' }
         });
     }])
     .factory('apiUrl', ['$location', function ($location) {

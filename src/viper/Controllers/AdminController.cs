@@ -13,7 +13,17 @@ namespace viper.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            return RedirectToAction("Clients");
+        }
+
+        public ActionResult Clients()
+        {
             return View();
+        }
+
+        public ActionResult Products()
+        {
+            return View("Clients");
         }
     }
 }

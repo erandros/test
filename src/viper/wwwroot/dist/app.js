@@ -4,7 +4,7 @@
     'use strict';
 
     angular.module('booksApp', ['booksServices', 'smart-table']);
-    angular.module('clientsApp', ['clientsServices', 'smart-table', 'ui.bootstrap']);
+    angular.module('adminApp', ['clientsServices', 'smart-table', 'ui.bootstrap']);
 })();
 // books/books.controller.js 
 (function () {
@@ -32,11 +32,11 @@
       }]);
 
 })();
-// clients/clients.controller.js 
+// admin/clients/clients.controller.js 
 (function () {
     'use strict';
     angular
-    .module('clientsApp')
+    .module('adminApp')
     .controller('clientsController', ['$scope', '$modal', 'clients', clientsController])
 
     function clientsController($scope, $modal, clients) {
@@ -97,7 +97,7 @@
     }
 
 })();
-// clients/clients.services.js 
+// admin/clients/clients.services.js 
 (function () {
     'use strict';
     var clientsServices = angular.module('clientsServices', ['ngResource']);
@@ -116,3 +116,22 @@
 
 
 })();
+// admin/core/sidebar.controller.js 
+(function () {
+    'use strict';
+
+    angular
+    .module('adminApp')
+    .controller('sidebarController', sidebar);
+
+    sidebar.$inject = ['$location']; 
+    function sidebar($location) {
+        /* jshint validthis:true */
+        var vm = this;
+        vm.title = 'sidebar';
+
+        activate();
+
+        function activate() { }
+    }
+})();

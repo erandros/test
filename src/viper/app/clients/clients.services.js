@@ -4,7 +4,9 @@
 
     clientsServices
     .factory('clients', ['$resource', 'apiUrl', function ($resource, apiUrl) {
-        return $resource(apiUrl + '/clients/:id', { id: '@Id' });
+        return $resource(apiUrl + '/clients/:id', { id: '@Id' }, {
+            put: { method: 'put' }
+        });
     }])
     .factory('apiUrl', ['$location', function ($location) {
         return "http://55bbb663fa012f110018d01f.mockapi.io";

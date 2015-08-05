@@ -6,21 +6,19 @@
 
     function clientsController($scope, $modal, clients) {
         $scope.removeModal = removeModal;
-        $scope.query = query;
-        $scope.remove = remove;
+        $scope.editModal = editModal;
+        $scope.createModal = createModal;
 
-        query();
+        refresh();
         
         function removeModal(client) {
             $modal.open({
-                templateUrl: '/modals/confirm-delete-client.html',
+                templateUrl: '/modals/client/confirm-delete.html',
                 controller: ['$modalInstance', '$scope', 'client', DeleteClientModal],
-                resolve: {
-                    client: function () { return $scope.clients[0]; }
-                }
+                resolve: { client: function () { return client; } }
             })
             .result.then(function (client) {
-                remove(client);
+                client.$delete().then(refresh);
             }, function () {
 
             })
@@ -31,21 +29,35 @@
             }
         }
 
-        function remove(client) {
-            client.$delete()
-            .then(function () {
-                query();
-            });
+        function editModal(client) {
+            creationEditionModal(client, true);
+        }
+        function createModal(client) {
+            creationEditionModal(client, false);
         }
 
-        function query() {
+        function creationEditionModal(client, isEdition) {
+            $modal.open({
+                templateUrl: '/modals/client/creation-edition.html',
+                controller: ['$modalInstance', '$scope', 'client', CreationEditionModal],
+                resolve: { client: function () { return client; }}
+            })
+            .result.then(function (client) {
+                var pm = isEdition ? clients.put(client).$promise : client.$save();
+                pm.then(refresh);
+            })
+
+            function CreationEditionModal($modalInstance, $scope, client) {
+                var vm = this;
+                $scope.client = client;
+            }
+        }
+
+        function refresh() {
             $scope.clients = clients.query();
             $scope.displayedClients = [].concat($scope.displayedClients);
         }
 
-        function edit(client) {
-
-        }
     }
 
 })();

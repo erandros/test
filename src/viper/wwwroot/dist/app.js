@@ -3,7 +3,6 @@
 
     'use strict';
 
-    angular.module('booksApp', ['booksServices', 'smart-table']);
     var viper =
         angular.module('viper', ['clientsServices', 'restangular', 'smart-table', 'ui.bootstrap']);
 
@@ -17,32 +16,6 @@
     }])
 
     angular.module('loginApp', ['restangular']);
-})();
-// books/books.controller.js 
-(function () {
-    'use strict';
-    angular
-    .module('booksApp')
-    .controller('booksController', booksController)
-
-    booksController.$inject = ['$scope', 'Books'];
-    function booksController($scope, Books) {
-        $scope.books = Books.query();
-    }
-
-})();
-// books/books.services.js 
-(function () {
-    'use strict';
-    var booksServices = angular.module('booksServices', ['ngResource']);
-
-    booksServices.factory('Books', ['$resource',
-      function ($resource) {
-          return $resource('/api/books/', {}, {
-              query: { method: 'GET', params: {}, isArray: true }
-          });
-      }]);
-
 })();
 // admin/clients/clients.controller.js 
 (function () {
@@ -125,6 +98,25 @@
 
 
 })();
+// admin/core/sidebar.controller.js 
+(function () {
+    'use strict';
+
+    angular
+    .module('viper')
+    .controller('sidebarController', sidebar);
+
+    sidebar.$inject = ['$location']; 
+    function sidebar($location) { 
+        /* jshint validthis:true */
+        var vm = this;
+        vm.title = 'sidebar';
+
+        activate();
+
+        function activate() { }
+    }
+})();
 // admin/login/login.controller.js 
 (function () {
     'use strict';
@@ -145,22 +137,3 @@
         return Restangular.all('clients');
     }])
 })();
-// admin/core/sidebar.controller.js 
-(function () {
-    'use strict';
-
-    angular
-    .module('viper')
-    .controller('sidebarController', sidebar);
-
-    sidebar.$inject = ['$location']; 
-    function sidebar($location) { 
-        /* jshint validthis:true */
-        var vm = this;
-        vm.title = 'sidebar';
-
-        activate();
-
-        function activate() { }
-    }
-})();

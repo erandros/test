@@ -2,7 +2,6 @@
 
     'use strict';
 
-    angular.module('booksApp', ['booksServices', 'smart-table']);
     var viper =
         angular.module('viper', ['clientsServices', 'restangular', 'smart-table', 'ui.bootstrap']);
 

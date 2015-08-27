@@ -2,11 +2,11 @@
     'use strict';
 
     angular
-    .module('adminApp')
+    .module('viper')
     .controller('sidebarController', sidebar);
 
     sidebar.$inject = ['$location']; 
-    function sidebar($location) {
+    function sidebar($location) { 
         /* jshint validthis:true */
         var vm = this;
         vm.title = 'sidebar';

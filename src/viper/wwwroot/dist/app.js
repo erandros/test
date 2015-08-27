@@ -4,7 +4,19 @@
     'use strict';
 
     angular.module('booksApp', ['booksServices', 'smart-table']);
-    angular.module('adminApp', ['clientsServices', 'smart-table', 'ui.bootstrap']);
+    var viper =
+        angular.module('viper', ['clientsServices', 'restangular', 'smart-table', 'ui.bootstrap']);
+
+    viper.config(['RestangularProvider', function (RestangularProvider) {
+        RestangularProvider.setBaseUrl('https://api.fitmentgroup.com');
+    }])
+    viper.run(['Restangular', function (Restangular) {
+        var token = sessionStorage.getItem('token');
+        //if (!token) location.href = "/Account/Login";
+        Restangular.setDefaultHeaders('Authorization', 'Bearer ' + token)
+    }])
+
+    angular.module('loginApp', ['restangular']);
 })();
 // books/books.controller.js 
 (function () {
@@ -36,7 +48,7 @@
 (function () {
     'use strict';
     angular
-    .module('adminApp')
+    .module('viper')
     .controller('clientsController', ['$scope', '$modal', 'clients', clientsController])
 
     function clientsController($scope, $modal, clients) {
@@ -90,8 +102,11 @@
         }
 
         function refresh() {
-            $scope.clients = clients.query();
-            $scope.displayedClients = [].concat($scope.displayedClients);
+            clients.getList()
+            .then(function (clients) {
+                $scope.clients = clients;
+                $scope.displayedClients = [].concat($scope.displayedClients);
+            })
         }
 
     }
@@ -103,29 +118,43 @@
     var clientsServices = angular.module('clientsServices', ['ngResource']);
 
     clientsServices
-    .factory('clients', ['$resource', 'apiUrl', function ($resource, apiUrl) {
-        return $resource(apiUrl + '/clients/:id', { id: '@Id' }, {
-            put: { method: 'put' },
-            post: { method: 'post', url: apiUrl + '/clients/' }
-        });
+    .factory('clients', ['Restangular', function (Restangular) {
+        return Restangular.all('clients');
     }])
-    .factory('apiUrl', ['$location', function ($location) {
-        return "http://55bbb663fa012f110018d01f.mockapi.io";
-    }]);
 
 
 
+})();
+// admin/login/login.controller.js 
+(function () {
+    'use strict';
+    angular
+    .module('loginApp')
+    .controller('loginController', ['$scope', loginController])
+
+    function loginController($scope) {
+
+    }
+})();
+// admin/login/login.services.js 
+(function () {
+    'use strict';
+    angular
+    .module('loginApp')
+    .factory('token', ['Restangular', function (Restangular) {
+        return Restangular.all('clients');
+    }])
 })();
 // admin/core/sidebar.controller.js 
 (function () {
     'use strict';
 
     angular
-    .module('adminApp')
+    .module('viper')
     .controller('sidebarController', sidebar);
 
     sidebar.$inject = ['$location']; 
-    function sidebar($location) {
+    function sidebar($location) { 
         /* jshint validthis:true */
         var vm = this;
         vm.title = 'sidebar';

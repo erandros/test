@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
     angular
-    .module('adminApp')
+    .module('viper')
     .controller('clientsController', ['$scope', '$modal', 'clients', clientsController])
 
     function clientsController($scope, $modal, clients) {
@@ -55,8 +55,11 @@
         }
 
         function refresh() {
-            $scope.clients = clients.query();
-            $scope.displayedClients = [].concat($scope.displayedClients);
+            clients.getList()
+            .then(function (clients) {
+                $scope.clients = clients;
+                $scope.displayedClients = [].concat($scope.displayedClients);
+            })
         }
 
     }

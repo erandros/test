@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNet.Razor.Runtime.TagHelpers
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_AdminLayout";
+    ViewBag.Title = "Admin";
+}
+
+<div class="row" ng-controller="clientsController">
+    <div class="col-md-2">
+        <table st-table="displayedCollection" st-safe-src="clients" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Notes</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="client in clients">
+                    <td>{{client.Id}}</td>
+                    <td>{{client.Name}}</td>
+                    <td>{{client.Notes}}</td>
+                    <td><button class="btn btn-danger" ng-click="removeModal(client)">Delete</button></td>
+                    <td><button class="btn btn-primary" ng-click="editModal(client)">Edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿@inject IOptions<AppSettings> AppSettings
+@{
+    Layout = "_Layout";
+}
+
+@functions
+{
+    string sidebarActiveCss(string action)
+    {
+        return action == ViewContext.RouteData.Values["action"].ToString() ?
+            "active" : "";
+    }
+}
+
+<div class="row wrapper" ng-app="viper">
+    <ul class="nav nav-pills nav-stacked navbar-collapse collapse sidebar" ng-controller="sidebarController" >
+        <li></li>
+        <li role="presentation" class=" @sidebarActiveCss("Clients")"><a asp-controller="Admin" asp-action="Clients"><i class="fa fa-fw fa-male"></i> Clients</a></li>
+        <li role="presentation" class=" @sidebarActiveCss("Products")"><a asp-controller="Admin" asp-action="Products"><i class="fa fa-fw fa-barcode"></i> Products</a></li>
+    </ul>
+    <div class="main">
+        @RenderBody()
+    </div>
+</div>

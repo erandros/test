@@ -1,0 +1,13 @@
+﻿@inject IOptions<AppSettings> AppSettings
+<!DOCTYPE html>
+<html>
+    <head>
+        @await Html.PartialAsync("_HeadPartial")
+        @RenderSection("styles", required: false)
+    </head>
+    <body>
+        @RenderBody()
+        @await Html.PartialAsync("_BodyScriptsPartial");
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

@@ -4,20 +4,18 @@
     'use strict';
 
     var viper =
-        angular.module('viper', ['clientsServices', 'restangular', 'smart-table', 'ui.bootstrap']);
+        angular.module('viper', ['restangular', 'smart-table', 'ui.bootstrap']);
 
     viper.config(['RestangularProvider', function (RestangularProvider) {
-        RestangularProvider.setBaseUrl('https://api.fitmentgroup.com');
+        RestangularProvider.setBaseUrl('https://api.fitmentgroup.com/api');
     }])
     viper.run(['Restangular', function (Restangular) {
         var token = sessionStorage.getItem('token');
-        //if (!token) location.href = "/Account/Login";
+        if (!token) location.href = "/Account/Login";
         Restangular.setDefaultHeaders('Authorization', 'Bearer ' + token)
     }])
-
-    angular.module('loginApp', ['restangular']);
 })();
-// admin/clients/clients.controller.js 
+// clients/clients.controller.js 
 (function () {
     'use strict';
     angular
@@ -85,12 +83,12 @@
     }
 
 })();
-// admin/clients/clients.services.js 
+// clients/clients.services.js 
 (function () {
     'use strict';
-    var clientsServices = angular.module('clientsServices', ['ngResource']);
+    var viper = angular.module('viper');
 
-    clientsServices
+    viper
     .factory('clients', ['Restangular', function (Restangular) {
         return Restangular.all('clients');
     }])
@@ -98,7 +96,7 @@
 
 
 })();
-// admin/core/sidebar.controller.js 
+// core/sidebar.controller.js 
 (function () {
     'use strict';
 
@@ -117,22 +115,22 @@
         function activate() { }
     }
 })();
-// admin/login/login.controller.js 
+// login/login.controller.js 
 (function () {
     'use strict';
     angular
-    .module('loginApp')
+    .module('viper')
     .controller('loginController', ['$scope', loginController])
 
     function loginController($scope) {
 
     }
 })();
-// admin/login/login.services.js 
+// login/login.services.js 
 (function () {
     'use strict';
     angular
-    .module('loginApp')
+    .module('viper')
     .factory('token', ['Restangular', function (Restangular) {
         return Restangular.all('clients');
     }])

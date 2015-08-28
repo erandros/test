@@ -1,9 +1,6 @@
-﻿@model LoginViewModel
-@using System.Collections.Generic
+﻿@using System.Collections.Generic
 @using Microsoft.AspNet.Http
 @using Microsoft.AspNet.Http.Authentication
-@inject SignInManager<ApplicationUser> SignInManager
-
 @{
     Layout = "~/Views/Shared/_MenulessLayout.cshtml";
     ViewBag.Title = "Log in";
@@ -13,14 +10,14 @@
     <link rel="stylesheet" href="~/css/login.css" />
 }
 <nav class="navbar navbar-default">
-    
+
 </nav>
 <div class="container">
-    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
+    <form>
         <div class="row">
             <div class="
                  col-md-4 col-md-offset-4
-                 col-sm-6 col-sm-offset-3 
+                 col-sm-6 col-sm-offset-3
                  col-xs-8 col-xs-offset-2
                  ">
                 <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
@@ -29,7 +26,7 @@
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-envelope"></span>
                         </span>
-                        <input asp-for="Email" type="email" class="form-control" placeholder="Email"/>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="Email" />
                     </div>
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
@@ -38,7 +35,7 @@
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-lock"></span>
                         </span>
-                        <input asp-for="Password" type="password" class="form-control" placeholder="Password"/>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
                     </div>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
@@ -54,13 +51,11 @@
             </div>
         </div>
     </form>
-
     <section>
         <p class="text-center"><a asp-action="ForgotPassword">Forgot your password?</a></p>
         <p class="text-center text-muted text-small">Don't have an account yet? <a asp-action="Register">Sign up</a></p>
     </section>
 </div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

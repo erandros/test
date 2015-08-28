@@ -10,7 +10,7 @@
     }])
     viper.run(['Restangular', function (Restangular) {
         var token = sessionStorage.getItem('token');
-        if (!token) location.href = "/Account/Login";
+        if (!token) location.href = "/Home/Login";
         Restangular.setDefaultHeaders('Authorization', 'Bearer ' + token)
     }])
 })();

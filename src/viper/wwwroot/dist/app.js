@@ -11,7 +11,7 @@
     }])
     viper.run(['Restangular', function (Restangular) {
         var token = sessionStorage.getItem('token');
-        if (!token) location.href = "/Account/Login";
+        if (!token) location.href = "/Home/Login";
         Restangular.setDefaultHeaders('Authorization', 'Bearer ' + token)
     }])
 })();
@@ -96,25 +96,6 @@
 
 
 })();
-// core/sidebar.controller.js 
-(function () {
-    'use strict';
-
-    angular
-    .module('viper')
-    .controller('sidebarController', sidebar);
-
-    sidebar.$inject = ['$location']; 
-    function sidebar($location) { 
-        /* jshint validthis:true */
-        var vm = this;
-        vm.title = 'sidebar';
-
-        activate();
-
-        function activate() { }
-    }
-})();
 // login/login.controller.js 
 (function () {
     'use strict';
@@ -134,4 +115,23 @@
     .factory('token', ['Restangular', function (Restangular) {
         return Restangular.all('clients');
     }])
+})();
+// core/sidebar.controller.js 
+(function () {
+    'use strict';
+
+    angular
+    .module('viper')
+    .controller('sidebarController', sidebar);
+
+    sidebar.$inject = ['$location']; 
+    function sidebar($location) { 
+        /* jshint validthis:true */
+        var vm = this;
+        vm.title = 'sidebar';
+
+        activate();
+
+        function activate() { }
+    }
 })();

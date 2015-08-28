@@ -11,4 +11,11 @@
         if (!token && location.pathname != loginUrl)
             location.pathname = loginUrl;
     }])
+    viper.factory('apiUrl', function() {
+        var apiUrl = {};
+        apiUrl.base = 'https://api.fitmentgroup.com',
+        apiUrl.api = apiUrl.base + '/api';
+        return apiUrl;
+    });
+
 })();

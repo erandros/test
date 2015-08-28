@@ -4,17 +4,13 @@
     'use strict';
 
     var viper =
-        angular.module('viper', ['restangular', 'smart-table', 'ui.bootstrap']);
+        angular.module('viper', ['smart-table', 'ui.bootstrap']);
 
-    viper.config(['RestangularProvider', function (RestangularProvider) {
-        RestangularProvider.setBaseUrl('https://api.fitmentgroup.com/api');
-    }])
-    viper.run(['Restangular', function (Restangular) {
+    viper.run([function () {
         var token = sessionStorage.getItem('token');
         var loginUrl = "/Account/Login";
         if (!token && location.pathname != loginUrl)
             location.pathname = loginUrl;
-        Restangular.setDefaultHeaders('Authorization', 'Bearer ' + token)
     }])
 })();
 // clients/clients.controller.js 
@@ -75,7 +71,8 @@
         }
 
         function refresh() {
-            clients.getList()
+            console.error('Unimplemented method');
+            clients.get()
             .then(function (clients) {
                 $scope.clients = clients;
                 $scope.displayedClients = [].concat($scope.displayedClients);
@@ -89,13 +86,6 @@
 (function () {
     'use strict';
     var viper = angular.module('viper');
-
-    viper
-    .factory('clients', ['Restangular', function (Restangular) {
-        return Restangular.all('clients');
-    }])
-
-
 
 })();
 // core/sidebar.controller.js 
@@ -133,7 +123,4 @@
     'use strict';
     angular
     .module('viper')
-    .factory('token', ['Restangular', function (Restangular) {
-        return Restangular.all('clients');
-    }])
 })();

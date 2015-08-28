@@ -55,7 +55,8 @@
         }
 
         function refresh() {
-            clients.getList()
+            console.error('Unimplemented method');
+            clients.get()
             .then(function (clients) {
                 $scope.clients = clients;
                 $scope.displayedClients = [].concat($scope.displayedClients);

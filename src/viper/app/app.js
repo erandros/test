@@ -3,14 +3,74 @@
     'use strict';
 
     var viper =
-        angular.module('viper', ['restangular', 'smart-table', 'ui.bootstrap']);
+        angular.module('viper', ['smart-table', 'ui.bootstrap']);
 
-    viper.config(['RestangularProvider', function (RestangularProvider) {
-        RestangularProvider.setBaseUrl('https://api.fitmentgroup.com/api');
+    viper.run(['url', 'token', function (url, token) {
+        if (!token.hasVal() && location.pathname != url.login)
+            url.redirect.toLogin();
     }])
-    viper.run(['Restangular', function (Restangular) {
-        var token = sessionStorage.getItem('token');
-        if (!token) location.href = "/Account/Login";
-        Restangular.setDefaultHeaders('Authorization', 'Bearer ' + token)
+    viper.factory('url', ['$location', function ($location) {
+        var qs = $location.search();
+        var url = {
+            queryString: function() { return qs.redirect },
+            login: '/Account/Login',
+            root: '/',
+            api: {
+                base: 'https://api.fitmentgroup.com/',
+                api: 'https://api.fitmentgroup.com/api'
+            }
+        }
+        var r = function (url) { location.pathname = url; }
+        url.redirect = {
+            should: {
+                toQueryString: function() { Boolean(url.queryString); }
+            },
+            toQueryString: function () { r(url.queryString); },
+            toRoot: function() { r(url.root); },
+            toLogin: function () { r(url.login); }
+        }
+        return url;
+    }])
+    viper.factory('token', ['$http', 'url', function ($http, url) {
+        var token = {
+            val: function (val) {
+                if (val) return sessionStorage.setItem('token', val);
+                return sessionStorage.getItem('token');
+            },
+            hasVal: function() {
+                return token.val() != "null";
+            },
+            init: function (user) {
+                user["grant_type"] = 'password';
+                return $.post(url.api.base + '/Token', user)
+                .then(function (res) {
+                    token.val(res.access_token);
+                    if (url.redirect.should.toQueryString())
+                        url.redirect.toQueryString();
+                    else url.toRoot();
+                });
+            }
+        }
+        return token;
+    }])
+    viper.factory('api', ['$http', 'url', 'token', function ($http, url, token) {
+        function ajax(method, _url) {
+            return function (data) {
+                return $.ajax({
+                    url: url.api.api + _url,
+                    data: data,
+                    method: method,
+                    headers: {
+                        'Authorization': 'Bearer ' + token.val()
+                    }
+                });
+            }
+        }
+        return function (url) {
+            return {
+                get: ajax('get', url),
+                post: ajax('post', url)
+            }
+        }
     }])
 })();

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-touch-carousel/dist/css/bootstrap-touch-carousel.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css">
+    <script src="~/lib/jquery/jquery.js"></script>
 </environment>
 <environment names="Production">
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
@@ -19,5 +20,9 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
           asp-fallback-href="~/lib/font-awesome/css/font-awesome.min.css"
           asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
+    <script src="//ajax.aspnetcdn.com/ajax/jquery/jquery-1.10.2.min.js"
+            asp-fallback-src="~/lib/jquery/jquery.min.js"
+            asp-fallback-test="window.jQuery">
+    </script>
 </environment>
 <link rel="stylesheet" href="~/css/site.css" />

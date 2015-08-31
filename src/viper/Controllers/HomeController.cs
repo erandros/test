@@ -13,6 +13,13 @@ namespace viper.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            ViewBag.Message = "Login Page";
+
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewBag.Message = "Your application description page.";

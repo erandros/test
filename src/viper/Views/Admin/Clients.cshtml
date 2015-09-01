@@ -9,7 +9,7 @@
 
 <div class="row" ng-controller="clientsController">
     <div class="col-md-2">
-        <table st-table="displayedCollection" st-safe-src="clients" class="table table-striped">
+        <table st-table="displayedClients" st-safe-src="clients" class="table table-striped">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="client in clients">
+                <tr ng-repeat="client in displayedClients">
                     <td>{{client.Id}}</td>
                     <td>{{client.Name}}</td>
                     <td>{{client.Notes}}</td>

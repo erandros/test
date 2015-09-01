@@ -37,8 +37,9 @@
                 if (val) return sessionStorage.setItem('token', val);
                 return sessionStorage.getItem('token');
             },
-            hasVal: function() {
-                return token.val() != "null";
+            hasVal: function () {
+                var val = token.val();
+                return (val != "null" && val != null);
             },
             init: function (user) {
                 user["grant_type"] = 'password';

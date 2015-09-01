@@ -57,7 +57,7 @@
     viper.factory('api', ['$http', 'url', 'token', function ($http, url, token) {
         function ajax(method, _url) {
             return function (data) {
-                return $.ajax({
+                return $http({
                     url: url.api.api + _url,
                     data: data,
                     method: method,

@@ -13,7 +13,7 @@
         var qs = $location.search();
         var url = {
             queryString: function() { return qs.redirect },
-            login: '/Home/Login',
+            login: '/Login',
             root: '/',
             api: {
                 base: 'https://api.fitmentgroup.com/',

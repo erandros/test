@@ -14,7 +14,7 @@
         var qs = $location.search();
         var url = {
             queryString: function() { return qs.redirect },
-            login: '/Home/Login',
+            login: '/Login',
             root: '/',
             api: {
                 base: 'https://api.fitmentgroup.com/',
@@ -153,6 +153,25 @@
         return api('/Clients');
     }])
 })();
+// core/sidebar.controller.js 
+(function () {
+    'use strict';
+
+    angular
+    .module('viper')
+    .controller('sidebarController', sidebar);
+
+    sidebar.$inject = ['$location']; 
+    function sidebar($location) { 
+        /* jshint validthis:true */
+        var vm = this;
+        vm.title = 'sidebar';
+
+        activate();
+
+        function activate() { }
+    }
+})();
 // login/login.controller.js 
 (function () {
     'use strict';
@@ -173,22 +192,3 @@
     angular
     .module('viper')
 })();
-// core/sidebar.controller.js 
-(function () {
-    'use strict';
-
-    angular
-    .module('viper')
-    .controller('sidebarController', sidebar);
-
-    sidebar.$inject = ['$location']; 
-    function sidebar($location) { 
-        /* jshint validthis:true */
-        var vm = this;
-        vm.title = 'sidebar';
-
-        activate();
-
-        function activate() { }
-    }
-})();

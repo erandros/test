@@ -50,9 +50,10 @@
 </div>
 
 <script>
-    //Remove form action and method attributes
     $(document).ready(function () {
-        $('form').removeAttr('action method');
-        $('[name="__RequestVerificationToken"').remove();
+        (function removeASPUnneededAttributes() {
+            $('form').removeAttr('action method');
+            $('[name="__RequestVerificationToken"').remove();
+        })()
     });
 </script>

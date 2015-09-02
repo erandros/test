@@ -13,7 +13,7 @@
         var qs = $location.search();
         var url = {
             queryString: function() { return qs.redirect },
-            login: '/Account/Login',
+            login: '/Home/Login',
             root: '/',
             api: {
                 base: 'https://api.fitmentgroup.com/',
@@ -37,8 +37,9 @@
                 if (val) return sessionStorage.setItem('token', val);
                 return sessionStorage.getItem('token');
             },
-            hasVal: function() {
-                return token.val() != "null";
+            hasVal: function () {
+                var val = token.val();
+                return (val != "null" && val != null);
             },
             init: function (user) {
                 user["grant_type"] = 'password';
@@ -56,7 +57,7 @@
     viper.factory('api', ['$http', 'url', 'token', function ($http, url, token) {
         function ajax(method, _url) {
             return function (data) {
-                return $.ajax({
+                return $http({
                     url: url.api.api + _url,
                     data: data,
                     method: method,

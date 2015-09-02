@@ -14,7 +14,7 @@
         var qs = $location.search();
         var url = {
             queryString: function() { return qs.redirect },
-            login: '/Account/Login',
+            login: '/Home/Login',
             root: '/',
             api: {
                 base: 'https://api.fitmentgroup.com/',
@@ -38,8 +38,9 @@
                 if (val) return sessionStorage.setItem('token', val);
                 return sessionStorage.getItem('token');
             },
-            hasVal: function() {
-                return token.val() != "null";
+            hasVal: function () {
+                var val = token.val();
+                return (val != "null" && val != null);
             },
             init: function (user) {
                 user["grant_type"] = 'password';
@@ -57,7 +58,7 @@
     viper.factory('api', ['$http', 'url', 'token', function ($http, url, token) {
         function ajax(method, _url) {
             return function (data) {
-                return $.ajax({
+                return $http({
                     url: url.api.api + _url,
                     data: data,
                     method: method,
@@ -133,11 +134,10 @@
         }
 
         function refresh() {
-            console.error('Unimplemented method');
             clients.get()
-            .then(function (clients) {
-                $scope.clients = clients;
-                $scope.displayedClients = [].concat($scope.displayedClients);
+            .then(function (res) {
+                $scope.clients = res.data;
+                $scope.displayedClients = [].concat($scope.clients);
             })
         }
 
@@ -152,25 +152,6 @@
     viper.factory('clients', ['api', function (api) {
         return api('/Clients');
     }])
-})();
-// core/sidebar.controller.js 
-(function () {
-    'use strict';
-
-    angular
-    .module('viper')
-    .controller('sidebarController', sidebar);
-
-    sidebar.$inject = ['$location']; 
-    function sidebar($location) { 
-        /* jshint validthis:true */
-        var vm = this;
-        vm.title = 'sidebar';
-
-        activate();
-
-        function activate() { }
-    }
 })();
 // login/login.controller.js 
 (function () {
@@ -192,3 +173,22 @@
     angular
     .module('viper')
 })();
+// core/sidebar.controller.js 
+(function () {
+    'use strict';
+
+    angular
+    .module('viper')
+    .controller('sidebarController', sidebar);
+
+    sidebar.$inject = ['$location']; 
+    function sidebar($location) { 
+        /* jshint validthis:true */
+        var vm = this;
+        vm.title = 'sidebar';
+
+        activate();
+
+        function activate() { }
+    }
+})();

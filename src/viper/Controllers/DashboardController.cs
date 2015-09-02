@@ -8,7 +8,7 @@ using Microsoft.AspNet.Mvc;
 
 namespace viper.Controllers
 {
-    public class AdminController : Controller
+    public class DashboardController : Controller
     {
         // GET: /<controller>/
         public IActionResult Index()

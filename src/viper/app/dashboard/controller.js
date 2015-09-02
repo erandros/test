@@ -2,17 +2,10 @@
     'use strict';
 
     angular
-        .module('app')
-        .controller('dashboardController', dashboardController);
+    .module('viper')
+    .controller('dashboardController', ['$scope', 'application', dashboardController]);
 
-    controller.$inject = ['$location']; 
-
-    function dashboardController($location) {
-        var vm = this;
-        vm.title = 'controller';
-
-        activate();
-
-        function activate() { }
+    function dashboardController($scope, application) {
+        $scope.Name = application.Name;
     }
 })();

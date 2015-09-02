@@ -48,7 +48,7 @@
                     token.val(res.access_token);
                     if (url.redirect.should.toQueryString())
                         url.redirect.toQueryString();
-                    else url.toRoot();
+                    else url.redirect.toRoot();
                 });
             }
         }

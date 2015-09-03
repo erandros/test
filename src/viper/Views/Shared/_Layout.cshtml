@@ -1,6 +1,6 @@
 ﻿@inject IOptions<AppSettings> AppSettings
 <!DOCTYPE html>
-<html>
+<html ng-app="viper">
     <head>
         @await Html.PartialAsync("_HeadPartial")
         @RenderSection("styles", required: false)
@@ -18,7 +18,7 @@
                 </div>
                 <ul class="nav navbar-nav navbar-top-links navbar-left">
                     <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-controller="Admin" asp-action="Index">Admin</a></li>
+                    <li><a asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

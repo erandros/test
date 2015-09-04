@@ -9,10 +9,7 @@
             queryString: function () { return qs.redirect },
             login: '/Login',
             root: '/',
-            api: {
-                base: 'https://api.fitmentgroup.com/',
-                api: 'https://api.fitmentgroup.com/api'
-            }
+            api: '/api'
         }
         var r = function (url) { location.pathname = url; }
         url.redirect = {

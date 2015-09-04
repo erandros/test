@@ -16,7 +16,8 @@
       "Microsoft.Framework.CodeGenerators.Mvc >= 1.0.0-beta4",
       "Microsoft.Framework.Logging >= 1.0.0-beta4",
       "Microsoft.Framework.Logging.Console >= 1.0.0-beta4",
-      "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-beta4"
+      "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0-beta4",
+      "Microsoft.Net.Http.Client >= 1.0.0-beta3-10053"
     ],
     "DNX,Version=v4.5.1": []
   },
@@ -2647,6 +2648,39 @@
         "lib/dnxcore50/Microsoft.Framework.WebEncoders.Core.xml",
         "lib/net45/Microsoft.Framework.WebEncoders.Core.dll",
         "lib/net45/Microsoft.Framework.WebEncoders.Core.xml"
+      ]
+    },
+    "Microsoft.Net.Http.Client/1.0.0-beta3-10053": {
+      "serviceable": false,
+      "sha": "e3M1dAhwXqNiwlCYlwHZNiCcxsD07c7/B137lCcrBI1ek/CRTFMHIuGCOP94xGkBzxyyUFHWttl2cPkCF0rWsA==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [
+            "System.Net.Http",
+            "mscorlib",
+            "System",
+            "System.Core",
+            "Microsoft.CSharp"
+          ],
+          "runtimeAssemblies": [
+            "lib/aspnet50/Microsoft.Net.Http.Client.dll"
+          ],
+          "compileAssemblies": [
+            "lib/aspnet50/Microsoft.Net.Http.Client.dll"
+          ]
+        }
+      },
+      "files": [
+        "Microsoft.Net.Http.Client.1.0.0-beta3-10053.nupkg",
+        "Microsoft.Net.Http.Client.1.0.0-beta3-10053.nupkg.sha512",
+        "Microsoft.Net.Http.Client.nuspec",
+        "lib/aspnet50/Microsoft.Net.Http.Client.dll",
+        "lib/aspnet50/Microsoft.Net.Http.Client.xml",
+        "lib/aspnetcore50/Microsoft.Net.Http.Client.dll",
+        "lib/aspnetcore50/Microsoft.Net.Http.Client.xml",
+        "lib/net45/Microsoft.Net.Http.Client.dll",
+        "lib/net45/Microsoft.Net.Http.Client.xml"
       ]
     },
     "Microsoft.Net.Http.Headers/1.0.0-beta4": {

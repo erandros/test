@@ -7,12 +7,9 @@
         function ajax(method, _url) {
             return function (data) {
                 return $http({
-                    url: url.api.api + _url,
+                    url: url.api + _url,
                     data: data,
-                    method: method,
-                    headers: {
-                        'Authorization': 'Bearer ' + token.val()
-                    }
+                    method: method
                 });
             }
         }

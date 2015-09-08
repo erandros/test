@@ -14,7 +14,9 @@
     "Microsoft.Framework.Logging.Console": "1.0.0-beta6",
     "Microsoft.Net.Http.Client": "1.0.0-beta3-10053",
     "Microsoft.Framework.Configuration.Json": "1.0.0-beta6",
-    "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-beta5"
+    "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-beta5",
+    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-beta6",
+    "EntityFramework.InMemory": "7.0.0-beta6"
   },
 
   "commands": {

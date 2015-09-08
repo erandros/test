@@ -4,37 +4,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics;
-using Microsoft.AspNet.Diagnostics.Entity;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Routing;
-using Microsoft.Data.Entity;
-using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Framework.Logging.Console;
 using Microsoft.Framework.Runtime;
-
+using Microsoft.Framework.Configuration;
+using Microsoft.AspNet.Diagnostics.Entity;
 
 namespace viper
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IApplicationEnvironment env, IRuntimeEnvironment runtimeEnvironment)
         {
             // Setup configuration sources.
-            var configuration = new Configuration()
+            var builder = new ConfigurationBuilder(env.ApplicationBasePath)
                 .AddJsonFile("config.json")
-                .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
+                .AddEnvironmentVariables();
 
-            if (env.IsEnvironment("Development"))
-            {
-                // This reads the configuration keys from the secret store.
-                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                configuration.AddUserSecrets();
-            }
-            configuration.AddEnvironmentVariables();
-            Configuration = configuration;
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; set; }
@@ -43,8 +34,8 @@ namespace viper
         public void ConfigureServices(IServiceCollection services)
         {
             // Add Application settings to the services container.
-            services.Configure<AppSettings>(Configuration.GetSubKey("AppSettings"));
-            
+            services.Configure<AppSettings>(Configuration.GetConfigurationSection("AppSettings"));
+
             // Add MVC services to the services container.
             services.AddMvc();
 
@@ -52,29 +43,30 @@ namespace viper
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions();
         }
+        public void ConfigureDevelopment(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        {
+            loggerFactory.AddConsole(minLevel: LogLevel.Warning);
+
+            // StatusCode pages to gracefully handle status codes 400-599.
+            app.UseStatusCodePagesWithRedirects("~/Home/StatusCodePage");
+
+            // Display custom error page in production when error occurs
+            // During development use the ErrorPage middleware to display error information in the browser
+            app.UseErrorPage();
+
+            app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
+
+            // Add the runtime information page that can be used by developers
+            // to see what packages are used by the application
+            // default path is: /runtimeinfo
+            app.UseRuntimeInfoPage();
+
+            Configure(app);
+        }
 
         // Configure is called after ConfigureServices is called.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory)
+        public void Configure(IApplicationBuilder app)
         {
-            // Configure the HTTP request pipeline.
-
-            // Add the console logger.
-            loggerfactory.AddConsole(minLevel: LogLevel.Warning);
-
-            // Add the following to the request pipeline only in development environment.
-            if (env.IsEnvironment("Development"))
-            {
-                //app.UseBrowserLink();
-                app.UseErrorPage(ErrorPageOptions.ShowAll);
-                app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
-            }
-            else
-            {
-                // Add Error handling middleware which catches all application specific errors and
-                // sends the request to the following path or controller action.
-                app.UseErrorHandler("/Home/Error");
-            }
-
             // Add static files to the request pipeline.
             app.UseStaticFiles();
 

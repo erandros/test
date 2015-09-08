@@ -72,5 +72,15 @@ namespace viper.Controllers
                 return View(model);
             }
         }
+
+        //
+        // POST: /Account/LogOff
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> LogOff()
+        {
+            await SignInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

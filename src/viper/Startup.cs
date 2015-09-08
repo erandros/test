@@ -13,6 +13,9 @@ using Microsoft.Framework.Logging.Console;
 using Microsoft.Framework.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.AspNet.Diagnostics.Entity;
+using viper.Models.Identity;
+using Microsoft.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace viper
 {
@@ -38,6 +41,15 @@ namespace viper
 
             // Add MVC services to the services container.
             services.AddMvc();
+
+            services.AddEntityFramework()
+                    .AddInMemoryDatabase()
+                    .AddDbContext<EmptyContext>(options =>
+                        options.UseInMemoryDatabase());
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                    .AddEntityFrameworkStores<EmptyContext>()
+                    .AddDefaultTokenProviders();
 
             // Uncomment the following line to add Web API services which makes it easier to port Web API 2 controllers.
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
@@ -70,7 +82,10 @@ namespace viper
             // Add static files to the request pipeline.
             app.UseStaticFiles();
 
-                    // Add MVC to the request pipeline.
+            // Add cookie-based authentication to the request pipeline
+            app.UseIdentity();
+
+            // Add MVC to the request pipeline.
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -321,11 +321,10 @@
           "lib/dnx451/Microsoft.AspNet.Diagnostics.Abstractions.dll": {}
         }
       },
-      "Microsoft.AspNet.Diagnostics.Entity/7.0.0-beta5": {
+      "Microsoft.AspNet.Diagnostics.Entity/7.0.0-beta6": {
         "dependencies": {
-          "EntityFramework.Core": "7.0.0-beta5",
-          "EntityFramework.Relational": "7.0.0-beta5",
-          "Microsoft.AspNet.Diagnostics": "1.0.0-beta5"
+          "EntityFramework.Relational": "7.0.0-beta6",
+          "Microsoft.AspNet.Diagnostics": "1.0.0-beta6"
         },
         "frameworkAssemblies": [
           "Microsoft.CSharp",
@@ -1451,7 +1450,7 @@
           "lib/dnx451/Microsoft.Framework.WebEncoders.Core.dll": {}
         }
       },
-      "Microsoft.Net.Http.Client/1.0.0-beta3-10053": {
+      "Microsoft.Net.Http.Client/1.0.0-beta6": {
         "frameworkAssemblies": [
           "Microsoft.CSharp",
           "mscorlib",
@@ -1460,10 +1459,10 @@
           "System.Net.Http"
         ],
         "compile": {
-          "lib/aspnet50/Microsoft.Net.Http.Client.dll": {}
+          "lib/dnx451/Microsoft.Net.Http.Client.dll": {}
         },
         "runtime": {
-          "lib/aspnet50/Microsoft.Net.Http.Client.dll": {}
+          "lib/dnx451/Microsoft.Net.Http.Client.dll": {}
         }
       },
       "Microsoft.Net.Http.Headers/1.0.0-beta6": {
@@ -1858,17 +1857,18 @@
         "repo.json"
       ]
     },
-    "Microsoft.AspNet.Diagnostics.Entity/7.0.0-beta5": {
+    "Microsoft.AspNet.Diagnostics.Entity/7.0.0-beta6": {
       "serviceable": true,
-      "sha512": "rj+GHKB+7hs0YubE9gbzT6DCcQzct1IWf6xNGi+7D/w5o7TemBOoVlap6u9vnf16+be72lL+9GRfE2Ts3xisLQ==",
+      "sha512": "yQjVo1eLld1hW+XuZ6dTizxCWKNRK6hbg94WxlDxWtSndwnwcz6KI/o8bGA5bUlrXArWalZqNh4cS6BvxRAGLw==",
       "files": [
         "lib/dnx451/Microsoft.AspNet.Diagnostics.Entity.dll",
         "lib/dnx451/Microsoft.AspNet.Diagnostics.Entity.xml",
         "lib/dnxcore50/Microsoft.AspNet.Diagnostics.Entity.dll",
         "lib/dnxcore50/Microsoft.AspNet.Diagnostics.Entity.xml",
-        "Microsoft.AspNet.Diagnostics.Entity.7.0.0-beta5.nupkg",
-        "Microsoft.AspNet.Diagnostics.Entity.7.0.0-beta5.nupkg.sha512",
-        "Microsoft.AspNet.Diagnostics.Entity.nuspec"
+        "Microsoft.AspNet.Diagnostics.Entity.7.0.0-beta6.nupkg",
+        "Microsoft.AspNet.Diagnostics.Entity.7.0.0-beta6.nupkg.sha512",
+        "Microsoft.AspNet.Diagnostics.Entity.nuspec",
+        "repo.json"
       ]
     },
     "Microsoft.AspNet.FeatureModel/1.0.0-beta6": {
@@ -2781,17 +2781,17 @@
         "repo.json"
       ]
     },
-    "Microsoft.Net.Http.Client/1.0.0-beta3-10053": {
-      "sha512": "e3M1dAhwXqNiwlCYlwHZNiCcxsD07c7/B137lCcrBI1ek/CRTFMHIuGCOP94xGkBzxyyUFHWttl2cPkCF0rWsA==",
+    "Microsoft.Net.Http.Client/1.0.0-beta6": {
+      "sha512": "FViQWg2WBZF+OsA91rrYIiDt/tt4MREOdRUZ2yCAW3ud2D4pRtRCPkZE1S+FYk+Hmosdw0OAfQmuYgyVM7BZfA==",
       "files": [
-        "lib/aspnet50/Microsoft.Net.Http.Client.dll",
-        "lib/aspnet50/Microsoft.Net.Http.Client.xml",
-        "lib/aspnetcore50/Microsoft.Net.Http.Client.dll",
-        "lib/aspnetcore50/Microsoft.Net.Http.Client.xml",
+        "lib/dnx451/Microsoft.Net.Http.Client.dll",
+        "lib/dnx451/Microsoft.Net.Http.Client.xml",
+        "lib/dnxcore50/Microsoft.Net.Http.Client.dll",
+        "lib/dnxcore50/Microsoft.Net.Http.Client.xml",
         "lib/net45/Microsoft.Net.Http.Client.dll",
         "lib/net45/Microsoft.Net.Http.Client.xml",
-        "Microsoft.Net.Http.Client.1.0.0-beta3-10053.nupkg",
-        "Microsoft.Net.Http.Client.1.0.0-beta3-10053.nupkg.sha512",
+        "Microsoft.Net.Http.Client.1.0.0-beta6.nupkg",
+        "Microsoft.Net.Http.Client.1.0.0-beta6.nupkg.sha512",
         "Microsoft.Net.Http.Client.nuspec"
       ]
     },
@@ -3207,19 +3207,19 @@
   },
   "projectFileDependencyGroups": {
     "": [
+      "EntityFramework.InMemory >= 7.0.0-beta6",
+      "Microsoft.AspNet.Diagnostics >= 1.0.0-beta6",
+      "Microsoft.AspNet.Diagnostics.Entity >= 7.0.0-beta6",
+      "Microsoft.AspNet.Identity.EntityFramework >= 3.0.0-beta6",
       "Microsoft.AspNet.Mvc >= 6.0.0-beta6",
       "Microsoft.AspNet.Mvc.TagHelpers >= 6.0.0-beta6",
-      "Microsoft.AspNet.Diagnostics >= 1.0.0-beta6",
       "Microsoft.AspNet.Server.WebListener >= 1.0.0-beta6",
       "Microsoft.AspNet.StaticFiles >= 1.0.0-beta6",
       "Microsoft.AspNet.Tooling.Razor >= 1.0.0-beta6",
+      "Microsoft.Framework.Configuration.Json >= 1.0.0-beta6",
       "Microsoft.Framework.Logging >= 1.0.0-beta6",
       "Microsoft.Framework.Logging.Console >= 1.0.0-beta6",
-      "Microsoft.Net.Http.Client >= 1.0.0-beta3-10053",
-      "Microsoft.Framework.Configuration.Json >= 1.0.0-beta6",
-      "Microsoft.AspNet.Diagnostics.Entity >= 7.0.0-beta5",
-      "Microsoft.AspNet.Identity.EntityFramework >= 3.0.0-beta6",
-      "EntityFramework.InMemory >= 7.0.0-beta6"
+      "Microsoft.Net.Http.Client >= 1.0.0-beta6"
     ],
     "DNX,Version=v4.5.1": []
   }

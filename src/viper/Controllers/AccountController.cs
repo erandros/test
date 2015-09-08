@@ -49,18 +49,28 @@ namespace viper.Controllers
             }
             var api = new API();
             var response = api.LoginRequest(Request, model.Email, model.Password).Result;
-            var result = response.Content.ReadAsStringAsync().Result;
-            dynamic data = JsonConvert.DeserializeObject(result);
-            var cookie = "Bearer " + data.access_token.Value;
-            var cookieOptions = new CookieOptions() { HttpOnly = true, Expires = DateTime.Now.AddDays(1) };
-            if (this.env.EnvironmentName != "Development")
-                cookieOptions.Secure = true;
-            Response.Cookies.Append("Authorization", cookie, cookieOptions);
-            if (response.StatusCode != System.Net.HttpStatusCode.OK)
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                return View();
+                var result = response.Content.ReadAsStringAsync().Result;
+                dynamic data = JsonConvert.DeserializeObject(result);
+                var cookie = "Bearer " + data.access_token.Value;
+                var cookieOptions = new CookieOptions() { HttpOnly = true, Expires = DateTime.Now.AddDays(1) };
+                if (this.env.EnvironmentName != "Development")
+                    cookieOptions.Secure = true;
+                Response.Cookies.Append("Authorization", cookie, cookieOptions);
+                var user = new ApplicationUser()
+                {
+                    SecurityStamp = Guid.NewGuid().ToString("D"),
+                    UserName = model.Email
+                };
+                await SignInManager.SignInAsync(user, model.RememberMe);
+                return RedirectToAction("Index", "Home");
             }
-            else return RedirectToAction("Index", "Dashboard");
+            else
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
+            }
         }
     }
 }

@@ -17,18 +17,16 @@ namespace viper.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        [FromServices]
+        public UserManager<ApplicationUser> UserManager { get; set; }
+        [FromServices]
+        public SignInManager<ApplicationUser> SignInManager { get; set; }
         private readonly IHostingEnvironment env;
+
         public AccountController(IHostingEnvironment env)
         {
             this.env = env;
         }
-
-        [FromServices]
-        public UserManager<ApplicationUser> UserManager { get; set; }
-
-        [FromServices]
-        public SignInManager<ApplicationUser> SignInManager { get; set; }
-
         //
         // GET: /Account/Login
         [AllowAnonymous]

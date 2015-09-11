@@ -1,59 +1,55 @@
-﻿@using System.Collections.Generic
-@using Microsoft.AspNet.Http
-@using Microsoft.AspNet.Http.Authentication
+﻿@model viper.Models.Identity.LoginViewModel
+
 @{
-    Layout = "~/Views/Shared/_MenulessLayout.cshtml";
     ViewBag.Title = "Log in";
 }
-@section styles
-{
-    <link rel="stylesheet" href="~/css/login.css" />
-}
-<nav class="navbar navbar-default">
-    
-</nav>
-<div class="container">
-    <form class="form-horizontal" role="form">
-        <div class="row">
-            <div class="
-                 col-md-4 col-md-offset-4
-                 col-sm-6 col-sm-offset-3
-                 col-xs-8 col-xs-offset-2
-                 ">
-                <div class="text-danger"></div>
+
+<h2>@ViewBag.Title.</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
+                <h4>Use a local account to log in.</h4>
+                <hr />
+                <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
                 <div class="form-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-envelope"></span>
-                        </span>
-                        <input name="username" type="email" class="form-control" placeholder="Email"/>
+                    <label asp-for="Email" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-lock"></span>
-                        </span>
-                        <input name="password" type="password" class="form-control" placeholder="Password"/>
+                    <label asp-for="Password" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Log in" />
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            <input asp-for="RememberMe" />
+                            <label asp-for="RememberMe"></label>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </form>
-    <section>
-        <p class="text-center"><a>Forgot your password?</a></p>
-        <p class="text-center text-muted text-small">Don't have an account yet? <a>Sign up</a></p>
-    </section>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Log in" class="btn btn-default" />
+                    </div>
+                </div>
+                <p>
+                    <a asp-action="Register">Register as a new user?</a>
+                </p>
+                <p>
+                    <a asp-action="ForgotPassword">Forgot your password?</a>
+                </p>
+            </form>
+        </section>
+    </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        (function removeASPUnneededAttributes() {
-            //$('form').removeAttr('action method');
-            $('[name="__RequestVerificationToken"').remove();
-        })()
-    });
-</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

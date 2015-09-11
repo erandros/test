@@ -64,7 +64,7 @@ namespace viper.Controllers
                     UserName = model.Email
                 };
                 await SignInManager.SignInAsync(user, model.RememberMe);
-                return RedirectToAction("Index", "Home");
+                return RedirectToLocal(returnUrl);
             }
             else
             {
@@ -82,5 +82,21 @@ namespace viper.Controllers
             await SignInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        #region Helpers
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        #endregion
     }
 }

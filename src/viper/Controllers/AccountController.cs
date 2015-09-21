@@ -9,6 +9,7 @@ using viper.Models.Identity;
 using Newtonsoft.Json;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Hosting;
+using viper.Services;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,10 +23,12 @@ namespace viper.Controllers
         [FromServices]
         public SignInManager<ApplicationUser> SignInManager { get; set; }
         private readonly IHostingEnvironment env;
+        private Session Session;
 
-        public AccountController(IHostingEnvironment env)
+        public AccountController(IHostingEnvironment env, Session Session)
         {
             this.env = env;
+            this.Session = Session;
         }
         //
         // GET: /Account/Login
@@ -64,6 +67,7 @@ namespace viper.Controllers
                     UserName = model.Email
                 };
                 await SignInManager.SignInAsync(user, model.RememberMe);
+                Session.SiteTitle = "Some Demand Site";
                 return RedirectToLocal(returnUrl);
             }
             else

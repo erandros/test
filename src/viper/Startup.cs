@@ -16,6 +16,7 @@ using Microsoft.AspNet.Diagnostics.Entity;
 using viper.Models.Identity;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using viper.Services;
 
 namespace viper
 {
@@ -54,6 +55,11 @@ namespace viper
             // Uncomment the following line to add Web API services which makes it easier to port Web API 2 controllers.
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions();
+
+            services.AddSession();
+            services.AddCaching();  
+
+            services.AddTransient<Session>();
         }
         public void ConfigureDevelopment(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
@@ -79,6 +85,8 @@ namespace viper
         // Configure is called after ConfigureServices is called.
         public void Configure(IApplicationBuilder app)
         {
+            app.UseSession();
+
             // Add static files to the request pipeline.
             app.UseStaticFiles();
 

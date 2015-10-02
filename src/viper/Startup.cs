@@ -10,13 +10,13 @@ using Microsoft.AspNet.Routing;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Microsoft.Framework.Logging.Console;
-using Microsoft.Framework.Runtime;
 using Microsoft.Framework.Configuration;
 using Microsoft.AspNet.Diagnostics.Entity;
 using viper.Models.Identity;
 using Microsoft.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using viper.Services;
+using Microsoft.Dnx.Runtime;
 
 namespace viper
 {
@@ -38,7 +38,7 @@ namespace viper
         public void ConfigureServices(IServiceCollection services)
         {
             // Add Application settings to the services container.
-            services.Configure<AppSettings>(Configuration.GetConfigurationSection("AppSettings"));
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             // Add MVC services to the services container.
             services.AddMvc();
@@ -56,8 +56,8 @@ namespace viper
             // You will also need to add the Microsoft.AspNet.Mvc.WebApiCompatShim package to the 'dependencies' section of project.json.
             // services.AddWebApiConventions();
 
+            services.AddCaching();
             services.AddSession();
-            services.AddCaching();  
 
             services.AddTransient<Session>();
         }

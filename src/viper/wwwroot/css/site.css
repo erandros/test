@@ -3,13 +3,6 @@ html, body {
     height: 100%;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    /* max-width: 280px; */
-}
-
 /* Carousel */
 .carousel-caption {
     z-index: 10 !important;
@@ -26,23 +19,14 @@ textarea {
 }
 
 @media (min-width: 768px) {
-    .carousel-caption {
-        z-index: 10 !important;
-    }
     .wrapper {
         height: 100%;
-        position: absolute;
         top: 0;
-        padding-top: 50px;
     }
     .navbar-collapse.collapse.sidebar {
         height: 100% !important;
         width: 130px;
     }
-}
-
-.navbar-collapse.collapse {
-    float: left;
 }
 
 .navbar {

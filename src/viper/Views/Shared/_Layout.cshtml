@@ -27,7 +27,7 @@
             </div>
         </nav>
         @RenderBody()
-        @await Html.PartialAsync("_BodyScriptsPartial");
+        @await Html.PartialAsync("_BodyScriptsPartial")
         @RenderSection("scripts", required: false)
     </body>
 </html>

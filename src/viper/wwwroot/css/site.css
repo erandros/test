@@ -52,7 +52,7 @@ html, body {
 }
 
 .sidebar li a {
-    padding: 10px 8px 10px 24px;
+    padding: 10px 8px 10px 16px;
     height: 100%;
 }
 
@@ -83,18 +83,20 @@ html, body {
 }
 
 .nav-sidebar, .sidebar-background {
-    width: 131px;
+    width: 120px;
 }
 
 @media (max-width: 768px) {
     .sidebar li a {
-        padding-left: 24px;
+        padding-left: 16px;
     }
     .sidebar li span {
         display: none;
     }
     .nav-sidebar, .sidebar-background {
-        width: 65px;
+        width: 50px;
     }
+
+ul.nav.nav-sidebar.ng-scope {}
 }
 

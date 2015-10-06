@@ -3,13 +3,6 @@ html, body {
     height: 100%;
 }
 
-/* Set widths on the form inputs since otherwise they're 100% wide */
-input,
-select,
-textarea {
-    /* max-width: 280px; */
-}
-
 /* Carousel */
 .carousel-caption {
     z-index: 10 !important;
@@ -20,29 +13,13 @@ textarea {
     line-height: 1.4;
 }
 
+.dashboard-body {
+    min-width: 750px;
+}
+
 .navbar-collapse.collapse.sidebar {
     padding-right: 0px;
     border-right: 1px solid #e7e7e7;
-}
-
-@media (min-width: 768px) {
-    .carousel-caption {
-        z-index: 10 !important;
-    }
-    .wrapper {
-        height: 100%;
-        position: absolute;
-        top: 0;
-        padding-top: 50px;
-    }
-    .navbar-collapse.collapse.sidebar {
-        height: 100% !important;
-        width: 130px;
-    }
-}
-
-.navbar-collapse.collapse {
-    float: left;
 }
 
 .navbar {
@@ -61,16 +38,65 @@ textarea {
     display: inline-block;
 }
 
-.main {
-    float: left;
+.sidebar {
+    z-index: 2000;
+    padding: 0px 20px 20px 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 0px;
+}
+
+.sidebar li {
+    border-bottom: 1px solid #e7e7e7;
+    margin-top: 0px;
+}
+
+.sidebar li a {
+    padding: 10px 8px 10px 16px;
     height: 100%;
 }
 
-ul.sidebar li {
-    border-bottom: 1px solid #e7e7e7;
-    margin-top: 0px;
+.nav-sidebar {
+    margin-right: -21px;
+    margin-bottom: 20px;
+    margin-left: -20px;
+    width: 124px;
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
 }
 
 .main div {
     float: left;
 }
+
+.main {
+    overflow-x: overlay;
+}
+
+.sidebar-background {
+    position: absolute;
+    top: 0;
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+    bottom: 0px;
+    z-index: -3200;
+}
+
+.nav-sidebar, .sidebar-background {
+    width: 120px;
+}
+
+@media (max-width: 768px) {
+    .sidebar li a {
+        padding-left: 16px;
+    }
+    .sidebar li span {
+        display: none;
+    }
+    .nav-sidebar, .sidebar-background {
+        width: 50px;
+    }
+
+ul.nav.nav-sidebar.ng-scope {}
+}
+

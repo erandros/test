@@ -12,13 +12,28 @@
     }
 }
 
-<div class="row wrapper">
-    <ul class="nav nav-pills nav-stacked navbar-collapse collapse sidebar" ng-controller="sidebarController" >
-        <li></li>
-        <li role="presentation" class=" @sidebarActiveCss("Clients")"><a asp-controller="Dashboard" asp-action="Clients"><i class="fa fa-fw fa-male"></i> Clients</a></li>
-        <li role="presentation" class=" @sidebarActiveCss("Products")"><a asp-controller="Dashboard" asp-action="Products"><i class="fa fa-fw fa-barcode"></i> Products</a></li>
-    </ul>
-    <div class="main">
-        @RenderBody()
-    </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="sidebar-background">
+
+        </div>
+        <div class="col-xs-2 col-sm-2 sidebar">
+            <ul class="nav nav-sidebar" ng-controller="sidebarController">
+                <li role="presentation" class=" @sidebarActiveCss("Clients")">
+                    <a asp-controller="Dashboard" asp-action="Clients">
+                        <i class="fa fa-fw fa-male"></i>
+                        <span>Clients</span>
+                    </a>
+                </li>
+                <li role="presentation" class=" @sidebarActiveCss("Products")">
+                    <a asp-controller="Dashboard" asp-action="Products">
+                        <i class="fa fa-fw fa-barcode"></i>
+                        <span>Products</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-10 col-sm-10 main">
+            @RenderBody()
+        </div>
 </div>

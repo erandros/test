@@ -24,11 +24,13 @@ namespace viper.Controllers
         public SignInManager<ApplicationUser> SignInManager { get; set; }
         private readonly IHostingEnvironment env;
         private Session Session;
+        private API API;
 
-        public AccountController(IHostingEnvironment env, Session Session)
+        public AccountController(IHostingEnvironment env, Session Session, API api)
         {
             this.env = env;
             this.Session = Session;
+            this.API = api;
         }
         //
         // GET: /Account/Login
@@ -50,8 +52,7 @@ namespace viper.Controllers
             {
                 return View(model);
             }
-            var api = new API();
-            var response = api.LoginRequest(Request, model.Email, model.Password).Result;
+            var response = API.LoginRequest(Request, model.Email, model.Password).Result;
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var result = response.Content.ReadAsStringAsync().Result;

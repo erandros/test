@@ -60,6 +60,7 @@ namespace viper
             services.AddSession();
 
             services.AddTransient<Session>();
+            services.AddTransient<API>();
         }
         public void ConfigureDevelopment(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {

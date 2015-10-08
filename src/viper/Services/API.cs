@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace viper
+namespace viper.Services
 {
     public class API
     {

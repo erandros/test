@@ -47,13 +47,15 @@
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary btn-lg btn-block" value="Log in" />
                 </div>
+                <div class="form-group">
+                    <section>
+                        <p class="text-center"><a asp-action="ForgotPassword">Forgot your password?</a></p>
+                        <p class="text-center text-muted text-small">Don't have an account yet? <a asp-action="Register">Sign up</a></p>
+                    </section>
+                </div>
             </div>
         </div>
     </form>
-    <section>
-        <p class="text-center"><a asp-action="ForgotPassword">Forgot your password?</a></p>
-        <p class="text-center text-muted text-small">Don't have an account yet? <a asp-action="Register">Sign up</a></p>
-    </section>
 </div>
 
 @section Scripts {

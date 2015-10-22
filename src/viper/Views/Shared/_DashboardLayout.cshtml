@@ -30,6 +30,12 @@
                         <span>Products</span>
                     </a>
                 </li>
+                <li role="presentation" class=" @sidebarActiveCss("Products")">
+                    <a asp-controller="Dashboard" asp-action="Applications">
+                        <i class="fa fa-fw fa-barcode"></i>
+                        <span>Applications</span>
+                    </a>
+                </li>
             </ul>
         </div>
         @RenderBody()

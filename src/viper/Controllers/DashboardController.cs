@@ -27,5 +27,10 @@ namespace viper.Controllers
         {
             return View("Clients");
         }
+
+        public ActionResult Applications()
+        {
+            return View("Applications");
+        }
     }
 }

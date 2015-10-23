@@ -12,8 +12,10 @@ namespace viper.Services
     {
         private const string BaseRoute = "https://viper.fitmentgroup.com/";
         private const string BaseApiRoute = BaseRoute + "api";
-        public API()
+        public Session Session;
+        public API(Session session)
         {
+            Session = session;
         }
 
         public async Task<HttpResponseMessage> LoginRequest(HttpRequest Request, string username, string password)
@@ -32,14 +34,13 @@ namespace viper.Services
             return response;
         }
 
-        public HttpClient AuthorizedClient(HttpRequest Request)
         /// <summary>
         /// Returns an HttpClient with the token cookie set
         /// </summary>
+        private HttpClient AuthorizedClient()
         {
             var req = new HttpClient();
-            var token = Request.Cookies["Authorization"];
-            req.DefaultRequestHeaders.Add("Authorization", token);
+            req.DefaultRequestHeaders.Add("Authorization", Session.TokenCookie);
             return req;
         }
 
@@ -48,7 +49,7 @@ namespace viper.Services
         /// </summary>
         public async Task<object> RequestPassThrough(HttpRequest Current, string route)
         {
-            var client = AuthorizedClient(Current);
+            var client = AuthorizedClient();
             var response = await client.SendAsync(new HttpRequestMessage(
                 method: new HttpMethod(Current.Method),
                 requestUri: BaseRoute + "api/" + route));
@@ -58,7 +59,7 @@ namespace viper.Services
         /// <summary>
         /// Use this method to call the viper api from here (the web server)
         /// </summary>
-        public async Task<HttpResponseMessage> Request(HttpRequest Current, string url, object data = null, string method = "GET")
+        public async Task<HttpResponseMessage> Request(string url, object data = null, string method = "GET")
         {
             var client = AuthorizedClient();
             var response = await client.SendAsync(new HttpRequestMessage(
@@ -71,9 +72,9 @@ namespace viper.Services
         /// <summary>
         /// Return the title of the current user's default application
         /// </summary>
-        public string GetTitle(HttpRequest Current)
+        public string GetTitle()
         {
-            var response = Request(Current, "/user/applications");
+            var response = Request("/user/applications");
             var json = response.Result.Content.ReadAsStringAsync().Result;
             dynamic apps = JsonConvert.DeserializeObject(json);
             foreach(var app in apps)

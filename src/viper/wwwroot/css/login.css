@@ -4,3 +4,10 @@
     height: 47px;
 }
 
+.logo {
+    margin: 16px auto;
+}
+
+.login-form {
+    max-width: 324px;
+}

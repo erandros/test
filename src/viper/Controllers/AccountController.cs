@@ -68,7 +68,7 @@ namespace viper.Controllers
                     UserName = model.Email
                 };
                 await SignInManager.SignInAsync(user, model.RememberMe);
-                Session.SiteTitle = "Some Demand Site";
+                Session.SiteTitle = API.GetTitle(Request);
                 return RedirectToLocal(returnUrl);
             }
             else

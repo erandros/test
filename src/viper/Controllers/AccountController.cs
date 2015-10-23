@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Hosting;
 using viper.Services;
+using Microsoft.AspNet.Http.Authentication;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -57,18 +58,18 @@ namespace viper.Controllers
             {
                 var result = response.Content.ReadAsStringAsync().Result;
                 dynamic data = JsonConvert.DeserializeObject(result);
-                var cookie = "Bearer " + data.access_token.Value;
-                var cookieOptions = new CookieOptions() { HttpOnly = true, Expires = DateTime.Now.AddDays(1) };
-                if (this.env.EnvironmentName != "Development")
-                    cookieOptions.Secure = true;
-                Response.Cookies.Append("Authorization", cookie, cookieOptions);
+                Session.Token = data.access_token.Value;
                 var user = new ApplicationUser()
                 {
                     SecurityStamp = Guid.NewGuid().ToString("D"),
                     UserName = model.Email
                 };
-                await SignInManager.SignInAsync(user, model.RememberMe);
-                Session.SiteTitle = API.GetTitle(Request);
+                await SignInManager.SignInAsync(user, new AuthenticationProperties()
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
+                });
+                Session.SiteTitle = API.GetTitle();
                 return RedirectToLocal(returnUrl);
             }
             else

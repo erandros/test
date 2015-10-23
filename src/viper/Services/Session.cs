@@ -28,5 +28,14 @@ namespace viper.Services
                 session.SetString("SiteTitle", value);
             }
         }
+        public string Token
+        {
+            get { return session.GetString("Token"); }
+            set { session.SetString("Token", value); }
+        }
+        public string TokenCookie
+        {
+            get { return "Bearer " + Token; }
+        }
     }
 }

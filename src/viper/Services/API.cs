@@ -33,6 +33,9 @@ namespace viper.Services
         }
 
         public HttpClient AuthorizedClient(HttpRequest Request)
+        /// <summary>
+        /// Returns an HttpClient with the token cookie set
+        /// </summary>
         {
             var req = new HttpClient();
             var token = Request.Cookies["Authorization"];
@@ -40,6 +43,9 @@ namespace viper.Services
             return req;
         }
 
+        /// <summary>
+        /// This is only used once in ApiController to reroute an /api/ call coming from the browser to viper api
+        /// </summary>
         public async Task<object> RequestPassThrough(HttpRequest Current, string route)
         {
             var client = AuthorizedClient(Current);
@@ -49,9 +55,12 @@ namespace viper.Services
             return response.Content.ReadAsStringAsync().Result;
         }
 
+        /// <summary>
+        /// Use this method to call the viper api from here (the web server)
+        /// </summary>
         public async Task<HttpResponseMessage> Request(HttpRequest Current, string url, object data = null, string method = "GET")
         {
-            var client = AuthorizedClient(Current);
+            var client = AuthorizedClient();
             var response = await client.SendAsync(new HttpRequestMessage(
                 method: new HttpMethod(method),
                 requestUri: BaseApiRoute + url
@@ -59,6 +68,9 @@ namespace viper.Services
             return response;
         }
 
+        /// <summary>
+        /// Return the title of the current user's default application
+        /// </summary>
         public string GetTitle(HttpRequest Current)
         {
             var response = Request(Current, "/user/applications");

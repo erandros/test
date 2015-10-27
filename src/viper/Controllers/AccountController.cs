@@ -54,7 +54,8 @@ namespace viper.Controllers
                 return View(model);
             }
             var response = API.LoginRequest(Request, model.Email, model.Password).Result;
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            bool success = response.StatusCode == System.Net.HttpStatusCode.OK;
+            if (success)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
                 dynamic data = JsonConvert.DeserializeObject(result);

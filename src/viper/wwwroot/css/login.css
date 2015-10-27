@@ -9,5 +9,10 @@
 }
 
 .login-form {
-    max-width: 324px;
+    max-width: 350px;
+}
+
+.alert {
+	font-size: 13px;
+	margin-bottom: 0px;
 }

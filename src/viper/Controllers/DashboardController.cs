@@ -18,6 +18,11 @@ namespace viper.Controllers
             return View();
         }
 
+        public ActionResult Users()
+        {
+            return View("Clients");
+        }
+
         public ActionResult Clients()
         {
             return View();
@@ -26,6 +31,11 @@ namespace viper.Controllers
         public ActionResult Products()
         {
             return View("Clients");
+        }
+
+        public ActionResult Applications()
+        {
+            return View("Applications");
         }
     }
 }

@@ -1,0 +1,29 @@
+﻿(function () {
+    'use strict';
+
+    angular
+    .module('viper')
+    .directive('addButton', ['$modal', function ($modal) {
+        function AddModal($modalInstance, $scope) {
+            var vm = this;
+        }
+        function link(scope, element, attrs) {
+            element.bind('click', function () {
+                $modal.open({
+                    templateUrl: '/modals/edition.html',
+                    controller: ['$modalInstance', '$scope', AddModal]
+                })
+                .result.then(function (client) {
+                    console.log("Should be adding item");
+                }, function () {
+
+                })
+            })
+        }
+        return {
+            restrict: 'E',
+            link: link,
+            template: '<button class="btn btn-primary btn-xs">Create New</button>'
+        };
+    }])
+})();

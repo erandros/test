@@ -61,6 +61,11 @@ namespace viper
 
             services.AddTransient<Session>();
             services.AddTransient<API>();
+
+            services.ConfigureRouting(routeOptions =>
+            {
+                routeOptions.LowercaseUrls = true;
+            });
         }
         public void ConfigureDevelopment(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {

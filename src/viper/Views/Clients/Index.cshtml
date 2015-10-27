@@ -6,24 +6,62 @@
     Layout = "_DashboardLayout";
     ViewBag.Title = "Admin";
 }
-<div ng-controller="clientsController">
-    <table st-table="displayedClients" st-safe-src="clients" class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Notes</th>
-                <th>Edit</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="client in displayedClients">
-                <td>{{client.Id}}</td>
-                <td>{{client.Name}}</td>
-                <td>{{client.Notes}}</td>
-                <td><button class="btn btn-danger" ng-click="removeModal(client)">Delete</button></td>
-                <td><button class="btn btn-primary" ng-click="editModal(client)">Edit</button></td>
-            </tr>
-        </tbody>
-    </table>
+<div id="page-wrapper" style="min-height: 555px;" ng-controller="clientsController">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Clients</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="dataTable_wrapper">
+                        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                            <div class="row"><div class="col-sm-6"><div class="dataTables_length" id="dataTables-example_length"><label>Show <select name="dataTables-example_length" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-6"><div id="dataTables-example_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder=""></label></div></div></div><div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" st-table="displayedClients" st-safe-src="clients">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" rowspan="1" colspan="1" aria-sort="ascending" style="width: 143.091px;">Id</th>
+                                                <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 178.091px;">Name</th>
+                                                <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 160.091px;">Notes</th>
+                                                <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 124.091px;">Created Date</th>
+                                                <th class="sorting" tabindex="0" rowspan="1" colspan="1" style="width: 93px;">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="gradeA odd" role="row" ng-repeat="client in displayedClients track by client.Id">
+                                                <td>{{client.Id}}</td>
+                                                <td>{{client.Name}}</td>
+                                                <td>{{client.Notes}}</td>
+                                                <td class="center">(missing created field)</td>
+                                                <td class="center">
+                                                    <edit-button vp-id="{{client.Id}}"></edit-button>
+                                                    <delete-button vp-id="{{client.Id}}"></delete-button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="5" class="text-center">
+                                                    <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
 </div>

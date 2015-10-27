@@ -5,14 +5,37 @@
 }
 
 .logo {
-    margin: 16px auto;
-}
-
-.login-form {
-    max-width: 350px;
+    margin: 0px auto;
 }
 
 .alert {
 	font-size: 13px;
 	margin-bottom: 0px;
+}
+
+.login-form {
+    margin: 0px auto;
+    margin-top: 15px;
+}
+
+.login-form .group {
+	margin-bottom: 15px;
+}
+
+@media (min-width: 720px) {
+	.login-form {
+		width: 460px;
+	}
+}
+
+@media (max-width: 720px) {
+	.login-form {
+		width: 400px;
+	}
+}
+
+@media (max-width: 520px) {
+	.login-form {
+		width: 280px;
+	}
 }

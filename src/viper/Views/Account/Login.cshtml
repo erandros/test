@@ -11,61 +11,56 @@
 <nav class="navbar navbar-default">
 
 </nav>
-<div class="container">
-    <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
-        <div class="row">
-            <div class="login-form
-                 col-md-4 col-md-offset-4
-                 col-sm-6 col-sm-offset-3
-                 col-xs-8 col-xs-offset-2
-                 ">
-                <img class="logo img-responsive" src="~/images/logo-fitmentgroup.png" />
-                @if (!ViewData.ModelState.IsValid)
-                {
-                    <div class="form-group">
-                        <div class="alert alert-danger">
-                            The username and/or password entered was incorrect.
-                        </div>
-                    </div>
-                }
-                <div class="form-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-envelope"></span>
-                        </span>
-                        <input asp-for="Email" class="form-control" placeholder="Email" />
-                    </div>
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="input-group input-group-lg">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-lock"></span>
-                        </span>
-                        <input asp-for="Password" class="form-control" placeholder="Password"/>
-                    </div>
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input asp-for="RememberMe" /> Remember me?
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Log in" />
-                </div>
-                <div class="form-group">
-                    <section>
-                        <p class="text-center"><a asp-action="ForgotPassword">Forgot your password?</a></p>
-                        <p class="text-center text-muted text-small">Don't have an account yet? <a asp-action="Register">Sign up</a></p>
-                    </section>
+<form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
+    <div class="login-form">
+        <div class="group">
+            <img class="logo img-responsive" src="~/images/logo-fitmentgroup.png" />
+        </div>
+        @if (!ViewData.ModelState.IsValid)
+            {
+            <div class="group">
+                <div class="alert alert-danger">
+                    The username and/or password entered was incorrect.
                 </div>
             </div>
+        }
+        <div class="group">
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                </span>
+                <input asp-for="Email" class="form-control" placeholder="Email" />
+            </div>
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
-    </form>
-</div>
+        <div class="group">
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-lock"></span>
+                </span>
+                <input asp-for="Password" class="form-control" placeholder="Password" />
+            </div>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="group">
+            <div class="checkbox">
+                <label>
+                    <input asp-for="RememberMe" /> Remember me?
+                </label>
+            </div>
+        </div>
+        <div class="group">
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Log in" />
+        </div>
+        <div class="group">
+            <section>
+                <p class="text-center"><a asp-action="ForgotPassword">Forgot your password?</a></p>
+                <p class="text-center text-muted text-small">Don't have an account yet? <a asp-action="Register">Sign up</a></p>
+            </section>
+        </div>
+    </div>
+</form>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

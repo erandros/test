@@ -21,7 +21,7 @@ namespace viper.Controllers
         }
 
         // GET: api/values
-        [Route(@"{route:regex(\S+)}")]
+        [Route("{*route}")]
         public object Get(string route)
         {
             var response = API.RequestPassThrough(Request, route).Result;

@@ -11,15 +11,6 @@
         </ul>
     </form>
 }
-else if (User.Identity.IsAuthenticated)
-{
-    //This code block necessary only for NTLM authentication
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <p class="nav navbar-text navbar-right">Hello, @User.GetUserName()!</p>
-        </li>
-    </ul>
-}
 else
 {
     <ul class="nav navbar-nav navbar-right">

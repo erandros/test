@@ -71,7 +71,9 @@ namespace viper.Controllers
                     ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
                 });
                 Session.SiteTitle = API.GetTitle();
-                return RedirectToLocal(returnUrl);
+                if (string.IsNullOrEmpty(returnUrl))
+                    return RedirectToAction("Index", "Dashboard");
+                else return RedirectToLocal(returnUrl);
             }
             else
             {

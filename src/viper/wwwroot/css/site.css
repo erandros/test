@@ -102,15 +102,34 @@ nav.header {
     /* margin-bottom: 20px; */
     border: 1px solid transparent;
     border-color: #e7e7e7;
+    /* line-height: 50px; */
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.header-left > a, .header-right > a {
+    height: 50px;
+    line-height: 50px;
+    display: block;
+    padding: 0px 20px;
+}
+
+nav.header a:hover {
+    background-color: #eee;
+    text-decoration: none;
+}
+
+.header-left {
+    float: left;
+}
+
+.header-right {
+    float: right;
+    margin-right: 50px;
 }
 
 .header-brand {
-    float: left;
-    height: 50px;
-    padding: 15px 15px;
     font-size: 18px;
-    line-height: 20px;
-    margin-left: 16px;
 }
 
 .dropdown {

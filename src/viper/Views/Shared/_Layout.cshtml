@@ -9,11 +9,15 @@
     </head>
     <body>
         <nav class="header">
-            <a class="header-brand" asp-controller="Dashboard" asp-action="Index">
-                Viper Admin
-            </a>
-            @await Html.PartialAsync("_LoginPartial")
-        </nav>
+            <div class="header-left">
+                <a class="header-brand" asp-controller="Dashboard" asp-action="Index">
+                    Viper Admin
+                </a>
+            </div>
+            <div class="header-right">
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
+</nav>
         @RenderBody()
         <div class="scripts">
             @await Html.PartialAsync("_BodyScriptsPartial")

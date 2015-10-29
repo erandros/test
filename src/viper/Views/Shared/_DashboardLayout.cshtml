@@ -24,24 +24,11 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li role="presentation" class=" @sidebarActiveCss("Users")">
+                <li role="presentation" class=" @sidebarActiveCss("Users") ">
                     <a asp-controller="Users" asp-action="Index">
                         <i class="fa fa-fw fa-users"></i>
                         <span>Users</span>
-                        <span class="fa arrow"></span>
                     </a>
-                    <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
-                        <li>
-                            <a asp-controller="Dashboard" asp-action="UserGroups">
-                                Groups
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="Dashboard" asp-action="UserRoles">
-                                Roles
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <li role="presentation" class=" @sidebarActiveCss("Applications")">
                     <a asp-controller="Applications" asp-action="Index">

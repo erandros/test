@@ -22,18 +22,6 @@ html, body {
     border-right: 1px solid #e7e7e7;
 }
 
-.navbar {
-    margin-bottom: 0px;
-}
-
-.nav-pills > li > a {
-    border-radius: 0px;
-}
-
-.nav-stacked > li.active {
-    background-color: black;
-}
-
 .navbar ul > li {
     display: inline-block;
 }
@@ -100,3 +88,44 @@ html, body {
 ul.nav.nav-sidebar.ng-scope {}
 }
 
+nav.header {
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    border-radius: 4px;
+    z-index: 1000;
+    border-width: 0 0 1px;
+    min-height: 50px;
+    /* margin-bottom: 20px; */
+    border: 1px solid transparent;
+    border-color: #e7e7e7;
+}
+
+.header-brand {
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+    margin-left: 16px;
+}
+
+.dropdown {
+    float: right;
+}
+
+.dropdown-toggle {
+    margin-right: 20px;
+    padding-left: 16px;
+    line-height: 50px;
+    width: 66px;
+    display: block;
+}
+
+.dropdown-toggle:hover {
+    text-decoration: none;
+    background-color: #eee;
+}
+
+.dropdown-menu {
+    left: -100px;
+}

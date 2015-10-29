@@ -39,6 +39,10 @@ html, body {
     margin-top: 0px;
 }
 
+.sidebar li.active {
+    background-color: #E1E1E1;
+}
+
 .sidebar li a {
     padding: 10px 8px 10px 16px;
     height: 100%;

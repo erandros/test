@@ -38,11 +38,11 @@ nav.header a:hover {
     font-size: 18px;
 }
 
-.dropdown {
+.header .dropdown {
     float: right;
 }
 
-.dropdown-toggle {
+.header .dropdown-toggle {
     margin-right: 20px;
     padding-left: 16px;
     line-height: 50px;
@@ -50,11 +50,11 @@ nav.header a:hover {
     display: block;
 }
 
-.dropdown-toggle:hover {
+.header .dropdown-toggle:hover {
     text-decoration: none;
     background-color: #eee;
 }
 
-.dropdown-menu {
+.header .dropdown-menu {
     left: -100px;
 }

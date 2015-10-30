@@ -73,22 +73,12 @@ html, body {
 }
 
 @media (min-width: 768px) {
-    .sidebar li a {
-        padding-left: 16px;
-    }
-    .sidebar li span {
-        display: none;
-    }
     .sidebar, .sidebar-background {
         width: 129px;
     }
-
 }
 
 @media (max-width: 767px) {
-    .sidebar li a {
-        padding-left: 16px;
-    }
     .sidebar li span {
         display: none;
     }

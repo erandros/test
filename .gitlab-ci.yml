@@ -1,0 +1,11 @@
+stages:
+  - deploy
+
+execute deploy script:
+  script:
+    - publish.ps1
+  stage: deploy
+  only: 
+    - master
+  tags:
+    - vipertest

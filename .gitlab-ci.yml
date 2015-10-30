@@ -10,6 +10,6 @@ execute deploy script:
     - appcmd start sites "ViperTest"
   stage: deploy
   only: 
-    - master
+    - test
   tags:
     - vipertest

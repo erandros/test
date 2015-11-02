@@ -65,7 +65,7 @@ namespace viper.Controllers
                 };
                 await SignInManager.SignInAsync(user, new AuthenticationProperties()
                 {
-                    IsPersistent = true,
+                    IsPersistent = false,
                     ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
                 });
                 Session.SiteTitle = API.GetTitle();

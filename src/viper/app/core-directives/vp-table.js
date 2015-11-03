@@ -19,6 +19,7 @@
                 scope.displayedRows = [].concat(scope.rows);
             })
             scope.title = attrs["title"];
+            scope.headers = attrs["headers"].split(',');
         }
         return {
             restrict: 'E',

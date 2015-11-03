@@ -4,14 +4,16 @@
     angular
     .module('viper')
     .directive('addButton', ['$modal', function ($modal) {
-        function AddModal($modalInstance, $scope) {
-            var vm = this;
-        }
         function link(scope, element, attrs) {
             element.bind('click', function () {
                 $modal.open({
-                    templateUrl: '/templates/modals/edition.html',
-                    controller: ['$modalInstance', '$scope', AddModal]
+                    templateUrl: '/templates/modals/create.html',
+                    controller: 'AddModalCtrl',
+                    resolve: {
+                        fields: function () {
+                            return scope.fields;
+                        }
+                    }
                 })
                 .result.then(function (client) {
                     console.log("Should be adding item");
@@ -22,9 +24,16 @@
         }
         return {
             restrict: 'E',
+            transclude: false,
             require: '^vpTable',
             link: link,
-            template: '<button class="btn btn-primary btn">Create New</button>'
+            template: '<button class="btn btn-primary btn">Create New</button>',
+            scope: false
         };
     }])
+    .controller('AddModalCtrl', function ($modalInstance, $scope, fields) {
+        var vm = this;
+        $scope.fields = fields;
+    })
+    
 })();

@@ -8,6 +8,7 @@
             var vm = this;
         }
         function link(scope, element, attrs) {
+            scope.title = attrs["title"];
             element.bind('click', function () {
                 $modal.open({
                     templateUrl: '/modals/edition.html',

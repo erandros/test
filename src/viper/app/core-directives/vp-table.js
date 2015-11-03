@@ -3,11 +3,21 @@
 
     angular
     .module('viper')
-    .directive('vpTable', ['$modal', function ($modal) {
+    .directive('vpTable', ['$modal', '$injector', function ($modal, $injector) {
         function ViperTable($modalInstance, $scope) {
             var vm = this;
         }
         function link(scope, element, attrs) {
+            scope.api = $injector.get(attrs['api']);
+            scope.api.get()
+            .then(function (res) {
+                for (var i = 1; i < 50; i++) {
+                    res.data.push(Object.create(res.data[0]));
+                    res.data[i].Id = i + 1;
+                }
+                scope.applications = res.data;
+                scope.displayedApps = [].concat(scope.applications);
+            })
             scope.title = attrs["title"];
             element.bind('click', function () {
                 $modal.open({

@@ -23,10 +23,9 @@
                                     </thead>
                                     <tbody>
                                         <tr class="gradeA odd" role="row" ng-repeat="app in displayedRows track by app.Id">
-                                            <td class="sorting_1">{{app.Name}}</td>
-                                            <td>{{app.Title}}</td>
-                                            <td>{{app.Type}}</td>
-                                            <td class="center">(missing created field)</td>
+                                            <td ng-repeat="field in fields track by field">
+                                                {{app[field]}}
+                                            </td>
                                             <td class="center">
                                                 <edit-button vp-id="{{app.Id}}"></edit-button>
                                                 <delete-button vp-id="{{app.Id}}"></delete-button>

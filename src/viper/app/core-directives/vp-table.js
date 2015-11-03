@@ -20,6 +20,7 @@
             })
             scope.title = attrs["title"];
             scope.headers = attrs["headers"].split(',');
+            scope.fields = attrs["fields"].split(',');
         }
         return {
             restrict: 'E',

@@ -10,7 +10,7 @@
         function link(scope, element, attrs) {
             element.bind('click', function () {
                 $modal.open({
-                    templateUrl: '/modals/edition.html',
+                    templateUrl: '/templates/modals/edition.html',
                     controller: ['$modalInstance', '$scope', AddModal]
                 })
                 .result.then(function (client) {
@@ -23,7 +23,7 @@
         return {
             restrict: 'E',
             link: link,
-            template: '<button class="btn btn-primary btn-xs">Create New</button>'
+            template: '<button class="btn btn-primary btn">Create New</button>'
         };
     }])
 })();

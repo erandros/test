@@ -11,7 +11,7 @@
             }
             element.bind('click', function () {
                 $modal.open({
-                    templateUrl: '/modals/delete.html',
+                    templateUrl: '/templates/modals/delete.html',
                     controller: ['$modalInstance', '$scope', DeleteModal]
                 })
                 .result.then(function (client) {

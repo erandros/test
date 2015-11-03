@@ -10,7 +10,7 @@
         function link(scope, element, attrs) {
             element.bind('click', function () {
                 $modal.open({
-                    templateUrl: '/modals/edition.html',
+                    templateUrl: '/templates/modals/edition.html',
                     controller: ['$modalInstance', '$scope', EditModal]
                 })
                 .result.then(function (client) {

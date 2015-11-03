@@ -15,8 +15,8 @@
                     res.data.push(Object.create(res.data[0]));
                     res.data[i].Id = i + 1;
                 }
-                scope.applications = res.data;
-                scope.displayedApps = [].concat(scope.applications);
+                scope.rows = res.data;
+                scope.displayedRows = [].concat(scope.rows);
             })
             scope.title = attrs["title"];
             element.bind('click', function () {

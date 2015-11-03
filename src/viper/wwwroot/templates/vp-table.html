@@ -22,13 +22,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="gradeA odd" role="row" ng-repeat="app in displayedRows track by app.Id">
+                                        <tr class="gradeA odd" role="row" ng-repeat="row in displayedRows track by row.Id">
                                             <td ng-repeat="field in fields track by field">
-                                                {{app[field]}}
+                                                {{row[field]}}
                                             </td>
                                             <td class="center">
-                                                <edit-button vp-id="{{app.Id}}"></edit-button>
-                                                <delete-button vp-id="{{app.Id}}"></delete-button>
+                                                <edit-button vp-id="{{row.Id}}"></edit-button>
+                                                <delete-button vp-id="{{row.Id}}"></delete-button>
                                             </td>
                                         </tr>
                                     </tbody>

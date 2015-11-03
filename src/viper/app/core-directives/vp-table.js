@@ -19,17 +19,6 @@
                 scope.displayedRows = [].concat(scope.rows);
             })
             scope.title = attrs["title"];
-            element.bind('click', function () {
-                $modal.open({
-                    templateUrl: '/modals/edition.html',
-                    controller: ['$modalInstance', '$scope', ViperTable]
-                })
-                .result.then(function (client) {
-                    console.log("Should be adding item");
-                }, function () {
-
-                })
-            })
         }
         return {
             restrict: 'E',

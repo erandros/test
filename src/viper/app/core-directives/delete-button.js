@@ -23,6 +23,7 @@
         }
         return {
             restrict: 'E',
+            require: '^vpTable',
             link: link,
             template: '<button class="btn btn-danger btn-xs">Delete</button>'
         };

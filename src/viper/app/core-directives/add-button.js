@@ -22,6 +22,7 @@
         }
         return {
             restrict: 'E',
+            require: '^vpTable',
             link: link,
             template: '<button class="btn btn-primary btn">Create New</button>'
         };

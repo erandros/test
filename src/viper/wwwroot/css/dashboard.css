@@ -39,6 +39,16 @@ html, body {
     position: fixed;
 }
 
+.page-header * {
+    float: left;
+    margin: 0;
+    margin-right: 18px;
+}
+
+.page-header .btn {
+    margin-top: 3px;
+}
+
 @media (min-width: 768px) {
     .sidebar, .sidebar-background {
         width: 129px;

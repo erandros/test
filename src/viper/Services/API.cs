@@ -8,6 +8,29 @@ using System.Threading.Tasks;
 
 namespace viper.Services
 {
+    public class Response
+    {
+        public Task<HttpResponseMessage> Task;
+        public Response(Task<HttpResponseMessage> task)
+        {
+            Task = task;
+        }
+
+        public bool IsOK
+        {
+            get { return Task.Result.StatusCode == System.Net.HttpStatusCode.OK; }
+        }
+
+        public dynamic Json
+        {
+            get
+            {
+                var json = Task.Result.Content.ReadAsStringAsync().Result;
+                return JsonConvert.DeserializeObject(json);
+            }
+        }
+    }
+
     public class API
     {
         private const string BaseRoute = "https://viper.fitmentgroup.com/";
@@ -59,14 +82,14 @@ namespace viper.Services
         /// <summary>
         /// Use this method to call the viper api from here (the web server)
         /// </summary>
-        public async Task<HttpResponseMessage> Request(string url, object data = null, string method = "GET")
+        public Response Request(string url, object data = null, string method = "GET")
         {
             var client = AuthorizedClient();
-            var response = await client.SendAsync(new HttpRequestMessage(
+            var response = client.SendAsync(new HttpRequestMessage(
                 method: new HttpMethod(method),
                 requestUri: BaseApiRoute + url
             ));
-            return response;
+            return new Response(response);
         }
 
         /// <summary>
@@ -75,8 +98,7 @@ namespace viper.Services
         public string GetTitle()
         {
             var response = Request("/user/applications");
-            var json = response.Result.Content.ReadAsStringAsync().Result;
-            dynamic apps = JsonConvert.DeserializeObject(json);
+            dynamic apps = response.Json;
             foreach(var app in apps)
             {
                 bool isDefault = app.IsDefault;

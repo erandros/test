@@ -1,7 +1,7 @@
 stages:
   - deploy
 
-execute deploy script:
+deploy test:
   script:
     - appcmd stop sites "ViperTest"
     - appcmd recycle apppool "ViperTest"

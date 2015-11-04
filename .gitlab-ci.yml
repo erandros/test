@@ -13,3 +13,18 @@ deploy test:
     - test
   tags:
     - vipertest
+
+deploy dev:
+  script:
+    - appcmd stop sites "ViperDev"
+    - Start-Sleep -s 5
+    - dnu restore src\viper\
+    - dnu publish src\viper\ -o "C:\inetpub\wwwroot\ViperDev\build\" --runtime active
+    - appcmd start sites "ViperDev"
+  stage: deploy
+  except:
+    - test
+    - master
+  tags:
+    - viper
+    - dev

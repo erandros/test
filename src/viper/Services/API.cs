@@ -36,9 +36,11 @@ namespace viper.Services
         private const string BaseRoute = "https://viper.fitmentgroup.com/";
         private const string BaseApiRoute = BaseRoute + "api";
         public Session Session;
-        public API(Session session)
+        public Error Error;
+        public API(Session session, Error error)
         {
             Session = session;
+            Error = error;
         }
 
         public async Task<HttpResponseMessage> LoginRequest(HttpRequest Request, string username, string password)
@@ -85,11 +87,16 @@ namespace viper.Services
         public Response Request(string url, object data = null, string method = "GET")
         {
             var client = AuthorizedClient();
-            var response = client.SendAsync(new HttpRequestMessage(
+            var _response = client.SendAsync(new HttpRequestMessage(
                 method: new HttpMethod(method),
                 requestUri: BaseApiRoute + url
             ));
-            return new Response(response);
+            var response = new Response(_response);
+            if (!response.IsOK)
+            {
+                Error.Report("Request returned with status different than 200", "API");
+            }
+            return response;
         }
 
         /// <summary>
@@ -98,13 +105,17 @@ namespace viper.Services
         public string GetTitle()
         {
             var response = Request("/user/applications");
-            dynamic apps = response.Json;
-            foreach(var app in apps)
+            if (response.IsOK)
             {
-                bool isDefault = app.IsDefault;
-                if (isDefault) return app.Title.Value; 
+                dynamic apps = response.Json;
+                foreach (var app in apps)
+                {
+                    bool isDefault = app.IsDefault;
+                    if (isDefault) return app.Title.Value;
+                }
+                Error.Report("User doesn't have a default site", "API");
             }
-            throw new Exception("User doesn't have a default application");
+            return "Viper";
         }
     }
 }

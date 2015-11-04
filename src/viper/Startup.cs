@@ -17,6 +17,7 @@ using Microsoft.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using viper.Services;
 using Microsoft.Dnx.Runtime;
+using Microsoft.AspNet.Mvc;
 
 namespace viper
 {
@@ -61,6 +62,7 @@ namespace viper
 
             services.AddTransient<Session>();
             services.AddTransient<API>();
+            services.AddTransient<Error>();
 
             services.ConfigureRouting(routeOptions =>
             {

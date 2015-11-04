@@ -4,7 +4,7 @@ stages:
 deploy test:
   script:
     - appcmd stop sites "ViperTest"
-    - appcmd recycle apppool "ViperTest"
+    - Start-Sleep -s 5
     - dnu restore src\viper\
     - dnu publish src\viper\ -o "C:\inetpub\wwwroot\ViperTest\build\" --runtime active
     - appcmd start sites "ViperTest"

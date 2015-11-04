@@ -6,6 +6,7 @@ deploy test:
     - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperTest"
     - Start-Sleep -s 5
+    - Get-ChildItem -Path C:\inetpub\wwwroot\ViperDev\ | foreach { Remove-Item2 -Force -Recurse -Path $_}
     - dnu restore src\viper\
     - dnu publish src\viper\ -o "C:\inetpub\wwwroot\ViperTest\build\" --runtime active
     - appcmd start sites "ViperTest"
@@ -20,6 +21,7 @@ deploy dev:
     - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperDev"
     - Start-Sleep -s 5
+    - Get-ChildItem -Path C:\inetpub\wwwroot\ViperDev\ | foreach { Remove-Item2 -Force -Recurse -Path $_}
     - dnu restore src\viper\
     - dnu publish src\viper\ -o "C:\inetpub\wwwroot\ViperDev\build\" --runtime active
     - appcmd start sites "ViperDev"

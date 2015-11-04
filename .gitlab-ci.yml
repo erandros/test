@@ -3,6 +3,7 @@ stages:
 
 deploy test:
   script:
+    - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperTest"
     - Start-Sleep -s 5
     - dnu restore src\viper\
@@ -16,6 +17,7 @@ deploy test:
 
 deploy dev:
   script:
+    - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperDev"
     - Start-Sleep -s 5
     - dnu restore src\viper\

@@ -20,10 +20,15 @@ deploy dev:
   script:
     - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperDev"
-    - Remove-Item2 -Force -Recurse -Path C:\inetpub\wwwroot\ViperDev\
-    - New-Item C:\inetpub\wwwroot\ViperDev\ -type directory
-    - dnu restore src\viper\
-    - dnu publish src\viper\ -o "C:\inetpub\wwwroot\ViperDev\" --runtime active
+    - $src = (Get-Item -Path ".\" -Verbose).FullName
+    - $stage = "C:\inetpub\wwwroot\ViperDev\stage"
+    - $stageProject = "C:\inetpub\wwwroot\ViperDev\stage\src\viper\"
+    - $site = "C:\inetpub\wwwroot\ViperDev\site"
+    - Get-ChildItem $src -Recurse | Copy-Item  -Force -Destination {Join-Path $stage $_.FullName.Substring($src.length)}
+    - Remove-Item2 -Force -Recurse -Path $site -erroraction 'silentlycontinue'
+    - New-Item $site -type directory
+    - dnu restore $stageProject
+    - dnu publish $stageProject -o $site --runtime active
     - appcmd start sites "ViperDev"
   stage: deploy
   except:

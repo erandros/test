@@ -1,13 +1,20 @@
 stages:
   - deploy
 
+variables:
+  - TEST_ROOT: "C:\inetpub\wwwroot\ViperTest\"
+  - TEST_BUILD: "C:\inetpub\wwwroot\ViperTest\build"
+  - DEV_ROOT: "C:\inetpub\wwwroot\ViperDev\"
+  - DEV_BUILD: "C:\inetpub\wwwroot\ViperDev\build"
+
 deploy test:
   script:
     - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperTest"
-    - Get-ChildItem -Path C:\inetpub\wwwroot\ViperTest\ | foreach { Remove-Item2 -Force -Recurse -Path "$_"}
+    - Remove-Item2 -Force -Recurse -Path $TEST_ROOT
+    - New-Item $TEST_ROOT -type directory
     - dnu restore src\viper\
-    - dnu publish src\viper\ -o "C:\inetpub\wwwroot\ViperTest\build\" --runtime active
+    - dnu publish src\viper\ -o "TEST_BUILD" --runtime active
     - appcmd start sites "ViperTest"
   stage: deploy
   only: 
@@ -19,9 +26,10 @@ deploy dev:
   script:
     - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperDev"
-    - Get-ChildItem -Path C:\inetpub\wwwroot\ViperDev\ | foreach { Remove-Item2 -Force -Recurse -Path "$_"}
+    - Remove-Item2 -Force -Recurse -Path $DEV_ROOT
+    - New-Item $DEV_ROOT -type directory
     - dnu restore src\viper\
-    - dnu publish src\viper\ -o "C:\inetpub\wwwroot\ViperDev\build\" --runtime active
+    - dnu publish src\viper\ -o "DEV_BUILD" --runtime active
     - appcmd start sites "ViperDev"
   stage: deploy
   except:

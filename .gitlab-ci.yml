@@ -1,15 +1,52 @@
 stages:
   - deploy
 
-execute deploy script:
+deploy test:
   script:
+    - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperTest"
-    - appcmd recycle apppool "ViperTest"
-    - dnu restore src\viper\
-    - dnu publish src\viper\ -o "C:\inetpub\wwwroot\ViperTest\build\" --runtime active
+    - $src='./'
+    - $stage='/c/inetpub/wwwroot/ViperTest/stage/'
+    - $_stage='c:\inetpub\wwwroot\ViperTest\stage\'
+    - $site='/c/inetpub/wwwroot/ViperTest/site/'
+    - $_site='c:\inetpub\wwwroot\ViperTest\site\'
+    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage
+    - bash --login -c $cmd
+    - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
+    - bash --login -c $cmd
+    - Remove-Item2 -Force -Recurse $_site -ErrorAction SilentlyContinue
+    - mkdir $_site
+    - dnu restore $_stage\src\viper
+    - dnu publish $_stage\src\viper -o $_site --runtime active
     - appcmd start sites "ViperTest"
   stage: deploy
   only: 
     - test
   tags:
     - vipertest
+
+deploy dev:
+  script:
+    - dnvm use 1.0.0-beta7 -p
+    - appcmd stop sites "ViperDev"
+    - $src='./'
+    - $stage='/c/inetpub/wwwroot/ViperDev/stage/'
+    - $_stage='c:\inetpub\wwwroot\ViperDev\stage\'
+    - $site='/c/inetpub/wwwroot/ViperDev/site/'
+    - $_site='c:\inetpub\wwwroot\ViperDev\site\'
+    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage
+    - bash --login -c $cmd
+    - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
+    - bash --login -c $cmd
+    - Remove-Item2 -Force -Recurse $_site -ErrorAction SilentlyContinue
+    - mkdir $_site
+    - dnu restore $_stage\src\viper
+    - dnu publish $_stage\src\viper -o $_site --runtime active
+    - appcmd start sites "ViperDev"
+  stage: deploy
+  except:
+    - test
+    - master
+  tags:
+    - viper
+    - dev

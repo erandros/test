@@ -23,14 +23,17 @@ namespace viper
 {
     public class Startup
     {
-        public Startup(IApplicationEnvironment env, IRuntimeEnvironment runtimeEnvironment)
+        public Startup(IApplicationEnvironment env, IRuntimeEnvironment runtimeEnvironment, IHostingEnvironment hEnv)
         {
             // Setup configuration sources.
             var builder = new ConfigurationBuilder(env.ApplicationBasePath)
                 .AddJsonFile("config.json")
+                .AddJsonFile("env.json")
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
+            var envName = Configuration.GetSection("ASPNET_ENV").Value;
+            hEnv.EnvironmentName = envName;
         }
 
         public IConfiguration Configuration { get; set; }

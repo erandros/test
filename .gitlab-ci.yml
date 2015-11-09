@@ -14,10 +14,12 @@ deploy test:
     - bash --login -c $cmd
     - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
     - bash --login -c $cmd
-    - Remove-Item2 -Force -Recurse $_site -ErrorAction SilentlyContinue
+    - Remove-Item2 -Force -Recurse $_site
     - mkdir $_site
     - dnu restore $_stage\src\viper
     - dnu publish $_stage\src\viper -o $_site --runtime active
+    - $cmd = 'scripts/env.sh ' + $site + ' Staging'
+    - bash --login -c $cmd
     - appcmd start sites "ViperTest"
   stage: deploy
   only: 
@@ -38,10 +40,12 @@ deploy dev:
     - bash --login -c $cmd
     - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
     - bash --login -c $cmd
-    - Remove-Item2 -Force -Recurse $_site -ErrorAction SilentlyContinue
+    - Remove-Item2 -Force -Recurse $_site
     - mkdir $_site
     - dnu restore $_stage\src\viper
     - dnu publish $_stage\src\viper -o $_site --runtime active
+    - $cmd = 'scripts/env.sh ' + $site + ' Development'
+    - bash --login -c $cmd
     - appcmd start sites "ViperDev"
   stage: deploy
   except:

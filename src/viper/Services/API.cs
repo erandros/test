@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Http;
+﻿using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -33,14 +34,22 @@ namespace viper.Services
 
     public class API
     {
-        private const string BaseRoute = "https://viper.fitmentgroup.com/";
-        private const string BaseApiRoute = BaseRoute + "api";
+        private string BaseRoute;
+        private string BaseApiRoute { get { return BaseRoute + "api"; } }
         public Session Session;
         public Error Error;
-        public API(Session session, Error error)
+        public API(Session session, Error error, IHostingEnvironment env)
         {
             Session = session;
             Error = error;
+            if (env.IsProduction())
+            {
+                BaseRoute = "https://api.fitmentgroup.com/";
+            }
+            else
+            {
+                BaseRoute = "https://apitest.fitmentgroup.com/";
+            }
         }
 
         public async Task<HttpResponseMessage> LoginRequest(HttpRequest Request, string username, string password)

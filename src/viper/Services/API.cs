@@ -113,7 +113,7 @@ namespace viper.Services
         /// </summary>
         public string GetTitle()
         {
-            var response = Request("/user/applications");
+            var response = Request("/application/applications");
             if (response.IsOK)
             {
                 dynamic apps = response.Json;

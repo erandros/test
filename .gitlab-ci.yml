@@ -14,7 +14,7 @@ deploy test:
     - bash --login -c $cmd
     - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
     - bash --login -c $cmd
-    - Remove-Item2 -Force -Recurse $_site -ErrorAction SilentlyContinue
+    - Remove-Item2 -Force -Recurse $_site
     - mkdir $_site
     - dnu restore $_stage\src\viper
     - dnu publish $_stage\src\viper -o $_site --runtime active
@@ -40,7 +40,7 @@ deploy dev:
     - bash --login -c $cmd
     - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
     - bash --login -c $cmd
-    - Remove-Item2 -Force -Recurse $_site -ErrorAction SilentlyContinue
+    - Remove-Item2 -Force -Recurse $_site
     - mkdir $_site
     - dnu restore $_stage\src\viper
     - dnu publish $_stage\src\viper -o $_site --runtime active

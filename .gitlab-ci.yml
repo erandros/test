@@ -18,6 +18,8 @@ deploy test:
     - mkdir $_site
     - dnu restore $_stage\src\viper
     - dnu publish $_stage\src\viper -o $_site --runtime active
+    - $cmd = 'scripts/env.sh ' + $site + ' Staging'
+    - bash --login -c $cmd
     - appcmd start sites "ViperTest"
   stage: deploy
   only: 
@@ -42,6 +44,8 @@ deploy dev:
     - mkdir $_site
     - dnu restore $_stage\src\viper
     - dnu publish $_stage\src\viper -o $_site --runtime active
+    - $cmd = 'scripts/env.sh ' + $site + ' Development'
+    - bash --login -c $cmd
     - appcmd start sites "ViperDev"
   stage: deploy
   except:

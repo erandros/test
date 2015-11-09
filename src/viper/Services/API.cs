@@ -103,7 +103,9 @@ namespace viper.Services
             var response = new Response(_response);
             if (!response.IsOK)
             {
-                Error.Report("Request returned with status different than 200", "API");
+                var st = _response.Result;
+                Error.Report("API Request returned with status != 200 : "
+                    + st.StatusCode.ToString() + " " + st.ReasonPhrase, "API");
             }
             return response;
         }

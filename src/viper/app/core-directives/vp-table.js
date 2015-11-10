@@ -18,10 +18,6 @@
             scope.api = $injector.get(attrs['api']);
             scope.api.get()
             .then(function (res) {
-                for (var i = 1; i < 50; i++) {
-                    res.data.push(Object.create(res.data[0]));
-                    res.data[i].Id = i + 1;
-                }
                 scope.rows = res.data;
                 scope.displayedRows = [].concat(scope.rows);
             })

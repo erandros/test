@@ -1,6 +1,33 @@
 stages:
   - deploy
 
+deploy production:
+  script:
+    - dnvm use 1.0.0-beta7 -p
+    - appcmd stop sites "Viper"
+    - $src='./'
+    - $stage='/c/inetpub/wwwroot/Viper/stage/'
+    - $_stage='c:\inetpub\wwwroot\Viper\stage\'
+    - $site='/c/inetpub/wwwroot/Viper/site/'
+    - $_site='c:\inetpub\wwwroot\Viper\site\'
+    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage
+    - bash --login -c $cmd
+    - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
+    - bash --login -c $cmd
+    - Remove-Item2 -Force -Recurse $_site
+    - mkdir $_site
+    - dnu restore $_stage\src\viper
+    - dnu publish $_stage\src\viper -o $_site --runtime active
+    - $cmd = 'scripts/env.sh ' + $site + ' Production'
+    - bash --login -c $cmd
+    - appcmd start sites "Viper"
+  stage: deploy
+  only: 
+    - master
+  tags:
+    - viper
+    - production
+
 deploy test:
   script:
     - dnvm use 1.0.0-beta7 -p

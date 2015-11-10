@@ -10,7 +10,7 @@ deploy production:
     - $_stage='c:\inetpub\wwwroot\Viper\stage\'
     - $site='/c/inetpub/wwwroot/Viper/site/'
     - $_site='c:\inetpub\wwwroot\Viper\site\'
-    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage
+    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage + ' > out.s 2> out.err'
     - bash --login -c $cmd
     - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
     - bash --login -c $cmd
@@ -37,7 +37,7 @@ deploy test:
     - $_stage='c:\inetpub\wwwroot\ViperTest\stage\'
     - $site='/c/inetpub/wwwroot/ViperTest/site/'
     - $_site='c:\inetpub\wwwroot\ViperTest\site\'
-    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage
+    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage + ' > out.s 2> out.err'
     - bash --login -c $cmd
     - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
     - bash --login -c $cmd
@@ -63,7 +63,7 @@ deploy dev:
     - $_stage='c:\inetpub\wwwroot\ViperDev\stage\'
     - $site='/c/inetpub/wwwroot/ViperDev/site/'
     - $_site='c:\inetpub\wwwroot\ViperDev\site\'
-    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage
+    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage + ' > out.s 2> out.err'
     - bash --login -c $cmd
     - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
     - bash --login -c $cmd

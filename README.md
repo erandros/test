@@ -1,10 +1,20 @@
-Publishing
-====
-To update the live version, a published needs to be done. For example, to update the dev version we have to follow these steps:
+## Viper site
+---
 
-  * Log into .79 server
-  * Go to `C:\inetpub\wwwroot\ViperTest\git`
-  * `git pull` the desired branch (`central` remote references the `demand/viper` site)
-  * Stop the ViperTest site in IIS.
-  * Run the `publish.ps1`PowerShell script.
-  * Start the ViperTest site in IIS.
+#### Live site
+
+[![build status](https://git.thegeck.com/ci/projects/6/status.png?ref=master)](https://git.thegeck.com/ci/projects/6?ref=master)
+
+* https://viper.fitmentgroup.com
+
+#### Test site
+
+[![build status](https://git.thegeck.com/ci/projects/6/status.png?ref=test)](https://git.thegeck.com/ci/projects/6?ref=test)
+
+* https://vipertest.fitmentgroup.com
+
+#### Dev site
+
+[![build status](https://git.thegeck.com/ci/projects/5/status.png)](https://git.thegeck.com/ci/projects/5)
+
+* https://viperdev.fitmentgroup.com

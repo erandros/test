@@ -32,6 +32,7 @@ deploy test:
   script:
     - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperTest"
+    - appcmd recycle apppool "ViperTest"
     - $src='./'
     - $stage='/c/inetpub/wwwroot/ViperTest/stage/'
     - $_stage='c:\inetpub\wwwroot\ViperTest\stage\'
@@ -58,6 +59,7 @@ deploy dev:
   script:
     - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperDev"
+    - appcmd recycle apppool "ViperDev"
     - $src='./'
     - $stage='/c/inetpub/wwwroot/ViperDev/stage/'
     - $_stage='c:\inetpub\wwwroot\ViperDev\stage\'

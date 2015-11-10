@@ -23,6 +23,7 @@ namespace viper
 {
     public class Startup
     {
+        public IHostingEnvironment HostingEnv;
         public Startup(IApplicationEnvironment env, IRuntimeEnvironment runtimeEnvironment, IHostingEnvironment hEnv)
         {
             // Setup configuration sources.
@@ -32,8 +33,9 @@ namespace viper
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
+            HostingEnv = hEnv;
             var envName = Configuration.GetSection("ASPNET_ENV").Value;
-            hEnv.EnvironmentName = envName;
+            HostingEnv.EnvironmentName = envName;
         }
 
         public IConfiguration Configuration { get; set; }
@@ -76,13 +78,6 @@ namespace viper
         {
             loggerFactory.AddConsole(minLevel: LogLevel.Warning);
 
-            // StatusCode pages to gracefully handle status codes 400-599.
-            app.UseStatusCodePagesWithRedirects("~/Home/StatusCodePage");
-
-            // Display custom error page in production when error occurs
-            // During development use the ErrorPage middleware to display error information in the browser
-            app.UseErrorPage();
-
             app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
 
             // Add the runtime information page that can be used by developers
@@ -96,6 +91,18 @@ namespace viper
         // Configure is called after ConfigureServices is called.
         public void Configure(IApplicationBuilder app)
         {
+            if (!HostingEnv.IsProduction())
+            {
+                // StatusCode pages to gracefully handle status codes 400-599.
+                app.UseStatusCodePagesWithRedirects("~/Home/StatusCodePage");
+
+                // Display custom error page in production when error occurs
+                // During development use the ErrorPage middleware to display error information in the browser
+                app.UseErrorPage();
+
+                app.Properties["host.appMode"] = "development";
+            }
+
             app.UseSession();
 
             // Add static files to the request pipeline.

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
+using Microsoft.CSharp.RuntimeBinder;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -26,8 +27,12 @@ namespace viper.Services
         {
             get
             {
-                var json = Task.Result.Content.ReadAsStringAsync().Result;
-                return JsonConvert.DeserializeObject(json);
+                try
+                {
+                    var json = Task.Result.Content.ReadAsStringAsync().Result;
+                    return JsonConvert.DeserializeObject(json);
+                }
+                catch(Exception) { return null; }
             }
         }
     }
@@ -52,7 +57,7 @@ namespace viper.Services
             }
         }
 
-        public async Task<HttpResponseMessage> LoginRequest(HttpRequest Request, string username, string password)
+        public Response LoginRequest(HttpRequest Request, string username, string password)
         {
             var req = new HttpClient();
             List<KeyValuePair<string, string>> kvpList = new List<KeyValuePair<string, string>>()
@@ -62,9 +67,21 @@ namespace viper.Services
                 new KeyValuePair<string, string>("password", password),
             };
             var content = new FormUrlEncodedContent(kvpList);
-            var response = await req.PostAsync(
+            var _response = req.PostAsync(
                 requestUri: BaseRoute + "Token",
                 content: content);
+            var response = new Response(_response);
+            if (!response.IsOK)
+            {
+                var json = response.Json;
+                try
+                {
+                    var error = json.error;
+                    if (error != "grant_denied")
+                        Error.ReportRequest(response);
+                }
+                catch(RuntimeBinderException) { Error.ReportRequest(response); }
+            }
             return response;
         }
 
@@ -103,7 +120,7 @@ namespace viper.Services
             var response = new Response(_response);
             if (!response.IsOK)
             {
-                Error.Report("Request returned with status different than 200", "API");
+                Error.ReportRequest(response);
             }
             return response;
         }
@@ -113,7 +130,7 @@ namespace viper.Services
         /// </summary>
         public string GetTitle()
         {
-            var response = Request("/user/applications");
+            var response = Request("/application/applications");
             if (response.IsOK)
             {
                 dynamic apps = response.Json;

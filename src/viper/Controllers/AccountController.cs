@@ -53,13 +53,11 @@ namespace viper.Controllers
             {
                 return View(model);
             }
-            var response = API.LoginRequest(Request, model.Email, model.Password).Result;
-            bool success = response.StatusCode == System.Net.HttpStatusCode.OK;
-            if (success)
+            var response = API.LoginRequest(Request, model.Email, model.Password);
+            if (response.IsOK)
             {
-                var result = response.Content.ReadAsStringAsync().Result;
-                dynamic data = JsonConvert.DeserializeObject(result);
-                Session.Token = data.access_token.Value;
+                dynamic json = response.Json;
+                Session.Token = json.access_token.Value;
                 var user = new ApplicationUser()
                 {
                     SecurityStamp = Guid.NewGuid().ToString("D"),

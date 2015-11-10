@@ -8,6 +8,13 @@
             var vm = this;
         }
         function link(scope, element, attrs) {
+            var type = attrs['type'];
+            if (!attrs.hasOwnProperty('api')) {
+                attrs['api'] = type.pluralize();
+            }
+            if (!attrs.hasOwnProperty('title')) {
+                attrs['title'] = type.capitalizeFirstLetter().pluralize();
+            }
             scope.api = $injector.get(attrs['api']);
             scope.api.get()
             .then(function (res) {
@@ -18,6 +25,7 @@
                 scope.rows = res.data;
                 scope.displayedRows = [].concat(scope.rows);
             })
+            scope.type = attrs["type"];
             scope.title = attrs["title"];
             scope.headers = attrs["headers"].split(',');
             scope.fields = attrs["fields"].split(',');

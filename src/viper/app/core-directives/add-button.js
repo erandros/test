@@ -12,6 +12,9 @@
                     resolve: {
                         fields: function () {
                             return scope.fields;
+                        },
+                        type: function () {
+                            return scope.type;
                         }
                     }
                 })
@@ -31,9 +34,10 @@
             scope: false
         };
     }])
-    .controller('AddModalCtrl', function ($modalInstance, $scope, fields) {
+    .controller('AddModalCtrl', function ($modalInstance, $scope, fields, type) {
         var vm = this;
         $scope.fields = fields;
+        $scope.type = type;
     })
     
 })();

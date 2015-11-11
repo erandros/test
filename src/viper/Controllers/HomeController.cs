@@ -21,5 +21,10 @@ namespace viper.Controllers
         {
             return View("~/Views/Shared/Error.cshtml");
         }
+
+        public IActionResult StatusCodePage()
+        {
+            return View("~/Views/Shared/StatusCodePage.cshtml");
+        }
     }
 }

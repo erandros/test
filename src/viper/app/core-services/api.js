@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .factory('api', ['$http', 'url', 'token', function ($http, url, token) {
+    .factory('api', ['$http', 'url', function ($http, url) {
         function ajax(method, _url) {
             return function (data) {
                 return $http({

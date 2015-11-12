@@ -130,7 +130,7 @@ namespace viper.Services
         /// </summary>
         public string GetTitle()
         {
-            var response = Request("/user/users/my/applications");
+            var response = Request("/user/applications");
             if (response.IsOK)
             {
                 try

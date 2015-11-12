@@ -5,4 +5,4 @@
     viper.factory('users', ['api', function (api) {
         return api('/user/users');
     }])
-})()
+})();

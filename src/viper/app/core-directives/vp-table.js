@@ -18,7 +18,7 @@
             scope.api = $injector.get(attrs['api']);
             scope.api.get()
             .then(function (res) {
-                scope.rows = res.data;
+                scope.rows = res.data.map(function (el) { return flatten(el) });
                 scope.displayedRows = [].concat(scope.rows);
             })
             scope.type = attrs["type"];

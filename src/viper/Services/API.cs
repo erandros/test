@@ -130,16 +130,15 @@ namespace viper.Services
         /// </summary>
         public string GetTitle()
         {
-            var response = Request("/application/applications");
+            var response = Request("/user/users/my/applications");
             if (response.IsOK)
             {
-                dynamic apps = response.Json;
-                foreach (var app in apps)
+                try
                 {
-                    bool isDefault = app.IsDefault;
-                    if (isDefault) return app.Title.Value;
+                    dynamic apps = response.Json;
+                    return apps[0].Title.Value;
                 }
-                Error.Report("User doesn't have a default site", "API");
+                catch(RuntimeBinderException) { Error.Report("User doesn't have any site", "API"); }
             }
             return "Viper";
         }

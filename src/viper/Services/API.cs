@@ -77,7 +77,7 @@ namespace viper.Services
                 try
                 {
                     var error = json.error;
-                    if (error != "grant_denied")
+                    if (error != "invalid_grant")
                         Error.ReportRequest(response);
                 }
                 catch(RuntimeBinderException) { Error.ReportRequest(response); }

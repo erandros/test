@@ -18,8 +18,8 @@
                         }
                     }
                 })
-                .result.then(function (client) {
-                    console.log("Should be adding item");
+                .result.then(function (form) {
+                    scope.api.post(form);
                 }, function () {
 
                 })
@@ -36,6 +36,7 @@
     }])
     .controller('AddModalCtrl', function ($modalInstance, $scope, fields, type) {
         var vm = this;
+        $scope.form = {};
         $scope.fields = fields;
         $scope.type = type;
     })

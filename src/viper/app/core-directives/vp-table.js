@@ -4,9 +4,6 @@
     angular
     .module('viper')
     .directive('vpTable', ['$modal', '$injector', function ($modal, $injector) {
-        function ViperTable($scope) {
-            var vm = this;
-        }
         function link(scope, element, attrs) {
             var type = attrs['type'];
             if (!attrs.hasOwnProperty('api')) {
@@ -29,7 +26,10 @@
             restrict: 'E',
             link: link,
             templateUrl: 'templates/vp-table.html',
-            controller: ViperTable
+            controller: ['$scope', ViperTable]
         };
+        function ViperTable($scope) {
+            var vm = this;
+        }
     }])
 })();

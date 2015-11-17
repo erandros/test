@@ -87,7 +87,7 @@ namespace viper.Controllers
         public async Task<ActionResult> LogOff()
         {
             await SignInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         #region Helpers

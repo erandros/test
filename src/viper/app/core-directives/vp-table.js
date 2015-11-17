@@ -22,7 +22,8 @@
             scope.title = attrs["title"];
             scope.fields = attrs["fields"].split(',');
             scope.headers = attrs["headers"].split(',');
-            scope.createFields = attrs["createFields"].split(',');
+            scope.createFields = attrs["createFields"] || attrs["fields"];
+            scope.editFields = attrs["editFields"] || attrs["fields"];
         }
         return {
             restrict: 'E',

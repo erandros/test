@@ -11,7 +11,7 @@
                     controller: 'EditModalCtrl',
                     resolve: {
                         fields: function () {
-                            return scope.fields;
+                            return typifyFields(scope.editFields);
                         },
                         type: function () {
                             return scope.type;

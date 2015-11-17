@@ -11,7 +11,7 @@
                     controller: 'AddModalCtrl',
                     resolve: {
                         fields: function () {
-                            return scope.createFields;
+                            return typifyFields(scope.createFields);
                         },
                         type: function () {
                             return scope.type;

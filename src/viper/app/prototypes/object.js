@@ -14,3 +14,22 @@ var flatten = function (obj) {
     }
     return toReturn;
 };
+
+/* Receives a string like 'user,password:password,remember:checkbox'
+and returns the array
+[
+ {name: 'user', type: 'text'}, 
+ {name: 'password', type: 'password'},
+ {name: 'remember', type: 'checkbox'}
+]
+'text' is the default type of a field
+ */
+var typifyFields = function (fields) {
+    return fields.split(',').map(function (field) {
+        var split = field.split(':');
+        return {
+            name: split[0],
+            type: split[1] || 'text'
+        }
+    })
+};

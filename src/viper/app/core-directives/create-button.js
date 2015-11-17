@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .directive('addButton', ['$modal', function ($modal) {
+    .directive('createButton', ['$modal', function ($modal) {
         function link(scope, element, attrs) {
             element.bind('click', function () {
                 $modal.open({

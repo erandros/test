@@ -19,7 +19,11 @@
                     }
                 })
                 .result.then(function (form) {
-                    scope.api.post(form);
+                    var cb = scope.api.post(form);
+                    scope.clear();
+                    cb.then(function () {
+                        scope.refresh();
+                    });
                 }, function () {
 
                 })

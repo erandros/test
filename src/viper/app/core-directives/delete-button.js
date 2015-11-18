@@ -19,7 +19,11 @@
                     }
                 })
                 .result.then(function (form) {
-                    scope.api.delete({ Id: scope.row.Id });
+                    var cb = scope.api.delete({ Id: scope.row.Id });
+                    scope.clear();
+                    cb.then(function () {
+                        scope.refresh();
+                    });
                 }, function () {
 
                 })

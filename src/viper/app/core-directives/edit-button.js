@@ -22,7 +22,11 @@
                     }
                 })
                 .result.then(function (form) {
-                    scope.api.put(form);
+                    var cb = scope.api.put(form)
+                    scope.clear();
+                    cb.then(function () {
+                        scope.refresh();
+                    });
                 }, function () {
 
                 })
@@ -39,7 +43,7 @@
     }])
     .controller('EditModalCtrl', function ($modalInstance, $scope, fields, type, row) {
         var vm = this;
-        $scope.form = row;
+        $scope.form = jQuery.extend(true, {}, row);
         $scope.fields = fields;
         $scope.type = type;
     })

@@ -7,16 +7,19 @@
         function ajax(method, _url) {
             return function (data) {
                 return $http({
+                    method: method,
                     url: url.api + _url,
-                    data: data,
-                    method: method
+                    data: data
                 });
             }
         }
-        return function (url) {
-            return {
-                get: ajax('get', url),
-                post: ajax('post', url)
+        return {
+            request: $http,
+            create: function (url) {
+                return {
+                    get: ajax('get', url),
+                    post: ajax('post', url)
+                }
             }
         }
     }])

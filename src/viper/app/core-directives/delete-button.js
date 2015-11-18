@@ -10,16 +10,16 @@
                     templateUrl: '/templates/modals/delete.html',
                     controller: 'DeleteModalCtrl',
                     resolve: {
-                        fields: function () {
-                            return scope.fields;
-                        },
                         type: function () {
                             return scope.type;
+                        },
+                        row: function () {
+                            return scope.row;
                         }
                     }
                 })
                 .result.then(function (form) {
-                    scope.api.delete(form);
+                    scope.api.delete({ Id: scope.row.Id });
                 }, function () {
 
                 })
@@ -34,12 +34,11 @@
             scope: false
         };
     }])
-    .controller('DeleteModalCtrl', function ($modalInstance, $scope, fields, type) {
+    .controller('DeleteModalCtrl', function ($modalInstance, $scope, type, row) {
         var vm = this;
         $scope.form = {};
-        $scope.fields = fields;
         $scope.type = type;
-        $scope.id = fields['Id'];
+        $scope.row = row;
     })
 
 })();

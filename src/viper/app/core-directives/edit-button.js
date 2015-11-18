@@ -15,6 +15,9 @@
                         },
                         type: function () {
                             return scope.type;
+                        },
+                        row: function () {
+                            return scope.row;
                         }
                     }
                 })
@@ -34,9 +37,9 @@
             scope: false
         };
     }])
-    .controller('EditModalCtrl', function ($modalInstance, $scope, fields, type) {
+    .controller('EditModalCtrl', function ($modalInstance, $scope, fields, type, row) {
         var vm = this;
-        $scope.form = {};
+        $scope.form = row;
         $scope.fields = fields;
         $scope.type = type;
     })

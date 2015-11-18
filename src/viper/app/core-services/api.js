@@ -3,12 +3,12 @@
 
     angular
     .module('viper')
-    .factory('api', ['$http', 'url', function ($http, url) {
+    .factory('api', ['$http', function ($http) {
         function ajax(method, _url) {
             return function (data) {
                 return $http({
                     method: method,
-                    url: url.api + _url,
+                    url: '/api' + _url,
                     data: data
                 });
             }

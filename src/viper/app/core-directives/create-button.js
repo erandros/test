@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .directive('addButton', ['$modal', function ($modal) {
+    .directive('createButton', ['$modal', function ($modal) {
         function link(scope, element, attrs) {
             element.bind('click', function () {
                 $modal.open({
@@ -11,7 +11,7 @@
                     controller: 'AddModalCtrl',
                     resolve: {
                         fields: function () {
-                            return scope.fields;
+                            return typifyFields(scope.createFields);
                         },
                         type: function () {
                             return scope.type;
@@ -19,7 +19,11 @@
                     }
                 })
                 .result.then(function (form) {
-                    scope.api.post(form);
+                    var cb = scope.api.post(form);
+                    scope.clear();
+                    cb.then(function () {
+                        scope.refresh();
+                    });
                 }, function () {
 
                 })

@@ -4,6 +4,7 @@ using Microsoft.CSharp.RuntimeBinder;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -101,9 +102,20 @@ namespace viper.Services
         public async Task<object> RequestPassThrough(HttpRequest Current, string route)
         {
             var client = AuthorizedClient();
-            var response = await client.SendAsync(new HttpRequestMessage(
+            var message = new HttpRequestMessage(
                 method: new HttpMethod(Current.Method),
-                requestUri: BaseRoute + "api/" + route));
+                requestUri: BaseRoute + "api/" + route);
+            if (Current.Method != "GET")
+            {
+                var content = new StreamReader(Current.Body).ReadToEnd();
+                if (!string.IsNullOrEmpty(content))
+                {
+                    var encoding = System.Text.Encoding.UTF8;
+                    var mediaType = Current.ContentType.Substring(0, Current.ContentType.IndexOf(';'));
+                    message.Content = new StringContent(content, encoding, mediaType);
+                }
+            }
+            var response = await client.SendAsync(message);
             return response.Content.ReadAsStringAsync().Result;
         }
 

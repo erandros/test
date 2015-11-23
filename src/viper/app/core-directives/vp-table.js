@@ -31,6 +31,11 @@
             scope.headers = attrs["headers"].split(',');
             scope.createFields = attrs["createFields"] || attrs["fields"];
             scope.editFields = attrs["editFields"] || attrs["fields"];
+            scope.searchField = attrs["searchField"] || (function () {
+                //Use these defaults values if no searchField is specified
+                if (scope.fields.indexOf("Name") > -1) return "Name";
+                if (scope.fields.indexOf("Title") > -1) return "Title";
+            })();
         }
         return {
             restrict: 'E',

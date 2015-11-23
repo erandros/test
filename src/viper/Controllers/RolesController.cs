@@ -13,7 +13,7 @@ namespace viper.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View("~/Views/Users/Index.cshtml");
+            return View();
         }
     }
 }

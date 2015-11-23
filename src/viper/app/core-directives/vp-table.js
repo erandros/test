@@ -36,6 +36,7 @@
                 if (scope.fields.indexOf("Name") > -1) return "Name";
                 if (scope.fields.indexOf("Title") > -1) return "Title";
             })();
+            scope.itemsByPage = attrs["itemsByPage"] || 10;
         }
         return {
             restrict: 'E',

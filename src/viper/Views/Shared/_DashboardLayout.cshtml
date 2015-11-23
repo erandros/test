@@ -1,56 +1,11 @@
-﻿@inject IOptions<AppSettings> AppSettings
+﻿@using viper.Components
+@inject IOptions<AppSettings> AppSettings
 @{
     Layout = "_Layout";
 }
-
-@functions
-{
-    string sidebarActiveCss(string controller)
-    {
-        string currentController = ViewContext.RouteData.Values["controller"].ToString();
-        return string.Equals(currentController, controller, StringComparison.OrdinalIgnoreCase)
-            ? "active" : "";
-    }   
-}
-
 <div class="container-fluid">
     <div class="row">
-        <div class="sidebar-background">
-        </div>
-        <div class="sidebar">
-            <ul class="nav nav-sidebar" id="metis-menu" ng-controller="sidebarController">
-                <li role="presentation" class="@sidebarActiveCss("Dashboard")">
-                    <a asp-controller="Dashboard" asp-action="Index">
-                        <i class="fa fa-fw fa-dashboard"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-                <li role="presentation" class="@sidebarActiveCss("Users") ">
-                    <a asp-controller="Users" asp-action="Index">
-                        <i class="fa fa-fw fa-users"></i>
-                        <span>Users</span>
-                    </a>
-                </li>
-                <li role="presentation" class="@sidebarActiveCss("Applications")">
-                    <a asp-controller="Applications" asp-action="Index">
-                        <i class="fa fa-fw fa-desktop"></i>
-                        <span>Applications</span>
-                    </a>
-                </li>
-                <li role="presentation" class="@sidebarActiveCss("Clients")">
-                    <a asp-controller="Clients" asp-action="Index">
-                        <i class="fa fa-fw fa-money"></i>
-                        <span>Clients</span>
-                    </a>
-                </li>
-                <li role="presentation" class="@sidebarActiveCss("Scrapes")">
-                    <a asp-controller="Scrapes" asp-action="Index">
-                        <i class="fa fa-fw fa-gears"></i>
-                        <span>Scrapes</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        @await Component.InvokeAsync("SidebarItem")
         <div id="page-wrapper" style="min-height: 555px;">
             @RenderBody()
         </div>

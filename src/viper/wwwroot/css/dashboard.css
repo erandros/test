@@ -14,6 +14,10 @@ html, body {
     margin-top: 0px;
 }
 
+.sidebar li.submenu {
+    background-color: #f1f1f1;
+}
+
 .sidebar li.active {
     background-color: #E1E1E1;
 }
@@ -52,6 +56,10 @@ html, body {
 @media (min-width: 768px) {
     .sidebar, .sidebar-background {
         width: 129px;
+    }
+
+    .sidebar .submenu a {
+        padding-left: 30px;
     }
 }
 

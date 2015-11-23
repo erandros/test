@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.CSharp.RuntimeBinder;
+using Microsoft.Framework.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using viper.Extensions;
 
 namespace viper.Services
 {
@@ -44,11 +47,16 @@ namespace viper.Services
         private string BaseApiRoute { get { return BaseRoute + "api"; } }
         public Session Session;
         public Error Error;
-        public API(Session session, Error error, IHostingEnvironment env)
+        public API(Session session, Error error, IHostingEnvironment env, IConfiguration Configuration)
         {
             Session = session;
             Error = error;
-            if (env.IsProduction())
+            var localApi = Configuration.GetSection("LOCAL_API").Value;
+            if (localApi.LowerCaseEquals("true"))
+            {
+                BaseRoute = "http://localhost:50558/";
+            }
+            else if (env.IsProduction())
             {
                 BaseRoute = "https://api.fitmentgroup.com/";
             }

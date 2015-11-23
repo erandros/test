@@ -8,7 +8,7 @@ using Microsoft.AspNet.Mvc;
 
 namespace viper.Components
 {
-    public class SidebarItemViewComponent : ViewComponent
+    public class SidebarViewComponent : ViewComponent
     {
         public IViewComponentResult Invoke()
         {

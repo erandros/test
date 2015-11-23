@@ -1,6 +1,8 @@
 # Our own ignores
 
 /src/viper/wwwroot/dist/*
+env.json
+
 
 # ignore from github/gitignore
 

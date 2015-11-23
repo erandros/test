@@ -68,6 +68,10 @@ namespace viper
             services.AddTransient<Session>();
             services.AddTransient<API>();
             services.AddTransient<Error>();
+            services.AddSingleton(s =>
+            {
+                return Configuration;
+            });
 
             services.ConfigureRouting(routeOptions =>
             {

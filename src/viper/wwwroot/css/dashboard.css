@@ -3,6 +3,11 @@ html, body {
     height: 100%;
 }
 
+body {
+    min-width: 768px;
+    overflow: scroll;
+}
+
 .sidebar {
     z-index: 2000;
     margin-top: 0px;
@@ -53,22 +58,10 @@ html, body {
     margin-top: 3px;
 }
 
-@media (min-width: 768px) {
-    .sidebar, .sidebar-background {
-        width: 129px;
-    }
-
-    .sidebar .submenu a {
-        padding-left: 30px;
-    }
+.sidebar, .sidebar-background {
+    width: 129px;
 }
 
-@media (max-width: 767px) {
-    .sidebar li span {
-        display: none;
-    }
-    .nav-sidebar, .sidebar-background {
-        width: 50px;
-    }
-
+.sidebar .submenu a {
+    padding-left: 30px;
 }

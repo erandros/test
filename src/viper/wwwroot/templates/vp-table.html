@@ -38,7 +38,7 @@
                                         <thead>
                                             <tr role="row">
                                                 <th ng-repeat="header in headers track by header">{{header}}</th>
-                                                <th>Actions</th>
+                                                <th ng-if="mode == 'default'">Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -46,7 +46,7 @@
                                                 <td ng-repeat="field in fields track by field">
                                                     {{row[field]}}
                                                 </td>
-                                                <td class="center">
+                                                <td class="center" ng-if="mode == 'default'">
                                                     <edit-button></edit-button>
                                                     <delete-button></delete-button>
                                                 </td>

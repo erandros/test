@@ -34,7 +34,7 @@
             transclude: false,
             require: '^vpTable',
             link: link,
-            template: '<button class="btn btn-primary btn">Create New</button>',
+            template: '<button class="btn btn-primary btn">Add New</button>',
             scope: false
         };
     }])

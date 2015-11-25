@@ -37,7 +37,7 @@
                 if (scope.fields.indexOf("Title") > -1) return "Title";
             })();
             scope.itemsByPage = attrs["itemsByPage"] || 10;
-            if ([undefined, null, "default", "checkbox"].indexOf(mode) < 0)
+            if ([undefined, null, "default", "checkbox"].indexOf(attrs.mode) < 0)
                 throw new Error("Invalid mode: check the above line for valid values");
             scope.mode = attrs["mode"] || "default";
         }

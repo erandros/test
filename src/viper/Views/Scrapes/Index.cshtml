@@ -6,7 +6,9 @@
     Layout = "_DashboardLayout";
     ViewBag.Title = "Admin";
 }
-<vp-table type="scrape"
-          headers="Name,Title,Type,Created Date"
-          fields="Name,Title,Type,Date">
-</vp-table>
+<section st-table="displayedRows" st-safe-src="rows">
+    <vp-table type="scrape"
+              headers="Name,Title,Type,Created Date"
+              fields="Name,Title,Type,Date">
+    </vp-table>
+</section>

@@ -6,8 +6,10 @@
     Layout = "_DashboardLayout";
     ViewBag.Title = "Admin";
 }
-<vp-table type="user"
-          headers="Email,Id,User"
-          fields="Email,Id,UserName"
-          create-fields="Email,Password:password,ConfirmPassword:password">
-</vp-table>
+<section st-table="displayedRows" st-safe-src="rows">
+    <vp-table type="user"
+              headers="Email,Id,User"
+              fields="Email,Id,UserName"
+              create-fields="Email,Password:password,ConfirmPassword:password">
+    </vp-table>
+</section>

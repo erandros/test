@@ -2,8 +2,10 @@
     Layout = "_DashboardLayout";
     ViewBag.Title = "Admin";
 }
-<vp-table type="group"
-          headers="Name,Description"
-          fields="Name,Description"
-          create-fields="Description,Name">
-</vp-table>
+<section st-table="displayedRows" st-safe-src="rows">
+    <vp-table type="group"
+              headers="Name,Description"
+              fields="Name,Description"
+              create-fields="Description,Name">
+    </vp-table>
+</section>

@@ -45,7 +45,8 @@
             restrict: 'E',
             link: link,
             templateUrl: 'templates/vp-table.html',
-            controller: ['$scope', ViperTable]
+            controller: ['$scope', ViperTable],
+            require: '^stTable'
         };
         function ViperTable($scope) {
             var vm = this;

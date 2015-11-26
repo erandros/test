@@ -6,10 +6,11 @@
     Layout = "_DashboardLayout";
     ViewBag.Title = "Admin";
 }
-<vp-table type="application"
-            headers="Name,Title,Type,Created Date"
-            fields="Name,Title,ApplicationType.Name,CreateTs"
-          search-field="Name"
-          mode="checkbox"
->
-</vp-table>
+<section st-table="displayedRows" st-safe-src="rows">
+    <vp-table type="application"
+              headers="Name,Title,Type,Created Date"
+              fields="Name,Title,ApplicationType.Name,CreateTs"
+              search-field="Name"
+              mode="checkbox">
+    </vp-table>
+</section>

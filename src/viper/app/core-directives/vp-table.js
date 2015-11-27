@@ -4,7 +4,7 @@
     angular
     .module('viper')
     .directive('vpTable', ['$modal', '$injector', function ($modal, $injector) {
-        function link(scope, element, attrs) {
+        function link(scope, element, attrs, ctrl) {
             var type = attrs['type'];
             if (!attrs.hasOwnProperty('api')) {
                 attrs['api'] = type.pluralize();
@@ -14,7 +14,7 @@
             }
             scope.api = $injector.get(attrs['api']);
             scope.clear = function () {
-                scope.rows = scope.displayedRows = null;
+                scope.rows = scope.displayedRows = scope.selectedRows = null;
             }
             scope.refresh = function () {
                 scope.clear();
@@ -40,6 +40,8 @@
             if ([undefined, null, "default", "checkbox"].indexOf(attrs.mode) < 0)
                 throw new Error("Invalid mode: check the above line for valid values");
             scope.mode = attrs["mode"] || "default";
+            scope.selectedRows = [];
+            scope.parent = ctrl;
         }
         return {
             restrict: 'E',
@@ -50,6 +52,17 @@
         };
         function ViperTable($scope) {
             var vm = this;
+            this.select = function (row, mode) {
+                $scope.parent.select(row, mode);
+            }
+            this.selectRow = function (row) {
+                $scope.selectedRows.push(row);
+            }
+            this.deselectRow = function (row) {
+                var rows = $scope.selectedRows;
+                $scope.selectedRows.splice(rows.indexOf(row), 1);
+            }
+            //$scope.selectedRows = [];
         }
     }])
 })();

@@ -11,20 +11,16 @@
             },
             link: function (scope, element, attr, ctrl) {
                 element.bind('click', function (evt) {
-                    scope.$apply(function () {
-                        ctrl.select(scope.row, 'multiple');
-                    });
-                });
-                scope.$watch('row.isSelected', function (newValue, oldValue) {
-                    if (newValue === true) {
+                    var checked = !element.children().hasClass('checked');
+                    if (checked) {
                         ctrl.selectRow(scope.row);
                         element.children('.vp-box').addClass('checked');
-                        element.parent().addClass('st-selected');
-                    } else {
+                    }
+                    else {
                         ctrl.deselectRow(scope.row);
                         element.children('.vp-box').removeClass('checked');
-                        element.parent().removeClass('st-selected');
                     }
+                    scope.$apply();
                 });
             }
         };

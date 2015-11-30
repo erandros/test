@@ -14,6 +14,7 @@
     "angular-bootstrap": "~0.13.0",
     "font-awesome": "~4.3.0",
     "angular-smart-table": "~2.1.1",
-    "datatables": "~1.10.10"
+    "datatables": "~1.10.10",
+    "bluebird": "~3.0.5"
   }
 }

@@ -22,6 +22,19 @@
                 });
             }
         }
+        function multiajax(method, url) {
+            if (method != 'delete') throw new Error('Multiajax only enabled for delete');
+            return function (arr) {
+                if (Object.prototype.toString.call(arr) !== '[object Array]')
+                    throw new Error('Multiajax data only receives arrays');
+                var length = arr.length;
+                var ajaxes = [];
+                for (var i = 0; i < length; i++) {
+                    ajaxes.push(ajax(method, url)(arr[i]));
+                }
+                return Promise.all(ajaxes);
+            }
+        }
         return {
             request: $http,
             create: function (url) {
@@ -29,6 +42,7 @@
                     get: ajax('get', url),
                     post: ajax('post', url),
                     delete: ajax('delete', url),
+                    deleteMany: multiajax('delete', url),
                     put: ajax('put', url)
                 }
             }

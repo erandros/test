@@ -11,6 +11,7 @@
     "gulp-watch": "^4.3.3",
     "gulp-wrap": "^0.11.0",
     "karma": "^0.13.15",
+    "karma-jasmine": "^0.3.6",
     "karma-phantomjs-launcher": "^0.2.1",
     "phantomjs": "^1.9.19",
     "rimraf": "2.2.8"

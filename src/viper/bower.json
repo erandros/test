@@ -2,10 +2,9 @@
   "name": "ASP.NET",
   "private": true,
   "dependencies": {
-    "angular": "*",
-    "angular-bootstrap": "~0.13.0",
-    "angular-mocks": "~1.4.8",
-    "angular-resource": "*",
+    "angular": "~1.4.x",
+    "angular-bootstrap": "~0.14.3",
+    "angular-mocks": "~1.4.x",
     "angular-route": "*",
     "angular-smart-table": "~2.1.1",
     "bluebird": "~3.0.5",

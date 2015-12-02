@@ -5,6 +5,7 @@
     .module('viper')
     .factory('api', ['$http', function ($http) {
         function ajax(method, _url) {
+            if (_url[0] != '/') _url = '/' + _url;
             _url = '/api' + _url;
             return function (data) {
                 if (method == 'put' || method == 'delete' || method == 'post')

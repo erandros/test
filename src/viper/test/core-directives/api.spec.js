@@ -33,7 +33,7 @@ describe('viper', function() {
 
     afterEach(function() { httpBackend.verifyNoOutstandingRequest() });
 
-    it("should delete correctly", function () {
+    it("should multi delete correctly", function () {
       _api.get()
       .then(function(res) {
         expect(res.data.length).toEqual(7);
@@ -48,5 +48,9 @@ describe('viper', function() {
       httpBackend.flush(5);
     });
 
+    it("should not let you multi delete without Id fields set", function() {
+      expect(function() {_api.deleteMany([{Id: 5}, {}, {Id: 3}])})
+      .toThrow(new Error("Tried to deleteMany and at least one object in array doesn't have Id property set"));
+    })
   });
 });

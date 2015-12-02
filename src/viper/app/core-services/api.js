@@ -29,6 +29,10 @@
                 if (Object.prototype.toString.call(arr) !== '[object Array]')
                     throw new Error('Multiajax data only receives arrays');
                 var length = arr.length;
+                for (var i = 0; i < length; i++) {
+                    if (!arr[i].Id)
+                        throw new Error("Tried to deleteMany and at least one object in array doesn't have Id property set");
+                }
                 var ajaxes = [];
                 for (var i = 0; i < length; i++) {
                     ajaxes.push(ajax(method, url)(arr[i]));

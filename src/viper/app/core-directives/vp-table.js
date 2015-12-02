@@ -13,17 +13,6 @@
                 attrs['title'] = type.capitalizeFirstLetter().pluralize();
             }
             scope.api = $injector.get(attrs['api']);
-            scope.clear = function () {
-                scope.rows = scope.displayedRows = scope.selectedRows = null;
-            }
-            scope.refresh = function () {
-                scope.clear();
-                scope.api.get()
-                .then(function (res) {
-                    scope.rows = res.data.map(function (el) { return flatten(el) });
-                    scope.displayedRows = [].concat(scope.rows);
-                })
-            }
             scope.refresh();
             scope.type = attrs["type"];
             scope.title = attrs["title"];
@@ -41,7 +30,7 @@
                 throw new Error("Invalid mode: check the above line for valid values");
             scope.mode = attrs["mode"] || "default";
             scope.selectedRows = [];
-            scope.parent = ctrl;
+            scope.stTable = ctrl;
         }
         return {
             restrict: 'E',
@@ -52,8 +41,19 @@
         };
         function ViperTable($scope) {
             var vm = this;
+            this.clear = function () {
+                $scope.rows = $scope.displayedRows = $scope.selectedRows = null;
+            }
+            this.refresh = function () {
+                this.clear();
+                $scope.api.get()
+                .then(function (res) {
+                    $scope.rows = res.data.map(function (el) { return flatten(el) });
+                    $scope.displayedRows = [].concat($scope.rows);
+                })
+            }
             this.select = function (row, mode) {
-                $scope.parent.select(row, mode);
+                $scope.stTable.select(row, mode);
             }
             this.selectRow = function (row) {
                 $scope.selectedRows.push(row);

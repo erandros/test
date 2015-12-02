@@ -62,7 +62,9 @@
                 var rows = $scope.selectedRows;
                 $scope.selectedRows.splice(rows.indexOf(row), 1);
             }
-            //$scope.selectedRows = [];
+            this.deleteSelected = function () {
+                $scope.api.deleteMany($scope.selectedRows);
+            }
         }
     }])
 })();

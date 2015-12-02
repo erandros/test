@@ -13,7 +13,6 @@
                 attrs['title'] = type.capitalizeFirstLetter().pluralize();
             }
             scope.api = $injector.get(attrs['api']);
-            scope.refresh();
             scope.type = attrs["type"];
             scope.title = attrs["title"];
             scope.fields = attrs["fields"].split(',');
@@ -30,14 +29,17 @@
                 throw new Error("Invalid mode: check the above line for valid values");
             scope.mode = attrs["mode"] || "default";
             scope.selectedRows = [];
-            scope.stTable = ctrl;
+            scope.stTable = ctrl[0];
+            scope.ctrl = ctrl[1];
+            scope.ctrl.refresh();
         }
         return {
             restrict: 'E',
             link: link,
             templateUrl: 'templates/vp-table.html',
             controller: ['$scope', ViperTable],
-            require: '^stTable'
+            require: ['^stTable', 'vpTable'],
+            scope: true
         };
         function ViperTable($scope) {
             var vm = this;

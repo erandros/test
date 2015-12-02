@@ -39,7 +39,10 @@
             templateUrl: 'templates/vp-table.html',
             controller: ['$scope', ViperTable],
             require: ['^stTable', 'vpTable'],
-            scope: true
+            scope: true,
+            transclude: {
+                'table-header': 'header'
+            }
         };
         function ViperTable($scope) {
             var vm = this;

@@ -7,7 +7,7 @@
         var appsApi = api.create('/applications');
         appsApi.getTypes = function () {
             return api.request({
-                method: method,
+                method: 'GET',
                 url: '/api/applicationtypes'
             });
         }

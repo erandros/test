@@ -39,7 +39,6 @@
             templateUrl: 'templates/vp-table.html',
             controller: ['$scope', ViperTable],
             require: ['^stTable', 'vpTable'],
-            scope: true,
             transclude: {
                 'table-header': 'header'
             }
@@ -47,7 +46,8 @@
         function ViperTable($scope) {
             var vm = this;
             this.clear = function () {
-                $scope.rows = $scope.displayedRows = $scope.selectedRows = null;
+                $scope.selectedRows = [];
+                $scope.rows = $scope.displayedRows = null;
             }
             this.refresh = function () {
                 this.clear();

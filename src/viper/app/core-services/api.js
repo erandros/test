@@ -11,7 +11,7 @@
                 if (method == 'put' || method == 'delete' || method == 'post')
                     if (!data) throw new Error('Required data is not truthy');
                 if (method == 'put' || method == 'delete') {
-                    if (!data.Id) throw new Error('Required Id field on data is not truthy');
+                    if (data.Id == null) throw new Error('Required Id field on data is not truthy');
                     _url += '/' + data.Id;
                 }
                 if (method == 'delete')
@@ -24,14 +24,16 @@
             }
         }
         function multiajax(method, url) {
-            if (method != 'delete') throw new Error('Multiajax only enabled for delete');
+            if (method != 'delete' && method != 'put')
+                throw new Error('Multiajax only enabled for delete and put');
             return function (arr) {
                 if (Object.prototype.toString.call(arr) !== '[object Array]')
                     throw new Error('Multiajax data only receives arrays');
                 var length = arr.length;
                 for (var i = 0; i < length; i++) {
-                    if (!arr[i].Id)
-                        throw new Error("Tried to deleteMany and at least one object in array doesn't have Id property set");
+                    //Id field should be a positive number or string
+                    if (arr[i].Id == null || !isNaturalNumber(arr[i].Id))
+                        throw new Error("Tried to do multiajax and one object didn't have a natural number as an Id property");
                 }
                 var ajaxes = [];
                 for (var i = 0; i < length; i++) {
@@ -48,7 +50,8 @@
                     post: ajax('post', url),
                     delete: ajax('delete', url),
                     deleteMany: multiajax('delete', url),
-                    put: ajax('put', url)
+                    put: ajax('put', url),
+                    putMany: multiajax('put', url)
                 }
             }
         }

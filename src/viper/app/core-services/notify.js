@@ -1,4 +1,5 @@
-﻿(function () {
+﻿
+(function () {
     'use strict';
 
     angular
@@ -8,7 +9,7 @@
             // whether to hide the notification on click
             clickToHide: true,
             // whether to auto-hide the notification
-            autoHide: true,
+            autoHide: false,
             // if autoHide, hide after milliseconds
             autoHideDelay: 5000,
             // show the arrow pointing at the element
@@ -16,10 +17,7 @@
             // arrow size in pixels
             arrowSize: 5,
             // position defines the notification position though uses the defaults below
-            position: '...',
-            // default positions
-            elementPosition: 'bottom left',
-            globalPosition: 'top right',
+            position: 'top right',
             // default style
             style: 'bootstrap',
             // default class (string or [string])

@@ -38,11 +38,12 @@
             scope: false
         };
     }])
-    .controller('DeleteModalCtrl', function ($modalInstance, $scope, type, row) {
+    .controller('DeleteModalCtrl', ['$modalInstance', '$scope', 'type', 'row',
+        function ($modalInstance, $scope, type, row) {
         var vm = this;
         $scope.form = {};
         $scope.type = type;
         $scope.row = row;
-    })
+    }])
 
 })();

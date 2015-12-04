@@ -40,7 +40,7 @@
             controller: ['$scope', ViperTable],
             require: ['^stTable', 'vpTable'],
             transclude: {
-                'table-header': 'header'
+                'table-header': '?header'
             }
         };
         function ViperTable($scope) {

@@ -41,11 +41,12 @@
             scope: false
         };
     }])
-    .controller('EditModalCtrl', function ($modalInstance, $scope, fields, type, row) {
+    .controller('EditModalCtrl', ['$modalInstance', '$scope', 'fields', 'type', 'row', 
+        function ($modalInstance, $scope, fields, type, row) {
         var vm = this;
         $scope.form = jQuery.extend(true, {}, row);
         $scope.fields = fields;
         $scope.type = type;
-    })
+    }])
 
 })();

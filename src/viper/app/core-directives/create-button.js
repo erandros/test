@@ -38,11 +38,12 @@
             scope: false
         };
     }])
-    .controller('AddModalCtrl', function ($modalInstance, $scope, fields, type) {
+    .controller('AddModalCtrl', ['$modalInstance', '$scope', 'fields', 'type',
+        function ($modalInstance, $scope, fields, type) {
         var vm = this;
         $scope.form = {};
         $scope.fields = fields;
         $scope.type = type;
-    })
+    }])
     
 })();

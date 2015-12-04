@@ -1,5 +1,21 @@
 stages:
+  - test
   - deploy
+
+test:
+  script:
+    - cd src/viper
+    - npm install
+    - bower install
+    - karma start --single-run
+  stage: test 
+  cache:
+    untracked: true
+    paths:
+      - src/viper/node_modules
+      - src/viper/wwwroot/lib
+  tags:
+    - linux
 
 deploy production:
   script:
@@ -76,7 +92,7 @@ deploy dev:
     - $cmd = 'scripts/env.sh ' + $site + ' Development'
     - bash --login -c $cmd
     - appcmd start sites "ViperDev"
-  stage: deploy
+  stage: test
   except:
     - test
     - master

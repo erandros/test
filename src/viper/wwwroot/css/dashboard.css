@@ -70,3 +70,68 @@ body {
 div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
     text-align: start;
 }
+
+.vp-box {
+    -webkit-border-radius: 0;
+    background-color: #fff;
+    border-bottom: 1px #e5e5e5 solid;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #c6c6c6;
+    color: #222;
+    direction: ltr;
+    display: inline-block;
+    empty-cells: show;
+    font-family: arial,sans-serif;
+    font-size: 1px;
+    height: 13px;
+    margin-left: 9px;
+    margin: 0 4px 0 1px;
+    outline: 0;
+    padding: 0 0 0 1px;
+    position: relative;
+    table-layout: fixed;
+    text-align: left;
+    unicode-bidi: embed;
+    vertical-align: text-bottom;
+    white-space: nowrap;
+    width: 13px;
+}
+
+.vp-box, td.vp-box {
+    -moz-user-select: none; 
+    -khtml-user-select: none; 
+    -webkit-user-select: none; 
+    -o-user-select: none; 
+}
+
+.table > tbody > tr > td.vp-td-nopadding, .vp-outerbox {
+    padding: 0px;
+    line-height: 34px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 30px;
+    text-align: center;
+}
+
+.vp-outerbox {
+}
+
+.vp-check {
+    cursor: default;
+    height: 15px;
+    left: 0;
+    outline: 0;
+    position: relative;
+    top: -3px;
+    width: 15px;
+}
+
+.vp-box.checked .vp-check {
+    background: url(//ssl.gstatic.com/ui/v1/menu/checkmark.png) no-repeat -5px -3px;
+    background-image: -webkit-image-set(url(//ssl.gstatic.com/ui/v1/menu/checkmark.png) 1x,url(//ssl.gstatic.com/ui/v1/menu/checkmark_2x.png) 2x);
+}

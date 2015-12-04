@@ -1,74 +1,79 @@
-﻿<section st-table="displayedRows" st-safe-src="rows">
-    <div class="row">
-        <div class="col-xs-12 page-header">
-            <h1>{{title}}</h1>
-            <create-button></create-button>
-        </div>
-        <!-- /.col-lg-12 -->
+﻿<div class="row">
+    <div class="col-xs-12 page-header">
+        <h1>{{title}}</h1>
+        <create-button></create-button>
     </div>
-    <!-- /.row -->
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="dataTable_wrapper">
-                        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-                            <div class="row">
-                                <div class="col-xs-6">
-                                    <div class="dataTables_length" id="dataTables-example_length">
-                                        <label>
-                                            Show
-                                            <select name="dataTables-example_length" 
-                                                    class="form-control input-sm" 
-                                                    ng-model="itemsByPage"
-                                                    ng-options="v for v in [10, 25, 50, 100]">
-                                            </select> entries
-                                        </label>
-                                    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                        <div class="row">
+                            <div class="col-xs-7">
+                                <group-delete-button></group-delete-button>
+                                <span ng-transclude="header">
+
+                                </span>
+                            </div>
+                            <div class="col-xs-3">
+                                <div id="dataTables-example_filter" class="dataTables_filter">
+                                    <label>Search:<input type="search" class="form-control input-sm" st-search="{{searchField}}" placeholder="" ng-disabled="!searchField"></label>
                                 </div>
-                                <div class="col-xs-6">
-                                    <div id="dataTables-example_filter" class="dataTables_filter">
-                                        <label>Search:<input type="search" class="form-control input-sm" st-search="{{searchField}}" placeholder="" ng-disabled="!searchField"></label>
-                                    </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <div class="dataTables_length" id="dataTables-example_length">
+                                    <label>
+                                        Show
+                                        <select name="dataTables-example_length"
+                                                class="form-control input-sm"
+                                                ng-model="itemsByPage"
+                                                ng-options="v for v in [10, 25, 50, 100]"></select> entries
+                                    </label>
                                 </div>
-                            </div><div class="row">
-                                <div class="col-xs-12">
-                                    <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
-                                        <thead>
-                                            <tr role="row">
-                                                <th ng-repeat="header in headers track by header">{{header}}</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="gradeA odd" role="row" ng-repeat="row in displayedRows track by row.Id">
-                                                <td ng-repeat="field in fields track by field">
-                                                    {{row[field]}}
-                                                </td>
-                                                <td class="center">
-                                                    <edit-button></edit-button>
-                                                    <delete-button></delete-button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="5" class="text-center">
-                                                    <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+                            </div>
+                        </div><div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+                                    <thead>
+                                        <tr role="row">
+                                            <th ng-if="mode == 'checkbox'"></th>
+                                            <th ng-repeat="header in headers track by header">{{header}}</th>
+                                            <th ng-if="mode == 'default'">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="gradeA odd" role="row" ng-repeat="row in displayedRows track by row.Id">
+                                            <td ng-if="mode == 'checkbox'" vp-select row="row" class="vp-td-nopadding"></td>
+                                            <td ng-repeat="field in fields track by field">
+                                                {{row[field]}}
+                                            </td>
+                                            <td class="center" ng-if="mode == 'default'">
+                                                <edit-button></edit-button>
+                                                <delete-button></delete-button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5" class="text-center">
+                                                <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- /.panel-body -->
             </div>
-            <!-- /.panel -->
+            <!-- /.panel-body -->
         </div>
-        <!-- /.col-lg-12 -->
+        <!-- /.panel -->
     </div>
-</section>
+    <!-- /.col-lg-12 -->
+</div>

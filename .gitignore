@@ -2,6 +2,7 @@
 
 /src/viper/wwwroot/dist/*
 env.json
+/src/viper/wwwroot/lib/*
 
 
 # ignore from github/gitignore

@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .directive('appTypeDropdown', ['applications', function (applications) {
+    .directive('appTypeDropdown', ['applications', 'notify', function (applications, notify) {
         function link(scope, element, attrs, ctrl) {
             applications.getTypes()
             .then(function (res) {
@@ -18,6 +18,7 @@
                 }
                 applications.putMany(scope.selectedRows)
                 .then(function () {
+                    notify.success('Application types updated');
                     ctrl.refresh();
                 })
             });

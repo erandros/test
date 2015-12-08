@@ -21,6 +21,7 @@ module.exports = function(config) {
       'wwwroot/lib/angular-smart-table/dist/smart-table.js',
       'wwwroot/lib/angular-bootstrap/ui-bootstrap-tpls.js',
       'wwwroot/lib/bluebird/js/browser/bluebird.js',
+      'wwwroot/static-libs/countUp.js/dist/angular-countUp.js',
       'app/**/*.js',
       'test/**/*.spec.js'
     ],

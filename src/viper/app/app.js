@@ -1,9 +1,8 @@
 (function () {
-
     'use strict';
 
-    var deps = ['smart-table', 'ui.bootstrap'];
-    if (!jasmine) deps.push('ngMockE2E');
+    var deps = ['smart-table', 'ui.bootstrap', 'countUpModule'];
+    if (window.jasmine === undefined) deps.push('ngMockE2E');
     var viper =
         angular.module('viper', deps);
 

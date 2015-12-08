@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    if (!jasmine) {
+    if (window.jasmine === undefined) {
         angular
         .module('viper')
         .run(['$httpBackend', function ($httpBackend) {

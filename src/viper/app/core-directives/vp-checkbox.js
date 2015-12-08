@@ -2,7 +2,7 @@
 
     angular
     .module('viper')
-    .directive('vpSelect', function () {
+    .directive('vpCheckbox', function () {
         return {
             require: '^vpTable',
             template: '<div class="vp-box"><div class="vp-check"></div></div>',

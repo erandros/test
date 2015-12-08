@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .directive('editButton', ['$modal', function ($modal) {
+    .directive('editButton', ['$modal', 'utils', function ($modal, utils) {
         function link(scope, element, attrs) {
             element.bind('click', function () {
                 $modal.open({
@@ -11,7 +11,7 @@
                     controller: 'EditModalCtrl',
                     resolve: {
                         fields: function () {
-                            return typifyFields(scope.editFields);
+                            return utils.typify(scope.editFields);
                         },
                         type: function () {
                             return scope.type;
@@ -41,10 +41,10 @@
             scope: false
         };
     }])
-    .controller('EditModalCtrl', ['$modalInstance', '$scope', 'fields', 'type', 'row', 
-        function ($modalInstance, $scope, fields, type, row) {
+    .controller('EditModalCtrl', ['$modalInstance', '$scope', 'utils', 'fields', 'type', 'row', 
+        function ($modalInstance, $scope, utils, fields, type, row) {
         var vm = this;
-        $scope.form = jQuery.extend(true, {}, row);
+        $scope.form = utils.clone(row);
         $scope.fields = fields;
         $scope.type = type;
     }])

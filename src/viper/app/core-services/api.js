@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .factory('api', ['$http', function ($http) {
+    .factory('api', ['$http', 'utils', function ($http, utils) {
         function ajax(method, _url) {
             if (_url[0] != '/') _url = '/' + _url;
             _url = '/api' + _url;
@@ -32,7 +32,7 @@
                 var length = arr.length;
                 for (var i = 0; i < length; i++) {
                     //Id field should be a positive number or string
-                    if (arr[i].Id == null || !isNaturalNumber(arr[i].Id))
+                    if (arr[i].Id == null || !utils.isNatural(arr[i].Id))
                         throw new Error("Tried to do multiajax and one object didn't have a natural number as an Id property");
                 }
                 var ajaxes = [];

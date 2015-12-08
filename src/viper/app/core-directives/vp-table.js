@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .directive('vpTable', ['$modal', '$injector', function ($modal, $injector) {
+    .directive('vpTable', ['$modal', '$injector', 'utils', function ($modal, $injector, utils) {
         function link(scope, element, attrs, ctrl) {
             var type = attrs['type'];
             if (!attrs.hasOwnProperty('api')) {
@@ -53,7 +53,7 @@
                 this.clear();
                 return $scope.api.get()
                 .then(function (res) {
-                    $scope.rows = res.data.map(function (el) { return flatten(el) });
+                    $scope.rows = res.data.map(function (el) { return utils.flatten(el) });
                     $scope.displayedRows = [].concat($scope.rows);
                 })
             }

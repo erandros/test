@@ -4,7 +4,7 @@
 
     angular
     .module('viper')
-    .factory('notify', ['$http', function ($http) {
+    .factory('notify', ['$http', 'utils', function ($http, utils) {
         var defaults = {
             // whether to hide the notification on click
             clickToHide: true,
@@ -37,7 +37,7 @@
             success: success
         }
         function success(msg) {
-            var props = jQuery.extend(true, {}, defaults);
+            var props = utils.clone(defaults);
             props.className = 'success';
             $.notify(msg, props);
         }

@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .directive('appTypeDropdown', ['applications', 'notify', function (applications, notify) {
+    .directive('appTypeDropdown', ['$filter', 'applications', 'notify', function ($filter, applications, notify) {
         function link(scope, element, attrs, ctrl) {
             applications.getTypes()
             .then(function (res) {
@@ -12,14 +12,24 @@
                 scope.selectedAppType = scope.appTypes[0];
             })
             element.children('button').bind('click', function () {
-                var length = scope.selectedRows.length;
+                var selected = scope.selectedRows;
+                var length = selected.length;
                 for (var i = 0; i < length; i++) {
-                    scope.selectedRows[i].ApplicationTypeId = scope.selectedAppType.Id;
+                    selected.ApplicationTypeId = scope.selectedAppType.Id;
                 }
-                applications.putMany(scope.selectedRows)
+                applications.putMany(selected)
                 .then(function () {
                     notify.success('Application types updated');
-                    ctrl.refresh();
+                    return ctrl.refresh();
+                })
+                .then(function () {
+                    setTimeout(function () {
+                        var length = selected.length;
+                        for (var i = 0; i < length; i++) {
+                            $filter('filter')(scope.rows, { Id: selected[i].Id })[0].highlight = true;
+                        }
+                        scope.$apply();
+                    }, 1);
                 })
             });
         }

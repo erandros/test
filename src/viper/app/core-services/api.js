@@ -9,9 +9,8 @@
             if (!config) { config = {}; }
             if (!config.url) { throw new Error("Tried to create a request without url"); }
             if (!config.method) { config.method = 'GET'; }
-            var url = config.url;
-            if (url[0] != '/') url = '/' + url;
-            config.url = '/api' + url;
+            if (config.url[0] != '/') config.url = config.url.prepend('/');
+            if (config.url.indexOf('/api') != 0) config.url = config.url.prepend('/api');
             return function (data) {
                 var method = config.method;
                 if (method == 'put' || method == 'delete' || method == 'post')
@@ -47,7 +46,7 @@
             }
         }
         return {
-            request: function (config) { return ajax(config); },
+            requestFn: function (config) { return ajax(config); },
             create: function (url) {
                 return {
                     get: ajax({ url: url }),

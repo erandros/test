@@ -93,10 +93,18 @@ describe('viper', function() {
     })
 
     it("should not allow to create a request without url", function() {
-    	expect(function() { _api.request({}) })
+    	expect(function() { _api.requestFn({}) })
     	.toThrow(new Error("Tried to create a request without url"))
-    	expect(function() { _api.request() })
+    	expect(function() { _api.requestFn() })
     	.toThrow(new Error("Tried to create a request without url"))
+    })
+
+    it("should prepend /api to api.requestFn if it wasn't specified", function() {
+    	_api.requestFn({ url: 'people' })()
+    	_api.requestFn({ url: '/people' })()
+    	_api.requestFn({ url: '/api/people' })()
+    	_api.requestFn({ url: 'api/people' })()
+      httpBackend.flush();
     })
   });
 });

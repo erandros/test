@@ -4,26 +4,30 @@
     angular
     .module('viper')
     .factory('api', ['$http', 'utils', function ($http, utils) {
-        function ajax(method, _url) {
-            if (_url[0] != '/') _url = '/' + _url;
-            _url = '/api' + _url;
+        function ajax(config) {
+            config = utils.clone(config);
+            if (!config) { config = {}; }
+            if (!config.url) { throw new Error("Tried to create a request without url"); }
+            if (!config.method) { config.method = 'GET'; }
+            var url = config.url;
+            if (url[0] != '/') url = '/' + url;
+            config.url = '/api' + url;
             return function (data) {
+                var method = config.method;
                 if (method == 'put' || method == 'delete' || method == 'post')
                     if (!data) throw new Error('Required data is not truthy');
                 if (method == 'put' || method == 'delete') {
                     if (data.Id == null) throw new Error('Required Id field on data is not truthy');
-                    _url += '/' + data.Id;
+                    config.url += '/' + data.Id;
                 }
                 if (method == 'delete')
                     data = null; //Don't send any data on delete
-                return $http({
-                    method: method,
-                    url: _url,
-                    data: data
-                });
+                config.data = data;
+                return $http(config);
             }
         }
-        function multiajax(method, url) {
+        function multiajax(config) {
+            var method = config.method;
             if (method != 'delete' && method != 'put')
                 throw new Error('Multiajax only enabled for delete and put');
             return function (arr) {
@@ -37,21 +41,21 @@
                 }
                 var ajaxes = [];
                 for (var i = 0; i < length; i++) {
-                    ajaxes.push(ajax(method, url)(arr[i]));
+                    ajaxes.push(ajax(config)(arr[i]));
                 }
                 return Promise.all(ajaxes);
             }
         }
         return {
-            request: $http,
+            request: function (config) { return ajax(config); },
             create: function (url) {
                 return {
-                    get: ajax('get', url),
-                    post: ajax('post', url),
-                    delete: ajax('delete', url),
-                    deleteMany: multiajax('delete', url),
-                    put: ajax('put', url),
-                    putMany: multiajax('put', url)
+                    get: ajax({ url: url }),
+                    post: ajax({ method: 'post', url: url }),
+                    delete: ajax({ method: 'delete', url: url }),
+                    deleteMany: multiajax({ method: 'delete', url: url }),
+                    put: ajax({ method: 'put', url: url }),
+                    putMany: multiajax({ method: 'put', url: url })
                 }
             }
         }

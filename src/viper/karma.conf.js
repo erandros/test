@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'wwwroot/lib/jquery/jquery.js',
       'wwwroot/lib/angular/angular.js',
       'wwwroot/lib/angular-mocks/angular-mocks.js',
       'wwwroot/lib/angular-smart-table/dist/smart-table.js',

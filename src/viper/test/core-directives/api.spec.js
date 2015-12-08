@@ -3,8 +3,9 @@
 describe('viper', function() {
 	beforeEach(module('viper'));
   describe('api', function() {
-		var scope, httpBackend, _api, people;
+		var scope, httpBackend, peopleApi, people, _api;
     beforeEach(inject(function (api, $httpBackend) {
+    	_api = api;
       people = [
         {Id: 0, Name: 'Albert'},
         {Id: 1, Name: 'John'},
@@ -14,7 +15,7 @@ describe('viper', function() {
         {Id: 5, Name: 'James'},
         {Id: 6, Name: 'Mark'},
       ];
-      _api = api.create('people');
+      peopleApi = api.create('people');
       httpBackend = $httpBackend;
       $httpBackend.when("GET", "/api/people").respond(people);
       $httpBackend.whenRoute("DELETE", "/api/people/:id")
@@ -46,13 +47,13 @@ describe('viper', function() {
     afterEach(function() { httpBackend.verifyNoOutstandingRequest() });
 
     it("should multi delete correctly", function (done) {
-      _api.get()
+      peopleApi.get()
       .then(function(res) {
         expect(res.data.length).toEqual(7);
-        return _api.deleteMany([{Id: 5}, {Id: 4}, {Id: 4}])
+        return peopleApi.deleteMany([{Id: 5}, {Id: 4}, {Id: 4}])
       })
       .then(function(res) {
-        return _api.get();
+        return peopleApi.get();
       })
       .then(function(res) {
         expect(res.data.length).toEqual(5);
@@ -62,32 +63,47 @@ describe('viper', function() {
     });
 
     it("should not let you multi delete without Id fields set", function() {
-      expect(function() {_api.deleteMany([{Id: 5}, {}, {Id: 3}])})
+      expect(function() {peopleApi.deleteMany([{Id: 5}, {}, {Id: 3}])})
       .toThrow(new Error("Tried to do multiajax and one object didn't have a natural number as an Id property"));
     })
 
     it("should not let you multi put without Id fields set", function() {
-      expect(function() {_api.putMany([{Id: 5}, {}, {Id: 3}])})
+      expect(function() {peopleApi.putMany([{Id: 5}, {}, {Id: 3}])})
       .toThrow(new Error("Tried to do multiajax and one object didn't have a natural number as an Id property"));
     })
 
     it("should multi put correctly", function(done) {
       var changed;
-      _api.get()
+      peopleApi.get()
       .then(function(res) {
         expect(res.data.length).toEqual(7);
         res.data[3].Name = 'ASDQWE';
         res.data[6].Name = 'rsfdsf';
         changed = res.data;
-        return _api.putMany(res.data)
+        return peopleApi.putMany(res.data)
       })
       .then(function(res) {
-      	return _api.get()
+      	return peopleApi.get()
       })
       .then(function(res) {
         expect(res.data).toEqual(changed);
         done();
       })
+      httpBackend.flush();
+    })
+
+    it("should not allow to create a request without url", function() {
+    	expect(function() { _api.requestFn({}) })
+    	.toThrow(new Error("Tried to create a request without url"))
+    	expect(function() { _api.requestFn() })
+    	.toThrow(new Error("Tried to create a request without url"))
+    })
+
+    it("should prepend /api to api.requestFn if it wasn't specified", function() {
+    	_api.requestFn({ url: 'people' })()
+    	_api.requestFn({ url: '/people' })()
+    	_api.requestFn({ url: '/api/people' })()
+    	_api.requestFn({ url: 'api/people' })()
       httpBackend.flush();
     })
   });

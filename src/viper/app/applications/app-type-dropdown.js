@@ -15,7 +15,7 @@
                 var selected = scope.selectedRows;
                 var length = selected.length;
                 for (var i = 0; i < length; i++) {
-                    selected.ApplicationTypeId = scope.selectedAppType.Id;
+                    selected[i].ApplicationTypeId = scope.selectedAppType.Id;
                 }
                 applications.putMany(selected)
                 .then(function () {

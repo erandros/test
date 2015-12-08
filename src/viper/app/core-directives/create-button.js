@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .directive('createButton', ['$modal', function ($modal) {
+    .directive('createButton', ['$modal', 'utils', function ($modal, utils) {
         function link(scope, element, attrs) {
             element.bind('click', function () {
                 $modal.open({
@@ -11,7 +11,7 @@
                     controller: 'AddModalCtrl',
                     resolve: {
                         fields: function () {
-                            return typifyFields(scope.createFields);
+                            return utils.typify(scope.createFields);
                         },
                         type: function () {
                             return scope.type;

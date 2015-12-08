@@ -14,4 +14,8 @@
         .replace(/([A-Z])/g, ' $1')
         .replace(/^./, function (str) { return str.toUpperCase(); })
     }
+
+    String.prototype.prepend = function (s) {
+        return s + this;
+    }
 })();

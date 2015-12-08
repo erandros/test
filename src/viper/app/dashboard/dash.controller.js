@@ -3,9 +3,12 @@
 
     angular
     .module('viper')
-    .controller('dashboardController', ['$scope', 'application', dashboardController]);
+    .controller('dashboardController', ['$scope', 'reports', dashboardController]);
 
-    function dashboardController($scope, application) {
-        $scope.Name = application.Name;
+    function dashboardController($scope, reports) {
+        reports.count()
+        .then(function (res) {
+            $scope.counts = res.data;
+        })
     }
 })();

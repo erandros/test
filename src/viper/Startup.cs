@@ -95,10 +95,10 @@ namespace viper
         // Configure is called after ConfigureServices is called.
         public void Configure(IApplicationBuilder app)
         {
+            // StatusCode pages to gracefully handle status codes 400-599.
+            app.UseStatusCodePagesWithRedirects("~/Home/StatusCodePage");
             if (!HostingEnv.IsProduction())
             {
-                // StatusCode pages to gracefully handle status codes 400-599.
-                app.UseStatusCodePagesWithRedirects("~/Home/StatusCodePage");
 
                 // Display custom error page in production when error occurs
                 // During development use the ErrorPage middleware to display error information in the browser
@@ -106,7 +106,10 @@ namespace viper
 
                 app.Properties["host.appMode"] = "development";
             }
-
+            else
+            {
+                app.UseErrorHandler("~/Home/StatusCodePage");
+            }
             app.UseSession();
 
             // Add static files to the request pipeline.

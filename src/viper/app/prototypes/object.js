@@ -33,3 +33,7 @@ var typifyFields = function (fields) {
         }
     })
 };
+
+var clone = function (obj) {
+    return jQuery.extend(true, {}, obj);
+};

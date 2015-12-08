@@ -24,6 +24,7 @@ namespace viper.Controllers
 
         public IActionResult StatusCodePage()
         {
+            Response.StatusCode = 404;
             return View("~/Views/Shared/StatusCodePage.cshtml");
         }
     }

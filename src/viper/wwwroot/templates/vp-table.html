@@ -47,8 +47,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="gradeA odd" role="row" ng-repeat="row in displayedRows track by row.Id">
-                                            <td ng-if="mode == 'checkbox'" vp-select row="row" class="vp-td-nopadding"></td>
+                                        <tr class="gradeA odd" ng-class="{ highlight: row.highlight }" role="row" ng-repeat="row in displayedRows track by row.Id">
+                                            <td ng-if="mode == 'checkbox'" vp-checkbox row="row" class="vp-td-nopadding"></td>
                                             <td ng-repeat="field in fields track by field">
                                                 {{row[field]}}
                                             </td>

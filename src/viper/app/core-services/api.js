@@ -22,6 +22,7 @@
                 if (method == 'delete')
                     data = null; //Don't send any data on delete
                 config.data = data;
+                config.cache = false;
                 return $http(config);
             }
         }

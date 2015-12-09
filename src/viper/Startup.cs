@@ -18,9 +18,33 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using viper.Services;
 using Microsoft.Dnx.Runtime;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Net.Http.Headers;
 
 namespace viper
 {
+    public class NoCacheHeaderFilter : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            return;
+        }
+
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            if (context.HttpContext.Response != null) // can be null when exception happens
+            {
+                var headers = context.HttpContext.Response.GetTypedHeaders();
+                headers.CacheControl =
+                    new CacheControlHeaderValue { NoCache = true, NoStore = true, MustRevalidate = true };
+                //if (headers.Headers.Any(header => { header.Value == new string[] { "no-cache" } }))
+                if (!headers.Headers.Keys.Any(key => key == "Pragma"))
+                    headers.Headers.Add("Pragma", new string[] { "no-cache" });
+                if (!headers.Headers.Keys.Any(key => key == "Expires"))
+                    headers.Headers.Add("Expires", new string[] { DateTimeOffset.UtcNow.ToString() });
+            }
+        }
+    }
+
     public class Startup
     {
         public IHostingEnvironment HostingEnv;

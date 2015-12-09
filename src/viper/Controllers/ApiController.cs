@@ -21,6 +21,7 @@ namespace viper.Controllers
         }
 
         // GET: api/values
+        [NoCacheHeaderFilter]
         [Route("{*route}")]
         public object Get(string route)
         {

@@ -40,7 +40,7 @@
         return {
             restrict: 'E',
             link: link,
-            templateUrl: 'templates/vp-table.html',
+            templateUrl: '/templates/vp-table.html',
             controller: ['$scope', ViperTable],
             require: ['^stTable', 'vpTable'],
             transclude: {

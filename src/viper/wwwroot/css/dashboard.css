@@ -139,3 +139,12 @@ div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper, div.dataTa
 .table-striped tbody tr.highlight {
     background-color: #A4CEB6;
 }
+
+table.vp-table > tbody > tr > td.td-anchor {
+    padding: 0px;
+}
+table.vp-table > tbody > tr > td.td-anchor > a {
+    display: block;
+    padding: 8px;
+    height: 100%;
+}

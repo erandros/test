@@ -38,7 +38,7 @@
                             </div>
                         </div><div class="row">
                             <div class="col-xs-12">
-                                <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+                                <table class="table table-striped table-bordered table-hover dataTable no-footer vp-table" role="grid">
                                     <thead>
                                         <tr role="row">
                                             <th ng-if="mode == 'checkbox'"></th>
@@ -49,7 +49,7 @@
                                     <tbody>
                                         <tr class="gradeA odd" ng-class="{ highlight: row.highlight }" role="row" ng-repeat="row in displayedRows track by row.Id">
                                             <td ng-if="mode == 'checkbox'" vp-checkbox row="row" class="td-checkbox"></td>
-                                            <td ng-repeat="field in fields track by field">
+                                            <td ng-repeat="field in fields track by field" ng-class="{ 'td-anchor': linkRows}">
                                                 <a ng-href="{{::$location.absUrl() + '/' + row.Id}}" ng-if="linkRows">
                                                     {{row[field]}}
                                                 </a>

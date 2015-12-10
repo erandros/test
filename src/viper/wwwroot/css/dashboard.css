@@ -105,7 +105,7 @@ div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper, div.dataTa
     -o-user-select: none; 
 }
 
-.table > tbody > tr > td.vp-td-nopadding, .vp-outerbox {
+.table > tbody > tr > td.td-checkbox, .vp-outerbox {
     padding: 0px;
     line-height: 34px;
     -webkit-touch-callout: none;

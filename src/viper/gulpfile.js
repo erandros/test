@@ -17,7 +17,7 @@ gulp.task("clean", function (cb) {
     del(dest + '/*', cb);
 });
 
-gulp.task("watch", function () {
+gulp.task("watch", ["build"], function () {
     gulp.watch("./app/**/*.js", ["build"])
 })
 

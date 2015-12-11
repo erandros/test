@@ -18,6 +18,10 @@ describe('viper', function() {
       peopleApi = api.create('people');
       httpBackend = $httpBackend;
       $httpBackend.when("GET", "/api/people").respond(people);
+      $httpBackend.whenRoute("GET", "/api/people/:id")
+      .respond(function(method, url, data, headers, params) {
+        return [200, people[params.Id]];
+      });
       $httpBackend.whenRoute("DELETE", "/api/people/:id")
       .respond(function(method, url, data, headers, params) {
         var length = people.length;
@@ -45,6 +49,25 @@ describe('viper', function() {
     }));
 
     afterEach(function() { httpBackend.verifyNoOutstandingRequest() });
+    
+
+    it("should throw error if no Id was supplied", function() {
+      expect(function() { peopleApi.get() })
+      .toThrow(new Error("Url parameter Id was not included in the data"));
+      expect(function() { peopleApi.get({Id: ''}) })
+      .toThrow(new Error("Url parameter Id was not included in the data"));
+      expect(function() {peopleApi.get([{Id: ''}]) })
+      .toThrow(new Error("Url parameter Id was not included in the data"));
+    })
+
+    it("should single get correctly", function(done) {
+      peopleApi.get({Id: 4})
+      .then(function(res) {
+        expect(res.data).toEqual()
+        done();
+      })
+      httpBackend.flush();
+    });
 
     it("should multi delete correctly", function (done) {
       peopleApi.getAll()
@@ -64,12 +87,12 @@ describe('viper', function() {
 
     it("should not let you multi delete without Id fields set", function() {
       expect(function() {peopleApi.deleteMany([{Id: 5}, {}, {Id: 3}])})
-      .toThrow(new Error("Tried to do multiajax and one object didn't have a natural number as an Id property"));
+      .toThrow(new Error("Url parameter Id was not included in the data"));
     })
 
     it("should not let you multi put without Id fields set", function() {
       expect(function() {peopleApi.putMany([{Id: 5}, {}, {Id: 3}])})
-      .toThrow(new Error("Tried to do multiajax and one object didn't have a natural number as an Id property"));
+      .toThrow(new Error("Url parameter Id was not included in the data"));
     })
 
     it("should multi put correctly", function(done) {
@@ -93,17 +116,17 @@ describe('viper', function() {
     })
 
     it("should not allow to create a request without url", function() {
-    	expect(function() { _api.requestFn({}) })
+    	expect(function() { _api.request({}) })
     	.toThrow(new Error("Tried to create a request without url"))
-    	expect(function() { _api.requestFn() })
+    	expect(function() { _api.request() })
     	.toThrow(new Error("Tried to create a request without url"))
     })
 
-    it("should prepend /api to api.requestFn if it wasn't specified", function() {
-    	_api.requestFn({ url: 'people' })()
-    	_api.requestFn({ url: '/people' })()
-    	_api.requestFn({ url: '/api/people' })()
-    	_api.requestFn({ url: 'api/people' })()
+    it("should prepend /api to api.request if it wasn't specified", function() {
+    	_api.request({ url: 'people' })
+    	_api.request({ url: '/people' })
+    	_api.request({ url: '/api/people' })
+    	_api.request({ url: 'api/people' })
       httpBackend.flush();
     })
   });

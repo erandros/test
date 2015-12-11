@@ -4,58 +4,78 @@
     angular
     .module('viper')
     .factory('api', ['$http', 'utils', function ($http, utils) {
-        function ajax(config) {
-            config = utils.clone(config);
-            if (!config) { config = {}; }
+        function check(config, options) {
+            if (Object.prototype.toString.call(config) !== '[object Object]')
+                throw new Error("config should be an object if anything");
             if (!config.url) { throw new Error("Tried to create a request without url"); }
-            if (!config.method) { config.method = 'GET'; }
-            if (config.url[0] != '/') config.url = config.url.prepend('/');
-            if (config.url.indexOf('/api') != 0) config.url = config.url.prepend('/api');
-            return function (data) {
-                var method = config.method;
-                if (method == 'put' || method == 'delete' || method == 'post')
-                    if (!data) throw new Error('Required data is not truthy');
-                if (method == 'put' || method == 'delete') {
-                    if (data.Id == null) throw new Error('Required Id field on data is not truthy');
-                    config.url += '/' + data.Id;
+        }
+
+        function build(config, options) {
+            if (!options) options = {};
+            if (!config) config = {};
+            else config = utils.clone(config);
+
+            check(config, options);
+
+            if (options.urlApiPrepend != false) {
+                if (config.url[0] != '/') config.url = config.url.prepend('/');
+                if (config.url.indexOf('/api') != 0) config.url = config.url.prepend('/api');
+            }
+
+            function _ajaxFn(config) {
+                config.url = config.url.replace(/:(\w+)/g, function (a, urlParam) {
+                    /* data[urlParam] can be either non empty string or number */
+                    if (!config.data) config.data = {};
+                    var r = config.data[urlParam];
+                    var err = new Error('Url parameter ' + urlParam + ' was not included in the data');
+                    if (r == null) throw err;
+                    r = r.toString();
+                    if (!r) throw err;
+                    return r;
+                });
+                return {
+                    run: function () { return $http(config); }
                 }
-                if (method == 'delete')
-                    data = null; //Don't send any data on delete
+            }
+            return function (data) {
                 config.data = data;
-                config.cache = false;
-                return $http(config);
+                if (options.array) {
+                    var ajaxes = [];
+                    var length = config.data.length;
+                    for (var i = 0; i < length; i++) {
+                        var _config = utils.clone(config);
+                        _config.data = config.data[i];
+                        ajaxes.push(_ajaxFn(_config));
+                    }
+                    for (var i = 0; i < length; i++) {
+                        ajaxes[i] = ajaxes[i].run();
+                    }
+                    return Promise.all(ajaxes);
+                }
+                else {
+                    return _ajaxFn(config).run();
+                }
             }
         }
-        function multiajax(config) {
-            var method = config.method;
-            if (method != 'delete' && method != 'put')
-                throw new Error('Multiajax only enabled for delete and put');
-            return function (arr) {
-                if (Object.prototype.toString.call(arr) !== '[object Array]')
-                    throw new Error('Multiajax data only receives arrays');
-                var length = arr.length;
-                for (var i = 0; i < length; i++) {
-                    //Id field should be a positive number or string
-                    if (arr[i].Id == null)
-                        throw new Error("Tried to do multiajax and one object didn't have a natural number as an Id property");
-                }
-                var ajaxes = [];
-                for (var i = 0; i < length; i++) {
-                    ajaxes.push(ajax(config)(arr[i]));
-                }
-                return Promise.all(ajaxes);
-            }
+        function request(config, options, data) {
+            return build(config, options)(data);
         }
         return {
-            requestFn: function (config) { return ajax(config); },
-            create: function (url) {
+            build: build,
+            request: request,
+            create: function (type) {
+                if (type[0] != '/')
+                    type = '/' + type;
+                var url = type;
+                var idUrl = '/:Id';
                 return {
-                    getAll: ajax({ url: url }),
-                    post: ajax({ method: 'post', url: url }),
-                    delete: ajax({ method: 'delete', url: url }),
-                    deleteMany: multiajax({ method: 'delete', url: url }),
-                    put: ajax({ method: 'put', url: url }),
-                    putMany: multiajax({ method: 'put', url: url })
+                    get: build({ url: url + idUrl }),
+                    getAll: build({ url: url }),
+                    post: build({ method: 'post', url: url }),
+                    delete: build({ method: 'delete', url: url + idUrl }),
+                    deleteMany: build({ method: 'delete', url: url + idUrl }, { array: true }),
+                    put: build({ method: 'put', url: url + idUrl }),
+                    putMany: build({ method: 'put', url: url + idUrl }, { array: true })
                 }
             }
         }

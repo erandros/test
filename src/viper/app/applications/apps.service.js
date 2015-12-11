@@ -5,7 +5,7 @@
     .module('viper')
     .factory('applications', ['api', function (api) {
         var appsApi = api.create('/applications');
-        appsApi.getTypes = api.requestFn({ url: '/api/applicationtypes' });
+        appsApi.getTypes = api.build({ url: '/api/applicationtypes' });
         return appsApi;
     }])
 })();

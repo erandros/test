@@ -14,6 +14,7 @@
                 attrs['title'] = type.capitalizeFirstLetter().pluralize();
             }
             scope.api = $injector.get(attrs['api']);
+            ctrl.fill();
             scope.type = attrs["type"];
             scope.title = attrs["title"];
         }
@@ -21,19 +22,17 @@
             restrict: 'E',
             link: link,
             templateUrl: '/templates/vp-form.html',
-            controller: ['$scope', ViperForm],
+            controller: ['$scope', 'razorParams', ViperForm],
             require: 'vpForm',
         };
-        function ViperForm($scope) {
+        function ViperForm($scope, razorParams) {
             var vm = this;
-            this.clear = function () {
-            }
-            this.refresh = function () {
-            }
-            this.select = function (row, mode) {
-            }
-            this.deleteSelected = function () {
-                $scope.api.deleteMany($scope.selectedRows);
+            this.fill = function () {
+                return $scope.api.get({ Id: razorParams.Id })
+                .then(function (res) {
+                    $scope.form = res.data;
+                    console.log(res);
+                })
             }
         }
     }])

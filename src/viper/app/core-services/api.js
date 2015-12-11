@@ -50,7 +50,7 @@
             requestFn: function (config) { return ajax(config); },
             create: function (url) {
                 return {
-                    get: ajax({ url: url }),
+                    getAll: ajax({ url: url }),
                     post: ajax({ method: 'post', url: url }),
                     delete: ajax({ method: 'delete', url: url }),
                     deleteMany: multiajax({ method: 'delete', url: url }),

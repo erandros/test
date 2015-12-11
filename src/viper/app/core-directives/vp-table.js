@@ -55,7 +55,7 @@
             }
             this.refresh = function () {
                 this.clear();
-                return $scope.api.get()
+                return $scope.api.getAll()
                 .then(function (res) {
                     $scope.rows = res.data.map(function (el) { return utils.flatten(el) });
                     $scope.displayedRows = [].concat($scope.rows);

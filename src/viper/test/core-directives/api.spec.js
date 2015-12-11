@@ -47,13 +47,13 @@ describe('viper', function() {
     afterEach(function() { httpBackend.verifyNoOutstandingRequest() });
 
     it("should multi delete correctly", function (done) {
-      peopleApi.get()
+      peopleApi.getAll()
       .then(function(res) {
         expect(res.data.length).toEqual(7);
         return peopleApi.deleteMany([{Id: 5}, {Id: 4}, {Id: 4}])
       })
       .then(function(res) {
-        return peopleApi.get();
+        return peopleApi.getAll();
       })
       .then(function(res) {
         expect(res.data.length).toEqual(5);
@@ -74,7 +74,7 @@ describe('viper', function() {
 
     it("should multi put correctly", function(done) {
       var changed;
-      peopleApi.get()
+      peopleApi.getAll()
       .then(function(res) {
         expect(res.data.length).toEqual(7);
         res.data[3].Name = 'ASDQWE';
@@ -83,7 +83,7 @@ describe('viper', function() {
         return peopleApi.putMany(res.data)
       })
       .then(function(res) {
-      	return peopleApi.get()
+      	return peopleApi.getAll()
       })
       .then(function(res) {
         expect(res.data).toEqual(changed);

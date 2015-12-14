@@ -28,8 +28,10 @@
         function ViperForm($scope, razorParams) {
             var vm = this;
             this.fill = function () {
+                $scope.ready = false;
                 return $scope.api.get({ Id: razorParams.Id })
                 .then(function (res) {
+                    $scope.ready = true;
                     $scope.form = res.data;
                     console.log(res);
                 })

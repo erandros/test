@@ -7,7 +7,7 @@
 <!-- /.row -->
 <div class="row">
     <div class="col-xs-12">
-        <form class="form-horizontal">
+        <form class="form-horizontal" ng-show="ready">
             <div class="form-group" ng-repeat="field in fields track by field.name">
                 <label for="{{field.name}}" class="col-sm-2 control-label">{{field.name.camelSplit()}}</label>
                 <div class="col-sm-10">

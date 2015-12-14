@@ -22,6 +22,7 @@ gulp.task("watch", ["build"], function () {
     browserSync.init({
         proxy: "localhost:5000"
     });
+    gulp.watch("./wwwroot/templates/**/*.html", browserSync.reload);
     gulp.watch("./Views/**/*.cshtml", browserSync.reload);
     gulp.watch("./app/**/*.js", ["build"])
     .on('change', browserSync.reload);

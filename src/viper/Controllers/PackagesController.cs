@@ -15,7 +15,7 @@ namespace viper.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View("~/Views/Applications/Index.cshtml");
+            return View();
         }
     }
 }

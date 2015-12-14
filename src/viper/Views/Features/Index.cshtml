@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "_DashboardLayout";
+    ViewBag.Title = "Admin";
+}
+<section st-table="displayedRows" st-safe-src="rows">
+    <vp-table type="feature"
+              headers="Name,Description"
+              fields="Name,Description"
+              create-fields="Name,Description"
+              link-rows="true"
+              >
+    </vp-table>
+</section>

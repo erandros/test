@@ -43,7 +43,6 @@
                                         <tr role="row">
                                             <th ng-if="mode == 'checkbox'"></th>
                                             <th ng-repeat="header in headers track by header">{{header}}</th>
-                                            <th ng-if="mode == 'default'">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -56,10 +55,6 @@
                                                 <span ng-if="!linkRows">
                                                     {{row[field]}}
                                                 </span>
-                                            </td>
-                                            <td class="center" ng-if="mode == 'default'">
-                                                <edit-button></edit-button>
-                                                <delete-button></delete-button>
                                             </td>
                                         </tr>
                                     </tbody>

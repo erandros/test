@@ -148,3 +148,18 @@ table.vp-table > tbody > tr > td.td-anchor > a {
     padding: 8px;
     height: 100%;
 }
+
+.table-left-header {
+    margin-left: 15px;
+}
+.table-left-header { float: left;width: 350px;}
+
+.dataTables_filter, .dataTables_length {
+    float: right;
+    margin-right: 16px;
+}
+
+.app-types {
+    width: auto;
+    display: inline-block;
+}

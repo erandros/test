@@ -14,19 +14,17 @@
                 <div class="dataTable_wrapper">
                     <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                         <div class="row">
-                            <div class="col-xs-7">
+                            <div class="table-left-header">
                                 <group-delete-button ng-if="mode == 'checkbox'"></group-delete-button>
                                 <span ng-transclude="header">
 
                                 </span>
                             </div>
-                            <div class="col-xs-3">
-                                <div id="dataTables-example_filter" class="dataTables_filter">
+                            <div class="table-right-header">
+                                <div class="dataTables_filter">
                                     <label>Search:<input type="search" class="form-control input-sm" st-search="{{searchField}}" placeholder="" ng-disabled="!searchField"></label>
                                 </div>
-                            </div>
-                            <div class="col-xs-2">
-                                <div class="dataTables_length" id="dataTables-example_length">
+                                <div class="dataTables_length">
                                     <label>
                                         Show
                                         <select name="dataTables-example_length"

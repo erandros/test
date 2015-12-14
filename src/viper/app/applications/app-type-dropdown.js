@@ -35,7 +35,7 @@
         }
         return {
             link: link,
-            template: '<select class="form-control" ng-model="selectedAppType"' + 
+            template: '<select class="form-control app-types" ng-model="selectedAppType"' + 
                       ' ng-options="type as type.Name for type in appTypes track by type.Id">' +
                       ' </select>' +
                       ' <button class="btn btn-primary"' + 

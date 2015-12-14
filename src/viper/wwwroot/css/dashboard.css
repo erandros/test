@@ -4,8 +4,8 @@ html, body {
 }
 
 body {
-    min-width: 768px;
     overflow: scroll;
+    min-width: 995px;
 }
 
 .sidebar {
@@ -45,7 +45,7 @@ body {
     border-right: 1px solid #eee;
     bottom: 0px;
     z-index: -100;
-    position: fixed;
+    position: absolute;
 }
 
 .page-header * {

@@ -156,7 +156,7 @@ namespace viper.Services
                 try
                 {
                     dynamic apps = response.Json;
-                    return apps[0].Title.Value;
+                    return apps[0].Description.Value;
                 }
                 catch(RuntimeBinderException) { Error.Report("User doesn't have any site", "API"); }
             }

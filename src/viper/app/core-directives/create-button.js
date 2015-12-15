@@ -3,10 +3,10 @@
 
     angular
     .module('viper')
-    .directive('createButton', ['$modal', 'utils', function ($modal, utils) {
+    .directive('createButton', ['$uibModal', 'utils', function ($uibModal, utils) {
         function link(scope, element, attrs) {
             element.bind('click', function () {
-                $modal.open({
+                $uibModal.open({
                     templateUrl: '/templates/modals/create.html',
                     controller: 'AddModalCtrl',
                     resolve: {
@@ -38,8 +38,8 @@
             scope: false
         };
     }])
-    .controller('AddModalCtrl', ['$modalInstance', '$scope', 'fields', 'type',
-        function ($modalInstance, $scope, fields, type) {
+    .controller('AddModalCtrl', ['$uibModalInstance', '$scope', 'fields', 'type',
+        function ($uibModalInstance, $scope, fields, type) {
         var vm = this;
         $scope.form = {};
         $scope.fields = fields;

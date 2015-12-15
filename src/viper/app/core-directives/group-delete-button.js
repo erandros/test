@@ -3,13 +3,24 @@
 
     angular
     .module('viper')
-    .directive('groupDeleteButton', function () {
+    .directive('groupDeleteButton', ['$uibModal', function ($uibModal) {
         
         function link(scope, element, attrs, ctrl) {
             element.bind('click', function () {
-                console.log('Tried to delete the following rows: ');
-                console.log(scope.selectedRows);
-                ctrl.deleteSelected();
+                var inst = $uibModal.open({
+                    templateUrl: '/templates/modals/delete.html',
+                    controller: 'DeleteModalCtrl',
+                    resolve: {
+                        length: function () {
+                            return scope.selectedRows.length;
+                        }
+                    }
+                })
+                inst.result.then(function () {
+                    console.log('Tried to delete the following rows: ');
+                    console.log(scope.selectedRows);
+                    ctrl.deleteSelected();
+                });
             });
         }
         return {
@@ -17,5 +28,11 @@
             require: '^vpTable',
             template: '<button class="btn btn-danger" ng-disabled="selectedRows.length < 1">Delete</button>'
         }
-    });
+    }])
+    .controller('DeleteModalCtrl', ['$uibModalInstance', '$scope', 'length',
+        function ($uibModalInstance, $scope, length) {
+            var vm = this;
+            $scope.length = length;
+        }
+    ])
 })();

@@ -6,7 +6,6 @@ var gulp = require("gulp"),
     rename = require("gulp-rename"),
     uglify = require("gulp-uglify"),
     wrap = require("gulp-wrap"),
-    browserSync = require('browser-sync').create(),
     watch = require("gulp-watch"),
     del = require("del"),
     fs = require("fs");
@@ -19,6 +18,7 @@ gulp.task("clean", function (cb) {
 });
 
 gulp.task("watch", ["build"], function () {
+    var browserSync = require('browser-sync').create();
     browserSync.init({
         proxy: "localhost:5000"
     });

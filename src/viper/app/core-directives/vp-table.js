@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .directive('vpTable', ['$modal', '$injector', '$location', 'utils', function ($modal, $injector, $location, utils) {
+    .directive('vpTable', ['$injector', '$location', 'utils', function ($injector, $location, utils) {
         function link(scope, element, attrs, ctrl) {
             var type = attrs['type'];
             if (!attrs.hasOwnProperty('api')) {

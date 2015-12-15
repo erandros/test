@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .directive('vpTable', ['$modal', '$injector', 'utils', function ($modal, $injector, utils) {
+    .directive('vpTable', ['$modal', '$injector', '$location', 'utils', function ($modal, $injector, $location, utils) {
         function link(scope, element, attrs, ctrl) {
             var type = attrs['type'];
             if (!attrs.hasOwnProperty('api')) {
@@ -19,6 +19,10 @@
             scope.headers = attrs["headers"].split(',');
             scope.createFields = attrs["createFields"] || attrs["fields"];
             scope.editFields = attrs["editFields"] || attrs["fields"];
+            scope.linkRows = Boolean(attrs["linkRows"]);
+            if (scope.linkRows) {
+                scope.$location = $location;
+            }
             scope.searchField = attrs["searchField"] || (function () {
                 //Use these defaults values if no searchField is specified
                 if (scope.fields.indexOf("Name") > -1) return "Name";
@@ -36,7 +40,7 @@
         return {
             restrict: 'E',
             link: link,
-            templateUrl: 'templates/vp-table.html',
+            templateUrl: '/templates/vp-table.html',
             controller: ['$scope', ViperTable],
             require: ['^stTable', 'vpTable'],
             transclude: {
@@ -51,7 +55,7 @@
             }
             this.refresh = function () {
                 this.clear();
-                return $scope.api.get()
+                return $scope.api.getAll()
                 .then(function (res) {
                     $scope.rows = res.data.map(function (el) { return utils.flatten(el) });
                     $scope.displayedRows = [].concat($scope.rows);

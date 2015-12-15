@@ -2,7 +2,7 @@
 (function () {
     'use strict';
 
-    var deps = ['smart-table', 'ui.bootstrap', 'countUpModule'];
+    var deps = ['smart-table', 'ui.bootstrap', 'countUpModule', 'angular-loading-bar'];
     if (window.jasmine === undefined) deps.push('ngMockE2E');
     var viper =
         angular.module('viper', deps);
@@ -14,6 +14,10 @@
             });
         }]);
     }
+    
+    viper.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.latencyThreshold = 100;
+    }])
 
     trackDigests(viper);
 })();

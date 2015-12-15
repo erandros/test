@@ -3,11 +3,15 @@
 @{
     Layout = "_Layout";
 }
-<div class="container-fluid">
+<div class="container-fluid main">
     <div class="row">
         @await Component.InvokeAsync("Sidebar")
-        <div id="page-wrapper" style="min-height: 555px;">
+        <div id="page-wrapper">
             @RenderBody()
         </div>
     </div>
 </div>
+
+@section scripts {
+    @RenderSection("scripts", required: false)
+}

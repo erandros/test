@@ -20,6 +20,8 @@
     margin: 0 0 0 129px;
     padding: 0 30px;
     border-left: 1px solid #e7e7e7;
+    background-color: white;
+    min-width: 630px;
 }
 
 .navbar-top-links {

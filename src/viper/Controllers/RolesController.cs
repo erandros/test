@@ -13,9 +13,16 @@ namespace viper.Controllers
     public class RolesController : Controller
     {
         // GET: /<controller>/
+        [Route("/roles")]
         public IActionResult Index()
         {
             return View();
+        }
+
+        [Route("/roles/{*Id}")]
+        public IActionResult Edit(string Id)
+        {
+            return View("Edit", Id);
         }
     }
 }

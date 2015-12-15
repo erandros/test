@@ -4,8 +4,8 @@ html, body {
 }
 
 body {
-    min-width: 768px;
     overflow: scroll;
+    min-width: 995px;
 }
 
 .sidebar {
@@ -45,7 +45,7 @@ body {
     border-right: 1px solid #eee;
     bottom: 0px;
     z-index: -100;
-    position: fixed;
+    position: absolute;
 }
 
 .page-header * {
@@ -105,7 +105,7 @@ div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper, div.dataTa
     -o-user-select: none; 
 }
 
-.table > tbody > tr > td.vp-td-nopadding, .vp-outerbox {
+.table > tbody > tr > td.td-checkbox, .vp-outerbox {
     padding: 0px;
     line-height: 34px;
     -webkit-touch-callout: none;
@@ -138,4 +138,28 @@ div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper, div.dataTa
 
 .table-striped tbody tr.highlight {
     background-color: #A4CEB6;
+}
+
+table.vp-table > tbody > tr > td.td-anchor {
+    padding: 0px;
+}
+table.vp-table > tbody > tr > td.td-anchor > a {
+    display: block;
+    padding: 8px;
+    height: 100%;
+}
+
+.table-left-header {
+    margin-left: 15px;
+}
+.table-left-header { float: left;width: 350px;}
+
+.dataTables_filter, .dataTables_length {
+    float: right;
+    margin-right: 16px;
+}
+
+.app-types {
+    width: auto;
+    display: inline-block;
 }

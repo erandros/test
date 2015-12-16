@@ -13,9 +13,16 @@ namespace viper.Controllers
     public class GroupsController : Controller
     {
         // GET: /<controller>/
+        [Route("/groups")]
         public IActionResult Index()
         {
             return View();
+        }
+
+        [Route("/groups/{*Id}")]
+        public IActionResult Edit(string Id)
+        {
+            return View("Edit", Id);
         }
     }
 }

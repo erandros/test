@@ -45,11 +45,13 @@
         */
         function typify(fields) {
             return fields.split(',').map(function (field) {
-                var split = field.split(':');
-                return {
-                    name: split[0],
-                    type: split[1] || 'text'
-                }
+                var obj = {};
+                var res = field.match(/(\w+)(\:[^\s\(]+)?(\(.+\))?/);
+                obj.name = res[1];
+                obj.type = res[2] ? res[2].substring(1) : "text";
+                var params = res[3]
+                obj.params = params ? params.substring(1, params.length - 1) : params;
+                return obj;
             })
         }
 

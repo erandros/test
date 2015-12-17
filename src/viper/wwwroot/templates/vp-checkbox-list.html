@@ -1,12 +1,12 @@
 ﻿<div class="form-group">
     <label class="col-sm-2 control-label">{{field.name.camelSplit()}}</label>
     <div class="col-sm-10 ">
-        <div class="checkbox" ng-repeat="checkbox in checkboxes track by checkbox.Id">
+        <div class="checkbox" ng-repeat="item in items track by item.Id">
             <label>
                 <input type="checkbox"
                        checklist-model="form.ApplicationRoles"
-                       checklist-value="mapRole(checkbox)"
-                       checklist-comparator="comparator" />{{checkbox.Name}}
+                       checklist-value="map(item)"
+                       checklist-comparator="comparator" />{{item.Name}}
             </label>
         </div>
     </div>

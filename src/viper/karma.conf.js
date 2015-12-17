@@ -23,6 +23,7 @@ module.exports = function(config) {
       'wwwroot/lib/bluebird/js/browser/bluebird.js',
       'wwwroot/static-libs/countUp.js/dist/angular-countUp.js',
       'wwwroot/lib/angular-loading-bar/build/loading-bar.js',
+      'wwwroot/lib/checklist-model/checklist-model.js',
       'app/**/*.js',
       'test/**/*.spec.js'
     ],

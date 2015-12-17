@@ -3,8 +3,9 @@
     Layout = "_DashboardLayout";
     ViewBag.Title = "Admin";
 }
-<vp-form type="group"
-         fields="Name,Description,Roles:checkbox-list(roles)"
+
+<vp-form type="group" ng-controller="groupsController"
+         fields="Name,Description,Roles:checkbox-list(roles ApplicationRoleId)"
 >
 </vp-form>
 

@@ -38,6 +38,7 @@
                 $scope.ready = false;
                 return $scope.api.get({ Id: razorParams.Id })
                 .then(function (res) {
+                    $scope.Id = res.data.Id;
                     $scope.ready = true;
                     $scope.form = res.data;
                     console.log(res);

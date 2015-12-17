@@ -54,7 +54,7 @@
                 $scope.rows = $scope.displayedRows = null;
             }
             this.refresh = function () {
-                this.clear();
+                vm.clear();
                 return $scope.api.getAll()
                 .then(function (res) {
                     $scope.rows = res.data.map(function (el) { return utils.flatten(el) });
@@ -72,7 +72,10 @@
                 $scope.selectedRows.splice(rows.indexOf(row), 1);
             }
             this.deleteSelected = function () {
-                $scope.api.deleteMany($scope.selectedRows);
+                $scope.api.deleteMany($scope.selectedRows)
+                .then(function (res) {
+                    vm.refresh();
+                });
             }
         }
     }])

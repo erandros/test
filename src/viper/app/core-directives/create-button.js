@@ -4,7 +4,7 @@
     angular
     .module('viper')
     .directive('createButton', ['$uibModal', 'utils', function ($uibModal, utils) {
-        function link(scope, element, attrs) {
+        function link(scope, element, attrs, ctrl) {
             element.bind('click', function () {
                 $uibModal.open({
                     templateUrl: '/templates/modals/create.html',
@@ -19,11 +19,8 @@
                     }
                 })
                 .result.then(function (form) {
-                    var cb = scope.api.post(form);
-                    scope.clear();
-                    cb.then(function () {
-                        scope.refresh();
-                    });
+                    scope.api.post(form)
+                    .then(ctrl.refresh);
                 }, function () {
 
                 })

@@ -8,7 +8,10 @@
          fields="Name,Description,Roles:checkbox-list(roles ApplicationRoleId mapRole)"
 >
 </vp-form>
-<vp-checklist-form>
+<vp-checklist-form vp-get-list="roles.getAll" 
+                   vp-get-selected="groups.getRoles"
+                   vp-post="groups.setRoles"
+                   >
 </vp-checklist-form>
 
 @section scripts {

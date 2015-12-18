@@ -33,6 +33,7 @@
                     if (!r) throw err;
                     return r;
                 });
+                if (options.dataField) config.data = config.data[options.dataField];
                 return {
                     run: function () { return $http(config); }
                 }

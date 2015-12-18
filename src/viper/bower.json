@@ -18,7 +18,8 @@
     "jquery-validation-unobtrusive": "3.2.2",
     "notifyjs": "~0.4.0",
     "angular-loading-bar": "~0.8.0",
-    "checklist-model": "~0.8.0"
+    "checklist-model": "~0.8.0",
+    "lodash": "~3.10.1"
   },
   "resolutions": {
     "angular": "^1.0.0"

@@ -1,13 +1,22 @@
-﻿(function () {
+﻿var _scope;
+(function () {
 
     angular
     .module('viper')
-    .directive('vpCheckboxList', ['$injector', '$parse', function ($injector, $parse) {
+    .directive('vpChecklistForm', ['$injector', '$parse', function ($injector, $parse) {
         return {
-            require: '^vpForm',
-            templateUrl: '/templates/vp-checkbox-list.html',
+            templateUrl: '/templates/vp-checklist-form.html',
             link: function (scope, element, attrs, ctrl) {
-                scope.api = $injector.get(scope.field.params[0]);
+                _scope = scope;
+                scope.items = [{ Name: 'hi', Id: 1 }, { Name: 'hello', Id: 2 }, { Name: 'hi there', Id: 3 }]
+                scope.model = [];
+                scope.map = function (item) {
+                    return item;
+                }
+                scope.comparator = function (obj1, obj2) {
+                    return obj1.Id == obj2.Id;
+                }
+                /*scope.api = $injector.get(scope.field.params[0]);
                 $parse;
                 var _comparator = scope.field.params[1];
                 var _comparatorFn = scope[_comparator];
@@ -24,7 +33,7 @@
                 scope.api.getAll()
                 .then(function (res) {
                     scope.items = res.data;
-                })
+                })*/
             }
         };
     }]);

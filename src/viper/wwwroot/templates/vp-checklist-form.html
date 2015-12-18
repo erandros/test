@@ -4,7 +4,7 @@
         <div class="checkbox" ng-repeat="item in items track by item.Id">
             <label>
                 <input type="checkbox"
-                       checklist-model="form.ApplicationRoles"
+                       checklist-model="checklistModel()"
                        checklist-value="map(item)"
                        checklist-comparator="comparator" />{{item.Name}}
             </label>

@@ -6,7 +6,7 @@
         return {
             require: '^vpForm',
             templateUrl: '/templates/vp-checkbox-list.html',
-            link: function (scope, element, attr, ctrl) {
+            link: function (scope, element, attrs, ctrl) {
                 scope.api = $injector.get(scope.field.params[0]);
                 $parse;
                 var _comparator = scope.field.params[1];

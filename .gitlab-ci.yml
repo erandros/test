@@ -19,7 +19,7 @@ test:
 
 deploy production:
   script:
-    - dnvm use 1.0.0-beta7 -p
+    - dnvm use -arch x64 1.0.0-beta7 -p
     - appcmd stop sites "Viper"
     - $src='./'
     - $stage='/c/inetpub/wwwroot/Viper/stage/'
@@ -46,7 +46,7 @@ deploy production:
 
 deploy test:
   script:
-    - dnvm use 1.0.0-beta7 -p
+    - dnvm use -arch x64 1.0.0-beta7 -p
     - appcmd stop sites "ViperTest"
     - appcmd recycle apppool "ViperTest"
     - $src='./'
@@ -73,7 +73,7 @@ deploy test:
 
 deploy dev:
   script:
-    - dnvm use 1.0.0-beta7 -p
+    - dnvm use -arch x64 1.0.0-beta7 -p
     - appcmd stop sites "ViperDev"
     - appcmd recycle apppool "ViperDev"
     - $src='./'

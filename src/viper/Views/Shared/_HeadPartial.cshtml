@@ -3,20 +3,23 @@
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title ng-controller="titleController">@Session.SiteTitle</title>
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="pragma" content="no-cache" />
+<title>@Session.SiteTitle</title>
 
-<environment names="Staging,Development">
+<environment names="Development">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/bootstrap-touch-carousel/dist/css/bootstrap-touch-carousel.css" />
     <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="~/lib/datatables/media/css/dataTables.bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/angular-loading-bar/build/loading-bar.css" />
 </environment>
-<environment names="Production">
-    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/css/bootstrap.min.css"
-          asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
-    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap-touch-carousel/0.8.0/css/bootstrap-touch-carousel.css"
-          asp-fallback-test-class="carousel-caption" asp-fallback-test-property="display" asp-fallback-test-value="none" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css"
-          asp-fallback-test-class="hidden" asp-fallback-test-property="visibility" asp-fallback-test-value="hidden" />
+<environment names="Staging,Production">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="~/lib/datatables/media/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/angular-loading-bar/build/loading-bar.min.css" />
 </environment>
 <link rel="stylesheet" href="~/css/header.css" />
 <link rel="stylesheet" href="~/css/dashboard.css" />

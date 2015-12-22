@@ -1,2 +1,2 @@
 #!/bin/sh
-find $2 -type f ! -path '*node_modules*' | xargs -I{} rm -v {}
+find $2 -type f ! -path '*node_modules*' ! -path '*wwwroot/lib*' | xargs -I{} rm -v {}

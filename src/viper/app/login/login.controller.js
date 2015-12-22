@@ -2,12 +2,11 @@
     'use strict';
     angular
     .module('viper')
-    .controller('loginController', ['$scope', '$location', 'token', loginController])
+    .controller('loginController', ['$scope', '$location', loginController])
 
-    function loginController($scope, $location, token) {
+    function loginController($scope, $location) {
         $scope.user = {};
         $scope.submit = function (user) {
-            token.init(user)
         }
     }
 })();

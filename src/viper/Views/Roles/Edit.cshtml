@@ -1,0 +1,23 @@
+﻿@model string
+@{
+    Layout = "_DashboardLayout";
+    ViewBag.Title = "Admin";
+}
+<vp-form type="role"
+         fields="Name,Description"
+>
+</vp-form>
+
+@section scripts {
+<script>
+    (function () {
+        angular
+        .module('viper')
+        .factory('razorParams', function () {
+            return {
+                Id: '@Model'
+            }
+        })
+    })();
+</script>
+}

@@ -53,13 +53,11 @@ namespace viper.Controllers
             {
                 return View(model);
             }
-            var response = API.LoginRequest(Request, model.Email, model.Password).Result;
-            bool success = response.StatusCode == System.Net.HttpStatusCode.OK;
-            if (success)
+            var response = API.LoginRequest(Request, model.Email, model.Password);
+            if (response.IsOK)
             {
-                var result = response.Content.ReadAsStringAsync().Result;
-                dynamic data = JsonConvert.DeserializeObject(result);
-                Session.Token = data.access_token.Value;
+                dynamic json = response.Json;
+                Session.Token = json.access_token.Value;
                 var user = new ApplicationUser()
                 {
                     SecurityStamp = Guid.NewGuid().ToString("D"),
@@ -67,7 +65,7 @@ namespace viper.Controllers
                 };
                 await SignInManager.SignInAsync(user, new AuthenticationProperties()
                 {
-                    IsPersistent = true,
+                    IsPersistent = false,
                     ExpiresUtc = DateTimeOffset.UtcNow.AddDays(1)
                 });
                 Session.SiteTitle = API.GetTitle();
@@ -89,7 +87,7 @@ namespace viper.Controllers
         public async Task<ActionResult> LogOff()
         {
             await SignInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         #region Helpers

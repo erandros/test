@@ -17,8 +17,15 @@ gulp.task("clean", function (cb) {
     del(dest + '/*', cb);
 });
 
-gulp.task("watch", function () {
+gulp.task("watch", ["build"], function () {
+    var browserSync = require('browser-sync').create();
+    browserSync.init({
+        proxy: "localhost:5000"
+    });
+    gulp.watch("./wwwroot/templates/**/*.html", browserSync.reload);
+    gulp.watch("./Views/**/*.cshtml", browserSync.reload);
     gulp.watch("./app/**/*.js", ["build"])
+    .on('change', browserSync.reload);
 })
 
 gulp.task("build", ["clean", "concat", "minify"], function () {

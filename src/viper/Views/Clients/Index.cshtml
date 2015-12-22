@@ -6,24 +6,10 @@
     Layout = "_DashboardLayout";
     ViewBag.Title = "Admin";
 }
-<div ng-controller="clientsController">
-    <table st-table="displayedClients" st-safe-src="clients" class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Notes</th>
-                <th>Edit</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="client in displayedClients">
-                <td>{{client.Id}}</td>
-                <td>{{client.Name}}</td>
-                <td>{{client.Notes}}</td>
-                <td><button class="btn btn-danger" ng-click="removeModal(client)">Delete</button></td>
-                <td><button class="btn btn-primary" ng-click="editModal(client)">Edit</button></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+
+<section st-table="displayedRows" st-safe-src="rows">
+    <vp-table type="client"
+              headers="Name,Title,Type,Created Date"
+              fields="Name,Title,Type,Date">
+    </vp-table>
+</section>

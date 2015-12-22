@@ -1,41 +1,42 @@
 ﻿@inject IOptions<AppSettings> AppSettings
 
-<environment names="Staging,Development">
+<environment names="Development">
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/lib/hammer.js/hammer.js"></script>
-    <script src="~/lib/bootstrap-touch-carousel/dist/js/bootstrap-touch-carousel.js"></script>
     <script src="~/lib/angular/angular.js"></script>
+    <script src="~/lib/bluebird/js/browser/bluebird.js"></script>
     <script src="~/lib/angular-smart-table/dist/smart-table.js"></script>
     <script src="~/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="~/lib/angular-mocks/angular-mocks.js"></script>
+    <script src="~/lib/notifyjs/dist/notify.js"></script>
+    <script src="~/static-libs/countUp.js/dist/angular-countUp.js"></script>
+    <script src="~/lib/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="~/lib/checklist-model/checklist-model.js"></script>
+    <script src="~/lib/lodash/lodash.js"></script>
     <script src="~/dist/app.js"></script>
-    <script src="~/lib/angular-resource/angular-resource.js"></script>
-    <script src="~/lib/metisMenu/dist/metisMenu.js"></script>
 </environment>
-<environment names="Production">
-    <script src="//ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.0.min.js"
+<environment names="Staging,Production">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"
             asp-fallback-test="window.jQuery">
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"
             asp-fallback-test="window.bootstrap">
     </script>
-    <script src="//ajax.aspnetcdn.com/ajax/hammer.js/2.0.4/hammer.min.js"
+    <script src="//cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.4/hammer.min.js"
             asp-fallback-test="window.Hammer">
     </script>
-    <script src="//ajax.aspnetcdn.com/ajax/bootstrap-touch-carousel/0.8.0/js/bootstrap-touch-carousel.js"
-            asp-fallback-test="window.Zepto">
-    </script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"
             asp-fallback-test="window.angular">
     </script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-resource.min.js"
-            asp-fallback-test="window.angular">
-    </script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.2.0/metisMenu.min.js"
-            asp-fallback-test="window.angular">
-    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bluebird/3.0.5/bluebird.min.js"></script>
     <script src="~/lib/angular-smart-table/dist/smart-table.min.js"></script>
     <script src="~/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/lib/angular-mocks/angular-mocks.js"></script>
+    <script src="~/lib/notifyjs/dist/notify.js"></script>
+    <script src="~/static-libs/countUp.js/dist/angular-countUp.min.js"></script>
+    <script src="~/lib/angular-loading-bar/build/loading-bar.min.js"></script>
+    <script src="~/lib/checklist-model/checklist-model.js"></script>
+    <script src="~/lib/lodash/lodash.min.js"></script>
     <script src="~/dist/app.min.js"></script>
 </environment>
-<script>$(function () { $('#metis-menu').metisMenu(); });</script>

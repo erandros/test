@@ -1,0 +1,29 @@
+﻿@model string
+@{
+    Layout = "_DashboardLayout";
+    ViewBag.Title = "Admin";
+}
+
+<vp-form type="group" ng-controller="groupsController"
+         fields="Name,Description,Roles:checkbox-list(roles ApplicationRoleId mapRole)"
+>
+</vp-form>
+<vp-checklist-form vp-get-list="roles.getAll" 
+                   vp-get-selected="groups.getRoles"
+                   vp-post="groups.setRoles"
+                   >
+</vp-checklist-form>
+
+@section scripts {
+<script>
+    (function () {
+        angular
+        .module('viper')
+        .factory('razorParams', function () {
+            return {
+                Id: '@Model'
+            }
+        })
+    })();
+</script>
+}

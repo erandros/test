@@ -1,11 +1,16 @@
 ﻿using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
+using Microsoft.CSharp.RuntimeBinder;
+using Microsoft.Framework.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using viper.Extensions;
 
 namespace viper.Services
 {
@@ -26,8 +31,12 @@ namespace viper.Services
         {
             get
             {
-                var json = Task.Result.Content.ReadAsStringAsync().Result;
-                return JsonConvert.DeserializeObject(json);
+                try
+                {
+                    var json = Task.Result.Content.ReadAsStringAsync().Result;
+                    return JsonConvert.DeserializeObject(json);
+                }
+                catch(Exception) { return null; }
             }
         }
     }
@@ -38,11 +47,16 @@ namespace viper.Services
         private string BaseApiRoute { get { return BaseRoute + "api"; } }
         public Session Session;
         public Error Error;
-        public API(Session session, Error error, IHostingEnvironment env)
+        public API(Session session, Error error, IHostingEnvironment env, IConfiguration Configuration)
         {
             Session = session;
             Error = error;
-            if (env.IsProduction())
+            var localApi = Configuration.GetSection("LOCAL_API").Value;
+            if (localApi.LowerCaseEquals("true"))
+            {
+                BaseRoute = "http://localhost:50558/";
+            }
+            else if (env.IsProduction())
             {
                 BaseRoute = "https://api.fitmentgroup.com/";
             }
@@ -52,7 +66,7 @@ namespace viper.Services
             }
         }
 
-        public async Task<HttpResponseMessage> LoginRequest(HttpRequest Request, string username, string password)
+        public Response LoginRequest(HttpRequest Request, string username, string password)
         {
             var req = new HttpClient();
             List<KeyValuePair<string, string>> kvpList = new List<KeyValuePair<string, string>>()
@@ -62,9 +76,21 @@ namespace viper.Services
                 new KeyValuePair<string, string>("password", password),
             };
             var content = new FormUrlEncodedContent(kvpList);
-            var response = await req.PostAsync(
+            var _response = req.PostAsync(
                 requestUri: BaseRoute + "Token",
                 content: content);
+            var response = new Response(_response);
+            if (!response.IsOK)
+            {
+                var json = response.Json;
+                try
+                {
+                    var error = json.error;
+                    if (error != "invalid_grant")
+                        Error.ReportRequest(response);
+                }
+                catch(RuntimeBinderException) { Error.ReportRequest(response); }
+            }
             return response;
         }
 
@@ -84,9 +110,20 @@ namespace viper.Services
         public async Task<object> RequestPassThrough(HttpRequest Current, string route)
         {
             var client = AuthorizedClient();
-            var response = await client.SendAsync(new HttpRequestMessage(
+            var message = new HttpRequestMessage(
                 method: new HttpMethod(Current.Method),
-                requestUri: BaseRoute + "api/" + route));
+                requestUri: BaseRoute + "api/" + route);
+            if (Current.Method != "GET")
+            {
+                var content = new StreamReader(Current.Body).ReadToEnd();
+                if (!string.IsNullOrEmpty(content))
+                {
+                    var encoding = System.Text.Encoding.UTF8;
+                    var mediaType = Current.ContentType.Substring(0, Current.ContentType.IndexOf(';'));
+                    message.Content = new StringContent(content, encoding, mediaType);
+                }
+            }
+            var response = await client.SendAsync(message);
             return response.Content.ReadAsStringAsync().Result;
         }
 
@@ -103,7 +140,7 @@ namespace viper.Services
             var response = new Response(_response);
             if (!response.IsOK)
             {
-                Error.Report("Request returned with status different than 200", "API");
+                Error.ReportRequest(response);
             }
             return response;
         }
@@ -116,13 +153,12 @@ namespace viper.Services
             var response = Request("/user/applications");
             if (response.IsOK)
             {
-                dynamic apps = response.Json;
-                foreach (var app in apps)
+                try
                 {
-                    bool isDefault = app.IsDefault;
-                    if (isDefault) return app.Title.Value;
+                    dynamic apps = response.Json;
+                    return apps[0].Description.Value;
                 }
-                Error.Report("User doesn't have a default site", "API");
+                catch(RuntimeBinderException) { Error.Report("User doesn't have any site", "API"); }
             }
             return "Viper";
         }

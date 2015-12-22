@@ -9,8 +9,6 @@ nav.header {
     border: 1px solid transparent;
     border-color: #e7e7e7;
     /* line-height: 50px; */
-    padding-left: 30px;
-    padding-right: 30px;
 }
 
 .header-left > a, .header-right > a {
@@ -31,7 +29,6 @@ nav.header a:hover {
 
 .header-right {
     float: right;
-    margin-right: 50px;
 }
 
 .header-brand {

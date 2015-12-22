@@ -1,0 +1,75 @@
+﻿@using viper.Extensions
+
+@functions
+{
+    public string CurrentController()
+    {
+        return ViewContext.RouteData.Values["controller"].ToString();
+    }
+    public class SidebarItem
+    {
+        public string Controller { get; set; }
+        public string CurrentController { get; set; }
+        public string FaIcon { get; set; }
+        public bool IsSubmenu { get; set; }
+        public bool IsActive { get { return Controller.LowerCaseEquals(CurrentController); } }
+        public string Parent { get; set; }
+    }
+    public SidebarItem item(string controller, string faIcon)
+    {
+        return new SidebarItem
+        {
+            Controller = controller,
+            CurrentController = CurrentController(),
+            FaIcon = faIcon,
+            IsSubmenu = false
+        };
+    }
+    public SidebarItem subitem(string controller, string parent)
+    {
+        var _item = item(controller, "");
+        _item.IsSubmenu = true;
+        _item.Parent = parent;
+        return _item;
+    }
+}
+@{
+    var currentController = CurrentController();
+    var items = new SidebarItem[]
+    {
+        item("Dashboard", "dashboard"),
+        item("Users", "users"),
+        subitem("Roles", "Users"),
+        subitem("Groups", "Users"),
+        item("Applications", "desktop"),
+        subitem("Features", "Applications"),
+        subitem("Packages", "Applications"),
+        item("Clients", "money"),
+        item("Scrapes", "gears")
+    };
+    var selectedItem = items.Where(i => i.Controller.LowerCaseEquals(currentController)).Single();
+}
+
+
+<div class="sidebar-background">
+</div>
+<div class="sidebar">
+    <ul class="nav nav-sidebar" id="metis-menu" ng-controller="sidebarController">
+        @foreach (SidebarItem item in items)
+        {
+            var parent = item.Parent;
+            @* We don't show those submenus when we're not looking at the parent view *@
+        if (parent.Empty() ||
+            parent.LowerCaseEquals(selectedItem.Controller) ||
+            parent.LowerCaseEquals(selectedItem.Parent))
+        {
+            <li role='presentation' class='@item.IsActive.TrueThen("active") @item.IsSubmenu.TrueThen("submenu")'>
+                <a asp-controller='@item.Controller' asp-action='Index'>
+                    <i class='@(item.IsSubmenu.FalseThen($"fa fa-fw fa-{item.FaIcon}"))'></i>
+                    <span>@item.Controller</span>
+                </a>
+            </li>
+            }
+        }
+    </ul>
+</div>

@@ -1,5 +1,21 @@
 stages:
+  - test
   - deploy
+
+test:
+  script:
+    - cd src/viper
+    - npm install
+    - bower install
+    - karma start --single-run
+  stage: test 
+  cache:
+    untracked: true
+    paths:
+      - src/viper/node_modules
+      - src/viper/wwwroot/lib
+  tags:
+    - linux
 
 deploy production:
   script:
@@ -10,7 +26,7 @@ deploy production:
     - $_stage='c:\inetpub\wwwroot\Viper\stage\'
     - $site='/c/inetpub/wwwroot/Viper/site/'
     - $_site='c:\inetpub\wwwroot\Viper\site\'
-    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage
+    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage + ' > out.s 2> out.err'
     - bash --login -c $cmd
     - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
     - bash --login -c $cmd
@@ -32,12 +48,13 @@ deploy test:
   script:
     - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperTest"
+    - appcmd recycle apppool "ViperTest"
     - $src='./'
     - $stage='/c/inetpub/wwwroot/ViperTest/stage/'
     - $_stage='c:\inetpub\wwwroot\ViperTest\stage\'
     - $site='/c/inetpub/wwwroot/ViperTest/site/'
     - $_site='c:\inetpub\wwwroot\ViperTest\site\'
-    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage
+    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage + ' > out.s 2> out.err'
     - bash --login -c $cmd
     - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
     - bash --login -c $cmd
@@ -58,12 +75,13 @@ deploy dev:
   script:
     - dnvm use 1.0.0-beta7 -p
     - appcmd stop sites "ViperDev"
+    - appcmd recycle apppool "ViperDev"
     - $src='./'
     - $stage='/c/inetpub/wwwroot/ViperDev/stage/'
     - $_stage='c:\inetpub\wwwroot\ViperDev\stage\'
     - $site='/c/inetpub/wwwroot/ViperDev/site/'
     - $_site='c:\inetpub\wwwroot\ViperDev\site\'
-    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage
+    - $cmd = 'scripts/rm-except-node-modules.sh ' + $src + ' ' + $stage + ' > out.s 2> out.err'
     - bash --login -c $cmd
     - $cmd = 'cp ' + $src + '* ' + $stage + ' -R '
     - bash --login -c $cmd
@@ -74,7 +92,7 @@ deploy dev:
     - $cmd = 'scripts/env.sh ' + $site + ' Development'
     - bash --login -c $cmd
     - appcmd start sites "ViperDev"
-  stage: deploy
+  stage: test
   except:
     - test
     - master

@@ -1,7 +1,14 @@
 ﻿<div class="row">
     <div class="col-xs-12 page-header">
         <h1>{{title}}</h1>
-        <create-button></create-button>
+        <span ng-transclude="title-header">
+        </span>
+        <create-button 
+            ng-if="createButton == 'true'" 
+            fields="{{fields}}"           
+            >
+
+        </create-button>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -16,7 +23,7 @@
                         <div class="row">
                             <div class="table-left-header">
                                 <group-delete-button ng-if="mode == 'checkbox'"></group-delete-button>
-                                <span ng-transclude="header">
+                                <span ng-transclude="table-header">
 
                                 </span>
                             </div>

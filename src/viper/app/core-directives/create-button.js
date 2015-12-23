@@ -5,13 +5,14 @@
     .module('viper')
     .directive('createButton', ['$uibModal', 'utils', function ($uibModal, utils) {
         function link(scope, element, attrs, ctrl) {
+            scope.fields = attrs.fields;
             element.bind('click', function () {
                 $uibModal.open({
                     templateUrl: '/templates/modals/create.html',
                     controller: 'AddModalCtrl',
                     resolve: {
                         fields: function () {
-                            return utils.typify(scope.createFields);
+                            return utils.typify(scope.fields);
                         },
                         type: function () {
                             return scope.type;

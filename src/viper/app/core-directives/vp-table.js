@@ -17,7 +17,7 @@
             scope.title = attrs["title"];
             scope.fields = attrs["fields"].split(',');
             scope.headers = attrs["headers"].split(',');
-            scope.createFields = attrs["createFields"] || attrs["fields"];
+            scope.createButton = attrs["createButton"];
             scope.editFields = attrs["editFields"] || attrs["fields"];
             scope.linkRows = Boolean(attrs["linkRows"]);
             if (scope.linkRows) {
@@ -44,7 +44,8 @@
             controller: ['$scope', ViperTable],
             require: ['^stTable', 'vpTable'],
             transclude: {
-                'table-header': '?header'
+                'tableHeader': '?table-header',
+                'titleHeader': '?title-header'
             }
         };
         function ViperTable($scope) {

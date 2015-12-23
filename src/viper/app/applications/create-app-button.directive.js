@@ -3,13 +3,12 @@
 
     angular
     .module('viper')
-    .directive('createAppButton', [function () {
-        function link() {
-
+    .directive('createAppButton', ['$injector', function ($injector) {
+        function link(scope, element, attrs) {
         }
         return {
             link: link,
-            template: 'asdasd'
+            template: '<create-button fields="Name,ApplicationType:dropdown(applications getTypes)"></create-button>'
         }
     }])
 })();

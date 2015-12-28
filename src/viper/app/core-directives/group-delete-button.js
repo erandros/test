@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .directive('groupDeleteButton', ['$uibModal', function ($uibModal) {
+    .directive('vpGroupDeleteButton', ['$uibModal', function ($uibModal) {
         
         function link(scope, element, attrs, ctrl) {
             element.bind('click', function () {

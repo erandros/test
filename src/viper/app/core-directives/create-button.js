@@ -3,7 +3,7 @@
 
     angular
     .module('viper')
-    .directive('createButton', ['$uibModal', '$injector', 'utils', function ($uibModal, $injector, utils) {
+    .directive('vpCreateButton', ['$uibModal', '$injector', 'utils', function ($uibModal, $injector, utils) {
         function link(scope, element, attrs, ctrl) {
             scope.fields = utils.typify(attrs.fields);
             scope.dropdownData = {};

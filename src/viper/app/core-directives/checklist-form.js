@@ -5,7 +5,7 @@
     .module('viper')
     .directive('vpChecklistForm', ['$injector', '$parse', 'razorParams', function ($injector, $parse, razorParams) {
         return {
-            templateUrl: '/templates/vp-checklist-form.html',
+            templateUrl: '/templates/checklist-form.html',
             link: function (scope, element, attrs, ctrl) {
                 _scope = scope;
                 var split = attrs["vpGetList"].split('.');

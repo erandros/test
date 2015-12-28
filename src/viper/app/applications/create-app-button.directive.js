@@ -8,7 +8,7 @@
         }
         return {
             link: link,
-            template: '<create-button fields="Name,ApplicationType:dropdown(applications getTypes)"></create-button>'
+            template: '<vp-create-button fields="Name,ApplicationType:dropdown(applications getTypes)"></create-button>'
         }
     }])
 })();

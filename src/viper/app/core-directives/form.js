@@ -28,7 +28,7 @@
         return {
             restrict: 'E',
             link: link,
-            templateUrl: '/templates/vp-form.html',
+            templateUrl: '/templates/form.html',
             controller: ['$scope', 'razorParams', ViperForm],
             require: 'vpForm',
         };
